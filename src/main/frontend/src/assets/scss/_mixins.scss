@@ -1,0 +1,23 @@
+@mixin flex($dis, $direction, $wrap, $just, $align){
+    display: $dis;
+    flex-direction: $direction;
+    flex-flow: $direction $wrap;
+    justify-content: $just;
+    align-items: $align;
+}
+
+@mixin font($wei,$size,$col){
+    font-weight: $wei;
+    font-size: $size;
+    color: $col;
+}
+
+@mixin borderRadius(){
+    border-radius: 4px;
+}
+
+@mixin mv ( $medida: 1100px ){
+    @media screen and (max-width: $medida ){
+        @content;
+    }
+}
