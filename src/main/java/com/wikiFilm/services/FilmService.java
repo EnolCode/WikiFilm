@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.wikiFilm.models.Film;
 import com.wikiFilm.repositories.FilmRepository;
@@ -12,8 +13,9 @@ import com.wikiFilm.repositories.FilmRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
+@Service
 @AllArgsConstructor
-public class FilmService implements BaseService<Film>{
+public class FilmService implements BaseService<Film> {
 
     private final FilmRepository filmRepository;
 
@@ -38,7 +40,6 @@ public class FilmService implements BaseService<Film>{
     @Transactional
     public Film save(Film film) {
         return filmRepository.save(film);
-
     }
 
     @Override
@@ -46,5 +47,5 @@ public class FilmService implements BaseService<Film>{
     public void deleteById(Long id) {
         filmRepository.deleteById(id);
     }
-    
+
 }

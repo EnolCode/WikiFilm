@@ -23,7 +23,7 @@ public class Film {
     private LocalDate releaseDate;
 
     @Column(nullable = false)
-    private int rating;
+    private float rating;
 
     @Column(nullable = true)
     private String description;
