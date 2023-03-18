@@ -1,51 +1,48 @@
 package com.wikiFilm.services;
 
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.wikiFilm.models.Film;
 import com.wikiFilm.repositories.FilmRepository;
 
-import jakarta.transaction.Transactional;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
-@Service
 @AllArgsConstructor
-public class FilmService implements BaseService<Film> {
+@Service
+public class FilmService {
 
     private final FilmRepository filmRepository;
 
-    @Override
-    public List<Film> findAll() {
-        return filmRepository.findAll();
-    }
-
-    @Override
-    @Transactional
-    public Page<Film> findAll(Pageable pageable) {
-        return filmRepository.findAll(pageable);
-    }
-
-    @Override
-    @Transactional
-    public Optional<Film> findById(Long id) {
-        return filmRepository.findById(id);
-    }
-
-    @Override
-    @Transactional
     public Film save(Film film) {
         return filmRepository.save(film);
     }
 
-    @Override
-    @Transactional
-    public void deleteById(Long id) {
-        filmRepository.deleteById(id);
+    public List<Film> findAll() {
+        return filmRepository.findAll();
     }
 
+    public Film findById(Long id) {
+        return filmRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Film not found with id: " + id));
+    }
+
+    public Film updateFilm(Long id, Film filmDetails) {
+        Film film = findById(id);
+        film.setName(filmDetails.getName());
+        film.setReleaseDate(filmDetails.getReleaseDate());
+        film.setRating(filmDetails.getRating());
+        film.setDescription(filmDetails.getDescription());
+        return save(film);
+    }
+
+    public void deleteById(Long id) {
+        try {
+            filmRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("Film not found with id: " + id);
+        }
+    }
 }
