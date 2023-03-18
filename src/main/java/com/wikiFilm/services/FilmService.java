@@ -13,12 +13,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class FilmService {
-
     private final FilmRepository filmRepository;
-
-    public Film save(Film film) {
-        return filmRepository.save(film);
-    }
 
     public List<Film> findAll() {
         return filmRepository.findAll();
@@ -27,6 +22,10 @@ public class FilmService {
     public Film findById(Long id) {
         return filmRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Film not found with id: " + id));
+    }
+
+    public Film save(Film film) {
+        return filmRepository.save(film);
     }
 
     public Film updateFilm(Long id, Film filmDetails) {
@@ -39,10 +38,7 @@ public class FilmService {
     }
 
     public void deleteById(Long id) {
-        try {
-            filmRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("Film not found with id: " + id);
-        }
+            Film film = findById(id);
+            filmRepository.deleteById(film.getId());
     }
 }

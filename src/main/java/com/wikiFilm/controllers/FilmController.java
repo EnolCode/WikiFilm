@@ -2,7 +2,6 @@ package com.wikiFilm.controllers;
 
 import java.util.List;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,49 +19,35 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/films")
 @AllArgsConstructor
+@RequestMapping("/api/films")
 public class FilmController {
     
-    private FilmService filmService;
-
-    @PostMapping(value="add", consumes = "application/json")
-    public ResponseEntity<Film> addFilm(@RequestBody Film film) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(filmService.save(film));
-    }
+    private final FilmService filmService;
 
     @GetMapping
-    public ResponseEntity<List<Film>> getAllFilms() {
-        return ResponseEntity.ok(filmService.findAll());
+    public List<Film> getAllFilms() {
+        return filmService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Film> getFilmById(@PathVariable Long id) {
-        try {
-            Film film = filmService.findById(id);
-            return ResponseEntity.ok(film);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public Film getFilmById(@PathVariable Long id) {
+        return filmService.findById(id);
+    }
+
+    @PostMapping(value="add", consumes = "application/json")
+    public Film createFilm(@RequestBody Film film) {
+        return filmService.save(film);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Film> updateFilm(@RequestBody Film filmDetails, @PathVariable Long id) {
-        try {
-            Film updatedFilm = filmService.updateFilm(id, filmDetails);
-            return ResponseEntity.ok(updatedFilm);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public Film updateFilm(@PathVariable Long id, @RequestBody Film filmDetails) {
+        return filmService.updateFilm(id, filmDetails);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFilm(@PathVariable Long id) {
-        try {
-            filmService.deleteById(id);
-            return ResponseEntity.ok().build();
-        } catch (EmptyResultDataAccessException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<String> deleteFilm(@PathVariable Long id) {
+        filmService.deleteById(id);
+        return ResponseEntity.ok("Film deleted successfully");
     }
 }
