@@ -1,11 +1,12 @@
 package com.wikiFilm.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.wikiFilm.models.Film;
 
 @Service
 public interface BaseService<T> {
@@ -14,7 +15,7 @@ public interface BaseService<T> {
 
     public Page<T> findAll(Pageable pageable);
 
-    public Optional<T> findById(Long id);
+    public Film findById(Long id);
 
     public T save(T entity);
 

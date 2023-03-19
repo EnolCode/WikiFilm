@@ -11,4 +11,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleFilmNotFoundException(FilmNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
+    @ExceptionHandler(GenreNotFoundException.class)
+    public ResponseEntity<String> handleGenreNotFoundException(GenreNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }
