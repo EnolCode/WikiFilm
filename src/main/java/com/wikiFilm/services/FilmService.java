@@ -22,6 +22,11 @@ public class FilmService {
                 .orElseThrow(() -> new FilmNotFoundException("Film not found with id: " + id));
     }
 
+    public Film findByTitle(String title) {
+        return filmRepository.findByTitle(title)
+                .orElseThrow(() -> new FilmNotFoundException("Film not found with id: " + title));
+    }
+
     public Film save(Film film) {
         return filmRepository.save(film);
     }

@@ -2,6 +2,7 @@ package com.wikiFilm.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,12 +34,18 @@ public class FilmController {
         return filmService.findById(id);
     }
 
-    @PostMapping(value = "add", consumes = "application/json")
-    public Film createFilm(@RequestBody Film film) {
-        return filmService.save(film);
+    @GetMapping("/title/{title}")
+    public Film getFilmByTitle(@PathVariable String title) {
+        return filmService.findByTitle(title);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping(value = "add", consumes = "application/json")
+    public ResponseEntity<Film> createFilm(@RequestBody Film film) {
+        Film savedFilm = filmService.save(film);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedFilm);
+    }
+
+    @PutMapping("/update/{id}")
     public Film updateFilm(@PathVariable Long id, @RequestBody Film filmDetails) {
         return filmService.updateFilm(id, filmDetails);
     }
