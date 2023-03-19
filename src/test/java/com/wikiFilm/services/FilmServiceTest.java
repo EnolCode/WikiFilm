@@ -43,7 +43,7 @@ public class FilmServiceTest {
         Film currentFilm = service.findById(1L);
 
         assertThat(currentFilm.getId()).isEqualTo(1L);
-        assertThat(currentFilm.getName()).isEqualTo("name");
+        assertThat(currentFilm.getTitle()).isEqualTo("name");
        }
 
     @Test
@@ -61,8 +61,8 @@ public class FilmServiceTest {
               assertThat(films).hasSize(2);
               assertThat(films.get(0).getId()).isEqualTo(1L);
               assertThat(films.get(1).getId()).isEqualTo(2L);
-              assertThat(films.get(0).getName()).isEqualTo("name");
-              assertThat(films.get(1).getName()).isEqualTo("name2");
+              assertThat(films.get(0).getTitle()).isEqualTo("name");
+              assertThat(films.get(1).getTitle()).isEqualTo("name2");
        }
 
     @Test
@@ -71,7 +71,7 @@ public class FilmServiceTest {
            Film savedFilm = service.save(film);
     
            assertThat(savedFilm.getId()).isEqualTo(1L);
-           assertThat(savedFilm.getName()).isEqualTo("name");
+           assertThat(savedFilm.getTitle()).isEqualTo("name");
        }
 
     @Test
@@ -93,7 +93,7 @@ public class FilmServiceTest {
                 Film updatedFilm = service.updateFilm(1L, film);
         
                 assertThat(updatedFilm.getId()).isEqualTo(1L);
-                assertThat(updatedFilm.getName()).isEqualTo("name");
+                assertThat(updatedFilm.getTitle()).isEqualTo("name");
             }
 
     @Test       

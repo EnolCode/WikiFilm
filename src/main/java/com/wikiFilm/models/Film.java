@@ -17,7 +17,7 @@ public class Film {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
     @Column(nullable = true)
     private LocalDate releaseDate;
