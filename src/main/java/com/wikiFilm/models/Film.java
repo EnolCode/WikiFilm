@@ -1,5 +1,4 @@
 package com.wikiFilm.models;
-import java.time.LocalDate;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
@@ -20,7 +19,7 @@ public class Film {
     private String title;
 
     @Column(nullable = true)
-    private LocalDate releaseDate;
+    private Integer releaseYear;
 
     @Column(nullable = false)
     private float rating;

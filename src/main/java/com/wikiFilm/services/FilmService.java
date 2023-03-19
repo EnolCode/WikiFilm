@@ -34,7 +34,7 @@ public class FilmService {
     public Film updateFilm(Long id, Film filmDetails) {
         Film film = findById(id);
         film.setTitle(filmDetails.getTitle());
-        film.setReleaseDate(filmDetails.getReleaseDate());
+        film.setReleaseYear(filmDetails.getReleaseYear());
         film.setRating(filmDetails.getRating());
         film.setDescription(filmDetails.getDescription());
         return save(film);

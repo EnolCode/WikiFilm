@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,8 +32,8 @@ public class FilmServiceTest {
 
     @BeforeEach
     public void init() {
-        film = new Film(1L, "name", LocalDate.of(2023, 1, 1), 5, "ya");
-        film2 = new Film(2L, "name2", LocalDate.of(2023, 1, 1), 5, "ya");
+        film = new Film(1L, "name", 2023, 5, "ya");
+        film2 = new Film(2L, "name2", 2023, 5, "ya");
     }
 
     @Test
@@ -79,7 +78,7 @@ public class FilmServiceTest {
               when(repository.findById(1L)).thenReturn(Optional.of(film));
               service.deleteById(1L);
         }
-        
+
     @Test 
         public void deleteById_shouldThrowException_WhenFilmDoesNotExist() {
               when(repository.findById(1L)).thenReturn(Optional.empty());
