@@ -2,7 +2,6 @@ package com.wikiFilm.controllers;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wikiFilm.models.Film;
 import com.wikiFilm.services.FilmService;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/films")
 public class FilmController {
-    
+
     private final FilmService filmService;
 
     @GetMapping
@@ -35,7 +33,7 @@ public class FilmController {
         return filmService.findById(id);
     }
 
-    @PostMapping(value="add", consumes = "application/json")
+    @PostMapping(value = "add", consumes = "application/json")
     public Film createFilm(@RequestBody Film film) {
         return filmService.save(film);
     }

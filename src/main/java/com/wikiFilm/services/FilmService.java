@@ -1,12 +1,9 @@
 package com.wikiFilm.services;
 
 import java.util.List;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-
 import com.wikiFilm.models.Film;
 import com.wikiFilm.repositories.FilmRepository;
-
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
@@ -38,7 +35,7 @@ public class FilmService {
     }
 
     public void deleteById(Long id) {
-            Film film = findById(id);
-            filmRepository.deleteById(film.getId());
+        Film film = findById(id);
+        filmRepository.deleteById(film.getId());
     }
 }
