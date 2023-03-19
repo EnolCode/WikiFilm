@@ -2,9 +2,10 @@ package com.wikiFilm.services;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+
+import com.wikiFilm.exception.FilmNotFoundException;
 import com.wikiFilm.models.Film;
 import com.wikiFilm.repositories.FilmRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class FilmService {
 
     public Film findById(Long id) {
         return filmRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Film not found with id: " + id));
+                .orElseThrow(() -> new FilmNotFoundException("Film not found with id: " + id));
     }
 
     public Film save(Film film) {
