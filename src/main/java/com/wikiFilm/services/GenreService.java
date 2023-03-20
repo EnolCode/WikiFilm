@@ -2,13 +2,19 @@ package com.wikiFilm.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.wikiFilm.exception.GenreNotFoundException;
 import com.wikiFilm.models.Genre;
 import com.wikiFilm.repositories.GenreRepository;
 
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
 public class GenreService {
     
-    private GenreRepository repository;
+    private final GenreRepository repository;
 
     public Genre findByTitle(String name) {
         return repository.findByName(name)

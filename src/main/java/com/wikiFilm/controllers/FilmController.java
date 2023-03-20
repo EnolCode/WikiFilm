@@ -39,6 +39,11 @@ public class FilmController {
         return filmService.findByTitle(title);
     }
 
+    @GetMapping("/genre/{genreName}")
+    public List<Film> getMoviesByGenres(@PathVariable String genreName) {
+        return filmService.findByGenre(genreName);
+    }
+
     @PostMapping(value = "add", consumes = "application/json")
     public ResponseEntity<Film> createFilm(@RequestBody Film film) {
         Film savedFilm = filmService.save(film);

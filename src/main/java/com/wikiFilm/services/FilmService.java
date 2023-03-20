@@ -29,7 +29,12 @@ public class FilmService implements BaseService<Film> {
 
     public Film findByTitle(String title) {
         return filmRepository.findByTitle(title)
-                .orElseThrow(() -> new FilmNotFoundException("Film not found with id: " + title));
+                .orElseThrow(() -> new FilmNotFoundException("Film not found with title: " + title));
+    }
+
+    public List<Film> findByGenre(String genre) {
+        return filmRepository.findByGenres_Name(genre);
+
     }
 
     @Override
