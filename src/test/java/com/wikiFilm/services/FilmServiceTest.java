@@ -16,7 +16,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.wikiFilm.exception.FilmNotFoundException;
 import com.wikiFilm.models.Film;
+// import com.wikiFilm.models.Genre;
 import com.wikiFilm.repositories.FilmRepository;
+import com.wikiFilm.repositories.GenreRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class FilmServiceTest {
@@ -27,13 +29,16 @@ public class FilmServiceTest {
     @Mock
     FilmRepository repository;
 
+    @Mock
+    GenreRepository genreRepository;
+
     private Film film;
     private Film film2;
 
     @BeforeEach
     public void init() {
-        film = new Film(1L, "name", 2023, 5, "ya",null);
-        film2 = new Film(2L, "name2", 2023, 5, "ya", null);
+        film = new Film(1L, "name", 2023, 5, "ya",null,null);
+        film2 = new Film(2L, "name2", 2023, 5, "ya", null, null);
     }
 
     @Test
@@ -102,4 +107,23 @@ public class FilmServiceTest {
                 assertThrows(FilmNotFoundException.class, () -> service.updateFilm(1L, film));
             }
 
+
+//             @Test
+// public void testFindByGenre() {
+    
+//     Genre genre = new Genre(1L,"comedy", null);
+//     genreRepository.save(genre);
+
+//     film.getGenres().add(genre);
+//     repository.save(film);
+
+//     film2.getGenres().add(genre);
+//     repository.save(film2);
+
+//     List<Film> result = service.findByGenre("comedy");
+    
+//     assertEquals(2, result.size());
+//     assertTrue(result.contains(film));
+//     assertTrue(result.contains(film2));
+// }
 }

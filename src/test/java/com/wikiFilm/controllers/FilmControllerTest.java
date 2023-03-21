@@ -32,8 +32,6 @@ public class FilmControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-
-
     @MockBean
     private FilmService service;
 
@@ -41,7 +39,7 @@ public class FilmControllerTest {
 
     @BeforeEach
     void setUp() {
-        film = new Film(1L, "film1", null, 5, "description",null);
+        film = new Film(1L, "film1", null, 5, "description", null,null);
     }
 
     @Test
@@ -86,7 +84,6 @@ public class FilmControllerTest {
         assertThat(response.getStatus()).isEqualTo(200);
     }
 
-
     @Test
     public void testCreateFilm() throws Exception {
         when(service.save(any(Film.class))).thenReturn(film);
@@ -105,7 +102,7 @@ public class FilmControllerTest {
 
     @Test
     public void testUpdateFilm() throws Exception {
-        Film updatedFilm = new Film(1L, "film1", null, 5, "film update", null);
+        Film updatedFilm = new Film(1L, "film1", null, 5, "film update", null, null);
         when(service.updateFilm(any(Long.class), any(Film.class))).thenReturn(updatedFilm);
 
         MockHttpServletResponse response = mockMvc.perform(put("/api/films/update/1")
@@ -123,17 +120,16 @@ public class FilmControllerTest {
     @Test
     public void testDeleteFilm() throws Exception {
         Long filmId = 1L;
-    
+
         doNothing().when(service).deleteById(filmId);
-    
+
         MockHttpServletResponse response = mockMvc.perform(delete("/api/films/" + filmId))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse();
-    
+
         assertThat(response.getContentAsString()).isEqualTo("Film deleted successfully");
         assertThat(service.findById(1L)).isEqualTo(null);
     }
-
 
 }

@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,5 +44,8 @@ public class Film {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "film_genre", joinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
     private List<Genre> genres;
-
+    
+    @ManyToOne(fetch = FetchType.EAGER)    
+    @JoinColumn(name= "author_id" , nullable = true, referencedColumnName = "id")
+    Author author;
 }

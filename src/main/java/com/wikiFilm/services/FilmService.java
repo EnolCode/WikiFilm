@@ -34,7 +34,6 @@ public class FilmService implements BaseService<Film> {
 
     public List<Film> findByGenre(String genre) {
         return filmRepository.findByGenres_Name(genre);
-
     }
 
     @Override
