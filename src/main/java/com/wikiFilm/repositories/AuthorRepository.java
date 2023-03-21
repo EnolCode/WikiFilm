@@ -5,6 +5,5 @@ import com.wikiFilm.models.Author;
 
 public interface AuthorRepository extends JpaRepository<Author, Long>{
 
-    Optional<Author> findByAuthor(String name);
-
+    Optional<Author> findByName(String name);
 }
