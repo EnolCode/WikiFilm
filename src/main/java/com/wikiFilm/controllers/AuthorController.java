@@ -33,7 +33,7 @@ public class AuthorController {
         return AuthorService.findById(id);
     }
 
-    @GetMapping("/author/{name}")
+    @GetMapping("/name/{name}")
     public Author getAuthorByName(@PathVariable String name) {
         return AuthorService.findByName(name);
     }
