@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.wikiFilm.exception.FilmNotFoundException;
+
+import com.wikiFilm.exception.AuthorNotFoundException;
 import com.wikiFilm.models.Author;
 import com.wikiFilm.repositories.AuthorRepository;
 import lombok.AllArgsConstructor;
@@ -24,12 +25,12 @@ public class AuthorService implements BaseService<Author> {
     @Override
     public Author findById(Long id) {
         return AuthorRepository.findById(id)
-                .orElseThrow(() -> new FilmNotFoundException("Author not found with id: " + id));
+                .orElseThrow(() -> new AuthorNotFoundException("Author not found with id: " + id));
     }
 
     public Author findByName(String author) {
         return AuthorRepository.findByName(author)
-                .orElseThrow(() -> new FilmNotFoundException("Author not found with title: " + author));
+                .orElseThrow(() -> new AuthorNotFoundException("Author not found with title: " + author));
     }
 
     @Override
