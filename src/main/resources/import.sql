@@ -16,5 +16,6 @@ INSERT INTO film_genre (film_id, genre_id) VALUES (3,2)
 INSERT INTO film_genre (film_id, genre_id) VALUES (4,2)
 INSERT INTO film_genre (film_id, genre_id) VALUES (5,3)
 INSERT INTO film_genre (film_id, genre_id) VALUES (5,3)
+INSERT INTO users (id, username, password) VALUES (default, "enol", "1234")
 
 UPDATE films SET author_id = 1
