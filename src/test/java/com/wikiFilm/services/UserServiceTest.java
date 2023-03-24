@@ -46,6 +46,15 @@ public class UserServiceTest {
         assertThat(currentuser.getUsername()).isEqualTo("user1");
        }
 
+       @Test
+       public void findByUsername_ShouldReturnuser_WhenuserExists() {
+           when(repository.findByUsername("user1")).thenReturn(Optional.of(user));
+           User currentuser = service.findByUsername("user1");
+   
+           assertThat(currentuser.getId()).isEqualTo(1L);
+           assertThat(currentuser.getUsername()).isEqualTo("user1");
+          }
+
     @Test
        public void findById_ShouldThrowException_WhenuserDoesNotExist() {
            when(repository.findById(1L)).thenReturn(Optional.empty());

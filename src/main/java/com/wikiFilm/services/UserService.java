@@ -28,6 +28,12 @@ public class UserService implements BaseService<User> {
         return userRepository.findAll();
     }
 
+    @Transactional
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username)
+                         .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username));
+    }
+
     @Override
     @Transactional
     public Page<User> findAll(Pageable pageable) {
