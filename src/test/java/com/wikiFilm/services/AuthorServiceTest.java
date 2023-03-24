@@ -16,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.wikiFilm.exception.AuthorNotFoundException;
 import com.wikiFilm.models.Author;
-// import com.wikiauthor.models.Genre;
 import com.wikiFilm.repositories.AuthorRepository;
 import com.wikiFilm.repositories.GenreRepository;
 

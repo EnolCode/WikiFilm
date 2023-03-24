@@ -8,6 +8,7 @@ import com.wikiFilm.exception.GenreNotFoundException;
 import com.wikiFilm.models.Genre;
 import com.wikiFilm.repositories.GenreRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -16,16 +17,19 @@ public class GenreService {
     
     private final GenreRepository repository;
 
+    @Transactional
     public Genre findByTitle(String name) {
         return repository.findByName(name)
                 .orElseThrow(() -> new GenreNotFoundException("Genre not found with id: " + name));
     }
 
+    @Transactional
     public Genre findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new GenreNotFoundException("Genre not found with id: " + id));
     }
 
+    @Transactional
     public List<Genre> findAll(){
         return repository.findAll();
     }

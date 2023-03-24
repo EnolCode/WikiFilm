@@ -9,35 +9,42 @@ import org.springframework.stereotype.Service;
 import com.wikiFilm.exception.AuthorNotFoundException;
 import com.wikiFilm.models.Author;
 import com.wikiFilm.repositories.AuthorRepository;
+
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
 public class AuthorService implements BaseService<Author> {
 
-    private final AuthorRepository AuthorRepository;
+    private final AuthorRepository authorRepository;
 
     @Override
+    @Transactional
     public List<Author> findAll() {
-        return AuthorRepository.findAll();
+        return authorRepository.findAll();
     }
 
     @Override
+    @Transactional
     public Author findById(Long id) {
-        return AuthorRepository.findById(id)
+        return authorRepository.findById(id)
                 .orElseThrow(() -> new AuthorNotFoundException("Author not found with id: " + id));
     }
 
+    @Transactional
     public Author findByName(String author) {
-        return AuthorRepository.findByName(author)
+        return authorRepository.findByName(author)
                 .orElseThrow(() -> new AuthorNotFoundException("Author not found with title: " + author));
     }
 
     @Override
+    @Transactional
     public Author save(Author author) {
-        return AuthorRepository.save(author);
+        return authorRepository.save(author);
     }
 
+    @Transactional
     public Author updateAuthor(Long id, Author authorDetails) {
         Author author = findById(id);
         author.setName(authorDetails.getName());
@@ -49,13 +56,15 @@ public class AuthorService implements BaseService<Author> {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
-        Author author = findById(id);
-        AuthorRepository.deleteById(author.getId());
+        Author authorDeleted = findById(id);
+        authorRepository.deleteById(authorDeleted.getId());
     }
 
     @Override
+    @Transactional
     public Page<Author> findAll(Pageable pageable) {
-        return AuthorRepository.findAll(pageable);
+        return authorRepository.findAll(pageable);
     }
 }
