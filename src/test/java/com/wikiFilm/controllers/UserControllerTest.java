@@ -25,9 +25,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wikiFilm.models.Film;
 import com.wikiFilm.models.User;
-import com.wikiFilm.services.FilmService;
 import com.wikiFilm.services.UserService;
 
 
