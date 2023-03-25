@@ -16,6 +16,11 @@
     border-radius: 4px;
 }
 
+@mixin pointer-opacity(){
+    cursor: pointer;
+    opacity: .8;
+}
+
 @mixin mv ( $medida: 1100px ){
     @media screen and (max-width: $medida ){
         @content;
