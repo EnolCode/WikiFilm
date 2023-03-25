@@ -13,9 +13,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.wikiFilm.services.SecurityUserDetailsService;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
-
 @ComponentScan
 @Configuration
 @EnableWebSecurity
@@ -33,7 +30,8 @@ public class WebSecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(withDefaults())
+                .cors()
+                .and()
                 .headers(header -> header.frameOptions().sameOrigin())
                 .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form.disable())
@@ -41,7 +39,7 @@ public class WebSecurityConfig {
                         .logoutUrl("/api/logout")
                         .deleteCookies("JSESSIONID"))
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/api/register", "/api/login", "/api/films", "/*").permitAll()
+                        .requestMatchers("/api/register", "/api/login", "/api/films").permitAll()
                         .requestMatchers("/api/logout").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/films/add").hasRole("ADMIN")
                         .anyRequest().authenticated())
@@ -50,7 +48,6 @@ public class WebSecurityConfig {
                 .httpBasic(basic -> basic.authenticationEntryPoint(authenticationEntryPoint));
         return http.build();
     }
-
 
     @Bean
     PasswordEncoder passwordEncoder() {
