@@ -1,5 +1,6 @@
 package com.wikiFilm.controllers.auth;
 
+// import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -14,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+// import com.wikiFilm.exception.UserAlreadyExistsException;
 import com.wikiFilm.models.User;
 import com.wikiFilm.services.UserService;
 
@@ -41,4 +43,20 @@ public class RegisterControllerTest {
 
         verify(userService).store(user);
     }
+
+//     @Test
+// public void testRegisterFailure() throws Exception {
+//     User user = new User();
+//     user.setUsername("testuser");
+//     user.setPassword("password");
+
+//     doThrow(new UserAlreadyExistsException("User already exists"))
+//             .when(userService).store(user);
+
+//     mockMvc.perform(post("/api/register")
+//             .contentType(MediaType.APPLICATION_JSON)
+//             .content(new ObjectMapper().writeValueAsString(user)))
+//             .andExpect(status().isBadRequest())
+//             .andExpect(content().string("User already exists"));
+// }
 }
