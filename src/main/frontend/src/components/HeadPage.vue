@@ -43,11 +43,8 @@
 	@use "../scss/mixins" as m;
 
 	.header {
+		@include m.flex(flex, row, auto, space-between, center);
 		padding: 1em;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-
 
 		&:hover {
 			background-color: map-get(c.$colors, "black");
@@ -58,9 +55,7 @@
 		}
 
 		.nav-bar {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
+			@include m.flex(flex, row, auto, space-between, center);
 			width: 45%;
 
 			&__link {

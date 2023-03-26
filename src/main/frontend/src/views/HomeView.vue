@@ -63,10 +63,8 @@
 				}
 
 				.title {
+					@include m.font(bold, 3em, map-get(c.$colors, "white"));
 					border-bottom: 1px solid;
-					color: map-get(c.$colors, "white");
-					font-size: 3em;
-					font-weight: bold;
 				}
 			}
 			.container-info {
@@ -76,8 +74,7 @@
 				width: 40%;
 
 				.tagline {
-					font-size: 2em;
-					font-weight: bold;
+					@include m.font(bold, 2em, map-get(c.$colors, "white"));
 				}
 
 				.description {
