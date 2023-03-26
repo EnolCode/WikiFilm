@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "sass": "^1.59.2"
+  },
+  "dependencies": {
+    "vue3-burger-menu": "^1.1.1"
   }
 }

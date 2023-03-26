@@ -54,7 +54,9 @@
 			.container-logo {
 				@include m.flex(flex, column, auto, auto, center);
 				margin-top: 5em;
-
+				@include m.mv(750px) {
+					margin-top: 1em;
+				}
 				.logo {
 					display: block;
 					height: 3em;
@@ -72,16 +74,41 @@
 				color: map-get(c.$colors, "white");
 				height: 45%;
 				width: 40%;
+				text-align: center;
 
-				.tagline {
-					@include m.font(bold, 2em, map-get(c.$colors, "white"));
+				@include m.mv(1440px) {
+					width: 50%;
 				}
 
-				.description {
-					bottom: 10%;
-					font-size: 1.2em;
-					position: relative;
-					text-align: center;
+				@include m.mv(1140px) {
+					width: 70%;
+				}
+
+				@include m.mv(750px) {
+					width: 100%;
+					height: 55%;
+
+				}
+			}
+			.tagline {
+				@include m.font(bold, 2em, map-get(c.$colors, "red"));
+				@include m.mv(750px) {
+					font-size: 1.5em;
+				}
+			}
+
+			.description {
+				bottom: 10%;
+				font-size: 1.2em;
+				position: relative;
+				text-align: center;
+
+				@include m.mv(1140px) {
+					bottom: 5%;
+				}
+				@include m.mv(750px) {
+					font-size: 0.8em;
+					width: 90%;
 				}
 			}
 		}

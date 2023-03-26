@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+	import { Slide } from "vue3-burger-menu";
+</script>
 
 <template>
 	<header class="header">
@@ -28,7 +30,32 @@
 				>Recomendacion semanal</a
 			>
 		</nav>
-
+		<Slide
+			width="250"
+			right
+			class="slide"
+		>
+			<a
+				href="#"
+				class="nav-bar__link"
+				>Series</a
+			>
+			<a
+				href="#"
+				class="nav-bar__link"
+				>Peliculas</a
+			>
+			<a
+				href="#"
+				class="nav-bar__link"
+				>Ranking Valoraciones</a
+			>
+			<a
+				href="#"
+				class="nav-bar__link"
+				>Recomendacion semanal</a
+			>
+		</Slide>
 		<a
 			href="#"
 			class="sign-in"
@@ -47,11 +74,19 @@
 
 		&:hover {
 			background-color: map-get(c.$colors, "black");
+			@include m.mv(750px) {
+				background: none;
+			}
 		}
 
 		.header__search {
 			margin: 0 1em;
 			cursor: pointer;
+
+			@include m.mv(750px) {
+				font-size: 1.7em;
+				margin: 0em;
+			}
 		}
 
 		.nav-bar {
@@ -67,6 +102,10 @@
 					color: map-get(c.$colors, "red");
 				}
 			}
+
+			@include m.mv(750px) {
+				display: none;
+			}
 		}
 
 		.sign-in {
@@ -75,6 +114,24 @@
 
 			&:hover {
 				@include m.pointer-opacity();
+			}
+
+			@include m.mv(750px) {
+				display: none;
+			}
+		}
+		.slide {
+			display: none;
+
+			@include m.mv(750px) {
+				display: block;
+				position: relative;
+				right: 20%;
+				top: -3em;
+
+				.bm-burger-bars {
+					background-color: white;
+				}
 			}
 		}
 	}

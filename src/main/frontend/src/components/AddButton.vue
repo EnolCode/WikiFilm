@@ -20,8 +20,8 @@
 		background-color: map-get(c.$colors, "red");
 		cursor: pointer;
 
-		&:hover{
-                @include m.pointer-opacity();
-            }
+		&:hover {
+			@include m.pointer-opacity();
+		}
 	}
 </style>
