@@ -35,7 +35,6 @@
 			>REGISTRATE</a
 		>
 	</header>
-
 </template>
 
 <style lang="scss" scoped>
@@ -51,6 +50,7 @@
 		}
 
 		.header__search {
+			margin: 0 1em;
 			cursor: pointer;
 		}
 
@@ -59,11 +59,8 @@
 			width: 45%;
 
 			&__link {
-				color: map-get(c.$colors, "white");
-				letter-spacing:1px;
-				text-decoration: none;
-				font-size: 0.9em;
-				font-weight: 600;
+				@include m.font(400, 0.9em, map-get(c.$colors, "white"));
+				letter-spacing: 1px;
 				margin: 0 1em;
 
 				&:hover {
@@ -73,15 +70,12 @@
 		}
 
 		.sign-in {
-			color: map-get(c.$colors, "white");
-			text-decoration: none;
-			font-size: 0.9em;
-			font-weight: 600;
+			@include m.font(600, 0.9em, map-get(c.$colors, "white"));
 			margin: 0 1em;
 
-			&:hover{
-                @include m.pointer-opacity();
-            }
+			&:hover {
+				@include m.pointer-opacity();
+			}
 		}
 	}
 </style>
