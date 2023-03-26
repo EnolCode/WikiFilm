@@ -12,10 +12,10 @@
 <style lang="scss" scoped>
 	@use "../scss/colors" as c;
 	@use "../scss/mixins" as m;
-	
+
 	.btn-add {
 		@include m.font(bold, 1em, map-get(c.$colors, "white"));
-		width: 35%;
+		padding: 1em;
 		height: 3em;
 		background-color: map-get(c.$colors, "red");
 		cursor: pointer;

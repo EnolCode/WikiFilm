@@ -55,8 +55,8 @@
 		}
 
 		.nav-bar {
-			@include m.flex(flex, row, auto, space-between, center);
-			width: 45%;
+			@include m.flex(flex, row, auto, space-evenly, center);
+			width: 65%;
 
 			&__link {
 				@include m.font(400, 0.9em, map-get(c.$colors, "white"));
