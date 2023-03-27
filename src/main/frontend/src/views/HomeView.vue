@@ -1,6 +1,6 @@
 <script setup>
 	import Header from "../components/HeadPage.vue";
-	import AddButton from "../components/AddButton.vue";
+	import SubmitButton from "../components/btns/SubmitButton.vue";
 	import SocialMedia from "../components/SocialMedia.vue";
 </script>
 
@@ -27,7 +27,7 @@
 					comunidad de gente con ganas de compartir su opinión.
 				</p>
 
-				<AddButton />
+				<SubmitButton />
 			</div>
 		</section>
 		<footer class="footer">
@@ -87,7 +87,6 @@
 				@include m.mv(750px) {
 					width: 100%;
 					height: 55%;
-
 				}
 			}
 			.tagline {

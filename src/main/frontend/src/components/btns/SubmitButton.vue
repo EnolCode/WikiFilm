@@ -3,17 +3,17 @@
 <template>
 	<button
 		type="submit"
-		class="btn-add"
+		class="btn-submit"
 	>
 		UNETE GRATIS A WIKIFILM
 	</button>
 </template>
 
 <style lang="scss" scoped>
-	@use "../scss/colors" as c;
-	@use "../scss/mixins" as m;
+	@use "@/scss/colors" as c;
+	@use "@/scss/mixins" as m;
 
-	.btn-add {
+	.btn-submit {
 		@include m.font(bold, 1em, map-get(c.$colors, "white"));
 		padding: 1em;
 		height: 3em;

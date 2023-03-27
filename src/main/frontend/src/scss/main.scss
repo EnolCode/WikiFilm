@@ -1,5 +1,5 @@
 @use "./ResetCss.scss";
-@use "./_colors.scss";
+@use "./_colors.scss" as c;
 @use "./_fonts.scss";
 
 body{
@@ -11,3 +11,6 @@ body{
     background-color: white;
   }
 
+  .red{
+   color: map-get(c.$colors, "red");  
+}
