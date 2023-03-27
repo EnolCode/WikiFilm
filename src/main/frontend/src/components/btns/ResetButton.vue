@@ -16,7 +16,8 @@
 	.btn-reset {
 		@include m.font(bold, 1em, map-get(c.$colors, "white"));
 		border: 1px solid map-get(c.$colors, "white");
-		padding:  1em 2.91em;
+		// padding:  1em 2.91em;
+		width: 16em;
 		height: 3em;
 		cursor: pointer;
 

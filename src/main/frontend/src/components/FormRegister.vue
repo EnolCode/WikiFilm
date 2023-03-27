@@ -13,19 +13,20 @@
 			/>
 		</picture>
 		<div class="register__form-container">
-		<div class="datos">
-			
-			<img
-				src="@/assets/images/logo-W.png"
-				alt="logo"
-				class="register__logo"
-			/>
-			<p class="register__join-text">Únete gratis.</p>
-			<h1 class="register__title">Crea tu cuenta<span class="red">.</span></h1>
-			<h2 class="register__subtitle">
-				¿Ya eres miembro? <span class="red">Inicia sesión</span>
-			</h2>
-		</div>
+			<div class="datos">
+				<img
+					src="@/assets/images/logo-W.png"
+					alt="logo"
+					class="register__logo"
+				/>
+				<p class="register__join-text">Únete gratis.</p>
+				<h1 class="register__title">
+					Crea tu cuenta<span class="red">.</span>
+				</h1>
+				<h2 class="register__subtitle">
+					¿Ya eres miembro? <span class="red">Inicia sesión</span>
+				</h2>
+			</div>
 
 			<form class="form">
 				<input
@@ -46,7 +47,7 @@
 					placeholder="Repite la contraseña"
 					class="form__input"
 				/>
-				<ResetButton />
+				<ResetButton class="btn-submit"/>
 				<SubmitButton />
 			</form>
 		</div>
@@ -57,7 +58,7 @@
 	@use "../scss/colors" as c;
 	@use "../scss/mixins" as m;
 
-		.register {
+	.register {
 		display: grid;
 		grid-template-columns: 1.1fr 0.9fr;
 		justify-items: center;
@@ -77,51 +78,66 @@
 		.register__logo {
 			width: 5em;
 			align-self: center;
-
+			position: relative;
+			bottom: 20%;
 		}
-		&__form-container{
-			display:flex;
+		&__form-container {
+			display: flex;
 			flex-direction: column;
 			height: 70%;
-			background:blue;
 			justify-content: space-between;
 		}
 		.form {
+			display: flex;
+			flex-direction: column;
 			&__input {
 				background: map-get(c.$colors, "grey");
+				padding: 1em;
+				width: 20em;
+				margin: 1em 0;
+				color: white;
+
+				&::placeholder {
+					color: white;
+				}
 			}
 		}
 
-		.datos{
-			display:flex;
+		.datos {
+			display: flex;
 			flex-direction: column;
 			align-items: start;
-			justify-content: space-evenly;
-			height: 30%; 
-			background: grey;
+			justify-content: center;
+			height: 30%;
 
-			.register__join-text{
-				color: map-get(c.$colors, "white");
-				font-size: .8em;
+			.register__join-text {
+				color: map-get(c.$colors, "white-light");
+				font-size: 0.8em;
 				font-weight: 500;
 			}
 
-			.register__title{
+			.register__title {
 				color: map-get(c.$colors, "white");
 				font-size: 3em;
 				font-weight: 700;
 			}
 
-			.register__subtitle{
-				color: map-get(c.$colors, "white");
-				font-size: 1.2em;
+			.register__subtitle {
+				color: map-get(c.$colors, "white-light");
+				font-size: 1em;
 				font-weight: 500;
 
-				span{
-					color: map-get(c.$colors, "red");
-					cursor: pointer;
+				span {
+					&:hover {
+					@include m.pointer-opacity();
+				}
 				}
 			}
+		}
+
+		.btn-submit{
+			width: 20em;
+			margin-top:1em;
 		}
 	}
 </style>

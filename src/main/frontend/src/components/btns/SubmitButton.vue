@@ -15,7 +15,7 @@
 
 	.btn-submit {
 		@include m.font(bold, 1em, map-get(c.$colors, "white"));
-		padding: 1em;
+		width: 14em;
 		height: 3em;
 		background-color: map-get(c.$colors, "red");
 		cursor: pointer;
