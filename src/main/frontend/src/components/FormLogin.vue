@@ -5,31 +5,30 @@
 </script>
 
 <template>
-	<main class="register">
-		<picture class="register__img-container">
-			<img
-				src="@/assets/images/deadpool.jpg"
-				alt="deadpool"
-				class="register__img"
-			/>
+	<main class="login">
+		<picture class="login__img-container">
+			<!-- <img
+				src="@/assets/images/peaky-blinders.svg"
+				alt="peaky blinders"
+				class="login__img"
+			/> -->
 		</picture>
-		<div class="register__form-container">
-		<NavBar />
+		<div class="login__form-container">
+			<NavBar />
 			<div class="container-text">
 				<router-link
 					to="/"
-					class="register__logo"
+					class="login__logo"
 				>
 					<img
 						src="@/assets/images/logo-W.png"
 						alt="logo"
 				/></router-link>
-				<p class="register__join-text">Únete gratis.</p>
-				<h1 class="register__title">
-					Crea tu cuenta<span class="red">.</span>
+				<h1 class="login__title">
+					Inicia sesión<span class="red">.</span>
 				</h1>
-				<h2 class="register__subtitle">
-					¿Ya eres miembro? <span class="red">Inicia sesión</span>
+				<h2 class="login__subtitle">
+					¿No eres miembro? <span class="red">Registrate.</span>
 				</h2>
 			</div>
 
@@ -43,17 +42,12 @@
 				<input
 					type="text"
 					name="password"
-					placeholder="Introduce una contraseña"
+					placeholder="Introduce tu contraseña"
 					class="form__input"
 				/>
-				<input
-					type="text"
-					name="password"
-					placeholder="Repite la contraseña"
-					class="form__input"
-				/>
-				<ResetButton class="btn-submit" />
-				<SubmitButton />
+
+				<ResetButton class="btn-reset" />
+				<SubmitButton class="btn-submit" />
 			</form>
 		</div>
 	</main>
@@ -63,24 +57,23 @@
 	@use "../scss/colors" as c;
 	@use "../scss/mixins" as m;
 
-	.register {
+	.login {
 		display: grid;
-		grid-template-columns: 1.1fr 0.9fr;
+		grid-template-columns: 1fr 0.9fr;
 		justify-items: center;
 		align-items: center;
 		background: map-get(c.$colors, "black");
 
 		&__img-container {
-			width: 100%;
 			height: 100vh;
-			.register__img {
-				width: 100%;
-				object-fit: cover;
-				height: 100vh;
-			}
+			background: url("../assets/images/peaky-blinders.svg");
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: 0 -100px;
+			width: 120%;
 		}
 
-		.register__logo {
+		.login__logo {
 			width: 5em;
 			align-self: center;
 			position: relative;
@@ -88,7 +81,10 @@
 		}
 		&__form-container {
 			@include m.flex(flex, column, auto, space-between, auto);
-			height: 70%;
+				height: 60%;
+		align-self: start;
+		margin-top: 8em;
+	
 
 			.form {
 				@include m.flex(flex, column, auto, auto, auto);
@@ -108,9 +104,9 @@
 
 			.container-text {
 				@include m.flex(flex, column, auto, center, start);
-				height: 30%;
+				height: 50%;
 
-				.register__join-text {
+				.login__join-text {
 					@include m.font(
 						500,
 						0.8em,
@@ -118,11 +114,11 @@
 					);
 				}
 
-				.register__title {
+				.login__title {
 					@include m.font(700, 3em, map-get(c.$colors, "white"));
 				}
 
-				.register__subtitle {
+				.login__subtitle {
 					@include m.font(
 						500,
 						1em,
@@ -135,6 +131,11 @@
 						}
 					}
 				}
+			}
+
+			.btn-reset {
+				width: 20em;
+				margin-top: 2em;
 			}
 
 			.btn-submit {

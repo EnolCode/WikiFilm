@@ -6,11 +6,16 @@ body{
     font-family: 'Roboto';
 }
 
-//Estilos para modificar el btn-burguer
+//Estilo para modificar el btn-burguer
 .bm-burger-bars {
     background-color: white;
   }
 
-  .red{
+.red{
    color: map-get(c.$colors, "red");  
+}
+
+.router-link-exact-active {
+    font-weight: bold;
+    color: map-get(c.$colors, "red");  
 }
