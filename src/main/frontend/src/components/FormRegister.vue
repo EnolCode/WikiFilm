@@ -13,7 +13,7 @@
 			/>
 		</picture>
 		<div class="register__form-container">
-			<div class="datos">
+			<div class="container-text">
 				<img
 					src="@/assets/images/logo-W.png"
 					alt="logo"
@@ -47,7 +47,7 @@
 					placeholder="Repite la contraseña"
 					class="form__input"
 				/>
-				<ResetButton class="btn-submit"/>
+				<ResetButton class="btn-submit" />
 				<SubmitButton />
 			</form>
 		</div>
@@ -82,62 +82,52 @@
 			bottom: 20%;
 		}
 		&__form-container {
-			display: flex;
-			flex-direction: column;
+			@include m.flex(flex, column, auto, space-between, auto);
 			height: 70%;
-			justify-content: space-between;
-		}
-		.form {
-			display: flex;
-			flex-direction: column;
-			&__input {
-				background: map-get(c.$colors, "grey");
-				padding: 1em;
-				width: 20em;
-				margin: 1em 0;
-				color: white;
 
-				&::placeholder {
+			.form {
+				@include m.flex(flex, column, auto, auto, auto);
+
+				&__input {
+					background: map-get(c.$colors, "grey");
+					padding: 1em;
+					width: 20em;
+					margin: 1em 0;
 					color: white;
+
+					&::placeholder {
+						color: white;
+					}
 				}
 			}
-		}
 
-		.datos {
-			display: flex;
-			flex-direction: column;
-			align-items: start;
-			justify-content: center;
-			height: 30%;
+			.container-text {
+				@include m.flex(flex, column, auto, center, start);
+				height: 30%;
 
-			.register__join-text {
-				color: map-get(c.$colors, "white-light");
-				font-size: 0.8em;
-				font-weight: 500;
-			}
-
-			.register__title {
-				color: map-get(c.$colors, "white");
-				font-size: 3em;
-				font-weight: 700;
-			}
-
-			.register__subtitle {
-				color: map-get(c.$colors, "white-light");
-				font-size: 1em;
-				font-weight: 500;
-
-				span {
-					&:hover {
-					@include m.pointer-opacity();
+				.register__join-text {
+					@include m.font(500,0.8em,map-get(c.$colors, "white-light"));
 				}
+
+				.register__title {
+					@include m.font(700, 3em, map-get(c.$colors, "white"));
+				}
+
+				.register__subtitle {
+					@include m.font(500,1em,map-get(c.$colors, "white-light"));
+
+					span {
+						&:hover {
+							@include m.pointer-opacity();
+						}
+					}
 				}
 			}
-		}
 
-		.btn-submit{
-			width: 20em;
-			margin-top:1em;
+			.btn-submit {
+				width: 20em;
+				margin-top: 1em;
+			}
 		}
 	}
 </style>
