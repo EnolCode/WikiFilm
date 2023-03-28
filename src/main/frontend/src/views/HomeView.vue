@@ -26,8 +26,12 @@
 					mejores recomendaciones según tus gustos. Unete a una gran
 					comunidad de gente con ganas de compartir su opinión.
 				</p>
-
-				<SubmitButton text="UNETE A WIKIFILM GRATIS" />
+				<router-link
+					to="/register"
+					class="sign-in nav__link"
+				>
+					<SubmitButton text="UNETE A WIKIFILM GRATIS" />
+				</router-link>
 			</div>
 		</section>
 		<footer class="footer">

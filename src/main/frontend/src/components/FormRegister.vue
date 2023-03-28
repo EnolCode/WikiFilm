@@ -14,7 +14,7 @@
 			/>
 		</picture>
 		<div class="register__form-container">
-		<NavBar />
+			<NavBar />
 			<div class="container-text">
 				<router-link
 					to="/"
@@ -28,8 +28,13 @@
 				<h1 class="register__title">
 					Crea tu cuenta<span class="red">.</span>
 				</h1>
+
 				<h2 class="register__subtitle">
-					¿Ya eres miembro? <span class="red">Inicia sesión</span>
+					¿Ya eres miembro?
+					<router-link
+						to="/login" class="inline"
+						><span class="red">Inicia sesión</span>
+					</router-link>
 				</h2>
 			</div>
 
@@ -123,6 +128,7 @@
 				}
 
 				.register__subtitle {
+					width: 100%;
 					@include m.font(
 						500,
 						1em,
@@ -130,6 +136,7 @@
 					);
 
 					span {
+						display:inline;
 						&:hover {
 							@include m.pointer-opacity();
 						}

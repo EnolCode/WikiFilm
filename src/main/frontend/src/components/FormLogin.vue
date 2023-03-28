@@ -28,7 +28,11 @@
 					Inicia sesión<span class="red">.</span>
 				</h1>
 				<h2 class="login__subtitle">
-					¿No eres miembro? <span class="red">Registrate.</span>
+					¿No eres miembro?<router-link
+						to="/register"
+						class="inline"
+						><span class="red"> Registrate.</span>
+					</router-link>
 				</h2>
 			</div>
 
@@ -47,7 +51,10 @@
 				/>
 
 				<ResetButton class="btn-reset" />
-				<SubmitButton text="INICIA SESION" class="btn-submit" />
+				<SubmitButton
+					text="INICIA SESION"
+					class="btn-submit"
+				/>
 			</form>
 		</div>
 	</main>
@@ -81,10 +88,9 @@
 		}
 		&__form-container {
 			@include m.flex(flex, column, auto, space-between, auto);
-				height: 60%;
-		align-self: start;
-		margin-top: 8em;
-	
+			height: 60%;
+			align-self: start;
+			margin-top: 8em;
 
 			.form {
 				@include m.flex(flex, column, auto, auto, auto);
