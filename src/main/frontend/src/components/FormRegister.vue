@@ -14,11 +14,14 @@
 		</picture>
 		<div class="register__form-container">
 			<div class="container-text">
-				<img
-					src="@/assets/images/logo-W.png"
-					alt="logo"
+			<router-link
+					to="/"
 					class="register__logo"
-				/>
+				>
+					<img
+						src="@/assets/images/logo-W.png"
+						alt="logo"
+				/></router-link>
 				<p class="register__join-text">Únete gratis.</p>
 				<h1 class="register__title">
 					Crea tu cuenta<span class="red">.</span>

@@ -56,11 +56,9 @@
 				>Recomendacion semanal</a
 			>
 		</Slide>
-		<a
-			href="#"
-			class="sign-in"
-			>REGISTRATE</a
-		>
+		 <router-link to="/register" class="sign-in nav__link" href=""
+        >REGISTRATE</router-link
+      >
 	</header>
 </template>
 
