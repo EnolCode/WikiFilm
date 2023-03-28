@@ -53,7 +53,7 @@
 					class="form__input"
 				/>
 				<ResetButton class="btn-submit" />
-				<SubmitButton />
+				<SubmitButton text="REGISTRATE" />
 			</form>
 		</div>
 	</main>

@@ -47,7 +47,7 @@
 				/>
 
 				<ResetButton class="btn-reset" />
-				<SubmitButton class="btn-submit" />
+				<SubmitButton text="INICIA SESION" class="btn-submit" />
 			</form>
 		</div>
 	</main>
@@ -59,7 +59,7 @@
 
 	.login {
 		display: grid;
-		grid-template-columns: 1fr 0.9fr;
+		grid-template-columns: 1.1fr 0.9fr;
 		justify-items: center;
 		align-items: center;
 		background: map-get(c.$colors, "black");

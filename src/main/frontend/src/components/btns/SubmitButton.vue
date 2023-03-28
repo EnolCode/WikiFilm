@@ -1,12 +1,15 @@
-<script setup></script>
+<script setup>
+import { defineProps } from 'vue'
+
+defineProps({
+  text: String
+})
+</script>
 
 <template>
-	<button
-		type="submit"
-		class="btn-submit"
-	>
-		UNETE GRATIS A WIKIFILM
-	</button>
+  <button type="submit" class="btn-submit">
+    {{ text }}
+  </button>
 </template>
 
 <style lang="scss" scoped>

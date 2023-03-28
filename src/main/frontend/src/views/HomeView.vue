@@ -27,7 +27,7 @@
 					comunidad de gente con ganas de compartir su opinión.
 				</p>
 
-				<SubmitButton />
+				<SubmitButton text="UNETE A WIKIFILM GRATIS" />
 			</div>
 		</section>
 		<footer class="footer">
