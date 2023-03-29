@@ -70,6 +70,12 @@
 		justify-items: center;
 		align-items: center;
 		background: map-get(c.$colors, "black");
+		@include m.mv(900px) {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			height: 100vh;
+		}
 
 		&__img-container {
 			height: 100vh;
@@ -78,6 +84,9 @@
 			background-size: cover;
 			background-position: 0 -100px;
 			width: 120%;
+			@include m.mv(900px) {
+				display: none;
+			}
 		}
 
 		.login__logo {
@@ -85,6 +94,13 @@
 			align-self: center;
 			position: relative;
 			bottom: 20%;
+			@include m.mv(900px) {
+				position: static;
+			}
+
+			@include m.mv(500px) {
+				width: 3em;
+			}
 		}
 		&__form-container {
 			@include m.flex(flex, column, auto, space-between, auto);
@@ -92,16 +108,35 @@
 			align-self: start;
 			margin-top: 8em;
 
+			@include m.mv(900px) {
+				@include m.flex(flex, column, auto, center, center);
+				height: 80%;
+				margin: 0;
+				width: 100%;
+			}
+
+			@include m.mv(600px) {
+				height: 90%;
+			}
+
+			
+
 			.form {
 				@include m.flex(flex, column, auto, auto, auto);
-
+				@include m.mv(900px) {
+					@include m.flex(flex, column, auto, auto, center);
+					width: 100%;
+				}
 				&__input {
 					background: map-get(c.$colors, "grey");
 					padding: 1em;
 					width: 20em;
 					margin: 1em 0;
 					color: white;
-
+					@include m.mv(500px) {
+						width: 90%;
+						margin: 0.5em auto;
+					}
 					&::placeholder {
 						color: white;
 					}
@@ -111,6 +146,9 @@
 			.container-text {
 				@include m.flex(flex, column, auto, center, start);
 				height: 50%;
+				@include m.mv(500px) {
+					@include m.flex(flex, column, auto, center, center);
+				}
 
 				.login__join-text {
 					@include m.font(
@@ -122,6 +160,9 @@
 
 				.login__title {
 					@include m.font(700, 3em, map-get(c.$colors, "white"));
+					@include m.mv(500px) {
+						font-size: 3em;
+					}
 				}
 
 				.login__subtitle {
@@ -136,17 +177,30 @@
 							@include m.pointer-opacity();
 						}
 					}
+					@include m.mv(500px) {
+						font-size: 0.8em;
+						text-align: center;
+						width: 100%;
+					}
 				}
 			}
 
 			.btn-reset {
 				width: 20em;
 				margin-top: 2em;
+				@include m.mv(500px) {
+					margin-top: 1em;
+					width: 90%;
+				}
 			}
 
 			.btn-submit {
 				width: 20em;
 				margin-top: 1em;
+				@include m.mv(500px) {
+					margin-top: 1em;
+					width: 90%;
+				}
 			}
 		}
 	}

@@ -98,21 +98,26 @@
 		}
 
 		.register__logo {
-			width: 5em;
+			width: 6em;
 			align-self: center;
 			position: relative;
-			bottom: 20%;
+			bottom: -35%;
+			margin-bottom: 3em;
 			@include m.mv(900px) {
 				position: static;
 			}
 
 			@include m.mv(500px) {
-				width: 3em;
+				width: 5em;
+				margin-bottom: 1em;
+
 			}
+
+			
 		}
 		&__form-container {
 			@include m.flex(flex, column, auto, space-between, auto);
-			height: 70%;
+			height: 65%;
 			@include m.mv(900px) {
 				@include m.flex(flex, column, auto, space-between, center);
 				height: 80%;
