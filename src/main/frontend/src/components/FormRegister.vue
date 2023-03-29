@@ -32,8 +32,9 @@
 				<h2 class="register__subtitle">
 					¿Ya eres miembro?
 					<router-link
-						to="/login" class="inline"
-						><span class="red">Inicia sesión</span>
+						to="/login"
+						class="inline"
+						><span class="red"> Inicia sesión</span>
 					</router-link>
 				</h2>
 			</div>
@@ -57,8 +58,11 @@
 					placeholder="Repite la contraseña"
 					class="form__input"
 				/>
-				<ResetButton class="btn-submit" />
-				<SubmitButton text="REGISTRATE" />
+				<ResetButton class="btn-submit btn" />
+				<SubmitButton
+					text="REGISTRATE"
+					class="btn"
+				/>
 			</form>
 		</div>
 	</main>
@@ -74,10 +78,18 @@
 		justify-items: center;
 		align-items: center;
 		background: map-get(c.$colors, "black");
+		@include m.mv(900px) {
+			display: flex;
+			flex-direction: column;
+			height: 100vh;
+		}
 
 		&__img-container {
 			width: 100%;
 			height: 100vh;
+			@include m.mv(900px) {
+				display: none;
+			}
 			.register__img {
 				width: 100%;
 				object-fit: cover;
@@ -90,13 +102,34 @@
 			align-self: center;
 			position: relative;
 			bottom: 20%;
+			@include m.mv(900px) {
+				position: static;
+			}
+
+			@include m.mv(500px) {
+				width: 3em;
+			}
 		}
 		&__form-container {
 			@include m.flex(flex, column, auto, space-between, auto);
 			height: 70%;
+			@include m.mv(900px) {
+				@include m.flex(flex, column, auto, space-between, center);
+				height: 80%;
+				margin: 0;
+				width: 100%;
+			}
+
+			@include m.mv(900px) {
+				height: 90%;
+			}
 
 			.form {
 				@include m.flex(flex, column, auto, auto, auto);
+				@include m.mv(900px) {
+					@include m.flex(flex, column, auto, auto, center);
+					width: 100%;
+				}
 
 				&__input {
 					background: map-get(c.$colors, "grey");
@@ -108,13 +141,20 @@
 					&::placeholder {
 						color: white;
 					}
+
+					@include m.mv(500px) {
+						width: 90%;
+						margin: 0.5em auto;
+					}
 				}
 			}
 
 			.container-text {
 				@include m.flex(flex, column, auto, center, start);
-				height: 30%;
-
+				height: 10%;
+				@include m.mv(500px) {
+					@include m.flex(flex, column, auto, center, center);
+				}
 				.register__join-text {
 					@include m.font(
 						500,
@@ -125,6 +165,9 @@
 
 				.register__title {
 					@include m.font(700, 3em, map-get(c.$colors, "white"));
+					@include m.mv(500px) {
+						font-size: 2em;
+					}
 				}
 
 				.register__subtitle {
@@ -136,17 +179,26 @@
 					);
 
 					span {
-						display:inline;
+						display: inline;
 						&:hover {
 							@include m.pointer-opacity();
 						}
+					}
+					@include m.mv(500px) {
+						font-size: 0.8em;
+						text-align: center;
+						width: 100%;
 					}
 				}
 			}
 
 			.btn-submit {
-				width: 20em;
 				margin-top: 1em;
+				width: 20em;
+				@include m.mv(500px) {
+					width: 90%;
+					margin-top: 1em;
+				}
 			}
 		}
 	}

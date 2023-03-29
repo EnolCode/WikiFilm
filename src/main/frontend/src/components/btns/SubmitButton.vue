@@ -1,15 +1,18 @@
 <script setup>
-import { defineProps } from 'vue'
+	import { defineProps } from "vue";
 
-defineProps({
-  text: String
-})
+	defineProps({
+		text: String,
+	});
 </script>
 
 <template>
-  <button type="submit" class="btn-submit">
-    {{ text }}
-  </button>
+	<button
+		type="submit"
+		class="btn-submit"
+	>
+		{{ text }}
+	</button>
 </template>
 
 <style lang="scss" scoped>
@@ -26,5 +29,6 @@ defineProps({
 		&:hover {
 			@include m.pointer-opacity();
 		}
+		
 	}
 </style>

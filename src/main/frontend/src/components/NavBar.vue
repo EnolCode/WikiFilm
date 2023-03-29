@@ -38,6 +38,21 @@
         color: map-get(c.$colors, "white-light");
         font-weight: 300;
 
+		@include m.mv(1300px) {
+				width: 40%;
+			}
+			@include m.mv(900px) {
+				width: 100%;
+				position: sticky;
+			}
+
+@include m.mv(600px) {
+			}
+
+			@include m.mv(500px) {
+				width: 110%;
+				margin: 0 auto;
+			}
 		&__link {
 			text-decoration: none;
 			font-size: 0.8em;

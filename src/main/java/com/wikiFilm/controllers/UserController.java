@@ -26,12 +26,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<User> getAllusers() {
+    public List<User> getAllUsers() {
         return userService.findAll();
     }
 
     @GetMapping("/{id}")
-    public User getfindById(@PathVariable Long id) {
+    public User getFindById(@PathVariable Long id) {
         return userService.findById(id);
     }
 
@@ -41,13 +41,13 @@ public class UserController {
     }
 
     @PostMapping(value = "add", consumes = "application/json")
-    public ResponseEntity<User> createuser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         User savedUser = userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PutMapping("/update/{id}")
-    public User updateuser(@PathVariable Long id, @RequestBody User userDetails) {
+    public User updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         return userService.updateUser(id, userDetails);
     }
 
