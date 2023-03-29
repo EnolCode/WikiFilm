@@ -3,6 +3,9 @@
     "sass": "^1.59.2"
   },
   "dependencies": {
-    "vue3-burger-menu": "^1.1.1"
+    "@vuelidate/core": "^2.0.2",
+    "@vuelidate/validators": "^2.0.2",
+    "vue3-burger-menu": "^1.1.1",
+    "vuelidate": "^0.7.7"
   }
 }

@@ -1,7 +1,62 @@
 <script setup>
+	import { computed, reactive } from "vue";
+	import { useVuelidate } from "@vuelidate/core";
 	import SubmitButton from "../components/btns/SubmitButton.vue";
 	import ResetButton from "../components/btns/ResetButton.vue";
 	import NavBar from "../components/NavBar.vue";
+	import {
+		required,
+		minLength,
+		minValue,
+		maxValue,
+		maxLength,
+		sameAs,
+	} from "@vuelidate/validators";
+	import { helpers } from "@vuelidate/validators";
+
+	const form = reactive({
+		username: "",
+		password: "",
+		repeatPassword: "",
+	});
+
+	const containsNumber = helpers.withMessage(
+  'La contraseña debe contener al menos un número',
+  (value) => /\d/.test(value)
+)
+
+	const rules = computed(() => {
+  return {
+    username: {
+      required,
+      minLength: minLength(3),
+      maxLength: maxLength(20)
+    },
+    password: {
+      required,
+      minLength: minLength(5),
+      maxLength: maxLength(15),
+      containsNumber
+    },
+    repeatPassword: {
+      required,
+      sameAsPassword: sameAs(form.password)
+    }
+  }
+})
+	const v$ = useVuelidate(rules, form);
+
+	const submit = async () => {
+		const result = await v$.value.$validate();
+		console.log(
+			form.username, form.password,
+			form.repeatPassword
+		)
+		if (!result) {
+			return;
+		}
+		alert("enviado");
+	};
 </script>
 
 <template>
@@ -39,25 +94,53 @@
 				</h2>
 			</div>
 
-			<form class="form">
+			<form
+				class="form"
+				@submit.prevent="submit"
+			>
 				<input
 					type="text"
 					name="username"
 					placeholder="Nombre de usuario"
 					class="form__input"
+					v-model="form.username"
 				/>
+				<span
+					v-for="error in v$.username.$errors"
+					:key="error.$uid"
+					class="error-red"
+				>
+					{{ error.$message }}
+				</span>
 				<input
-					type="text"
+					type="password"
 					name="password"
 					placeholder="Introduce una contraseña"
 					class="form__input"
+					v-model="form.password"
 				/>
+				<span
+					v-for="error in v$.password.$errors"
+					:key="error.$uid"
+					class="error-red"
+				>
+					{{ error.$message }}
+				</span>
 				<input
-					type="text"
-					name="password"
+					type="password"
+					name="repeatPassword"
 					placeholder="Repite la contraseña"
 					class="form__input"
+					v-model="form.repeatPassword"
+
 				/>
+				<span
+					v-for="error in v$.repeatPassword.$errors"
+					:key="error.$uid"
+					class="error-red"
+				>
+					{{ error.$message }}
+				</span>
 				<ResetButton class="btn-submit btn" />
 				<SubmitButton
 					text="REGISTRATE"
@@ -110,14 +193,11 @@
 			@include m.mv(500px) {
 				width: 5em;
 				margin-bottom: 1em;
-
 			}
-
-			
 		}
 		&__form-container {
 			@include m.flex(flex, column, auto, space-between, auto);
-			height: 65%;
+			min-height: 65%;
 			@include m.mv(900px) {
 				@include m.flex(flex, column, auto, space-between, center);
 				height: 80%;
@@ -206,5 +286,11 @@
 				}
 			}
 		}
+	}
+
+	.error-red {
+		// position: absolute;
+		bottom: -1em;
+		color: red;
 	}
 </style>
