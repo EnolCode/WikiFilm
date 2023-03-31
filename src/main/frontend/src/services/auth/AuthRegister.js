@@ -8,7 +8,7 @@ export default class AuthRegister {
 
         const user = {
             username: username,
-            password: password
+            password: password,
             roles: [{ id : 2 }]
         };
 

@@ -1,6 +1,7 @@
 <script setup>
-	import { computed, reactive } from "vue";
+	import { computed, reactive, defineProps } from "vue";
 	import { useVuelidate } from "@vuelidate/core";
+	import { useRouter } from "vue-router";
 	import SubmitButton from "../components/btns/SubmitButton.vue";
 	import ResetButton from "../components/btns/ResetButton.vue";
 	import NavBar from "../components/NavBar.vue";
@@ -14,6 +15,12 @@
 	} from "@vuelidate/validators";
 	import { helpers } from "@vuelidate/validators";
 
+	const props = defineProps({
+		onSubmit: Function,
+	});
+
+	const emit = defineEmits(["submit"]);
+
 	const form = reactive({
 		username: "",
 		password: "",
@@ -21,40 +28,43 @@
 	});
 
 	const containsNumber = helpers.withMessage(
-  'La contraseña debe contener al menos un número',
-  (value) => /\d/.test(value)
-)
+		"La contraseña debe contener al menos un número",
+		value => /\d/.test(value)
+	);
 
 	const rules = computed(() => {
-  return {
-    username: {
-      required,
-      minLength: minLength(3),
-      maxLength: maxLength(20)
-    },
-    password: {
-      required,
-      minLength: minLength(5),
-      maxLength: maxLength(15),
-      containsNumber
-    },
-    repeatPassword: {
-      required,
-      sameAsPassword: sameAs(form.password)
-    }
-  }
-})
+		return {
+			username: {
+				required,
+				minLength: minLength(3),
+				maxLength: maxLength(20),
+			},
+			password: {
+				required,
+				minLength: minLength(5),
+				maxLength: maxLength(15),
+				containsNumber,
+			},
+			repeatPassword: {
+				required,
+				sameAsPassword: sameAs(form.password),
+			},
+		};
+	});
 	const v$ = useVuelidate(rules, form);
 
 	const submit = async () => {
 		const result = await v$.value.$validate();
-		console.log(
-			form.username, form.password,
-			form.repeatPassword
-		)
+		console.log(form.username, form.password, form.repeatPassword);
 		if (!result) {
 			return;
 		}
+		const formData = {
+			username: form.username,
+			password: form.password,
+		};
+		emit("submit", formData);
+		// props.onSubmit(formData);
 		alert("enviado");
 	};
 </script>
@@ -132,7 +142,6 @@
 					placeholder="Repite la contraseña"
 					class="form__input"
 					v-model="form.repeatPassword"
-
 				/>
 				<span
 					v-for="error in v$.repeatPassword.$errors"

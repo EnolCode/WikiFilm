@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("api")
 public class RegisterController {
     private final UserService userService;
 
