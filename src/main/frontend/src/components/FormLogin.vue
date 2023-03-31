@@ -7,11 +7,6 @@
 <template>
 	<main class="login">
 		<picture class="login__img-container">
-			<!-- <img
-				src="@/assets/images/peaky-blinders.svg"
-				alt="peaky blinders"
-				class="login__img"
-			/> -->
 		</picture>
 		<div class="login__form-container">
 			<NavBar />
