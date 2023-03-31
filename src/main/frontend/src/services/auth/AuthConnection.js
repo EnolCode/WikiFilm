@@ -1,22 +1,22 @@
 import axios from 'axios'
 import { baseUrl } from '@/config.js';
 
-
 export default class AuthConnection {
 
-    #auth = "";
-    #role = "";
+  #auth = "";
+  #role="";
 
-    async login(username,password) {
-        this.#auth = window.btoa(`${username}:${password}`).toString();
-        const response = await axios.get(`${baseUrl}/api/login`, {
-            headers: {
-                Authorizacion: `Basic ${this.#auth}`
-            },
-            withCredentials: true
-        });
+  async login(username, password) {
+    this.#auth = window.btoa(`${username}:${password}`).toString();
 
-        this.#role = response.data.role;
-        return this.#role;
-    }
+    const response = await axios.get(`${baseUrl}/api/login`, {
+      headers: {
+        Authorization: `Basic ${this.#auth}`
+      },
+      withCredentials: true
+    });
+
+    this.#role = response.data.role;
+    return this.#role;
+  }
 }

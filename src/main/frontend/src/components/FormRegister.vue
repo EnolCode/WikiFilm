@@ -1,7 +1,6 @@
 <script setup>
 	import { computed, reactive, defineProps } from "vue";
 	import { useVuelidate } from "@vuelidate/core";
-	import { useRouter } from "vue-router";
 	import SubmitButton from "../components/btns/SubmitButton.vue";
 	import ResetButton from "../components/btns/ResetButton.vue";
 	import NavBar from "../components/NavBar.vue";
@@ -55,7 +54,6 @@
 
 	const submit = async () => {
 		const result = await v$.value.$validate();
-		console.log(form.username, form.password, form.repeatPassword);
 		if (!result) {
 			return;
 		}
@@ -64,7 +62,6 @@
 			password: form.password,
 		};
 		emit("submit", formData);
-		// props.onSubmit(formData);
 		alert("enviado");
 	};
 </script>

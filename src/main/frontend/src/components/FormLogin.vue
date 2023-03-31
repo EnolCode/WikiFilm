@@ -1,13 +1,52 @@
 <script setup>
+	import { computed, reactive, defineProps } from "vue";
+	import { useVuelidate } from "@vuelidate/core";
 	import SubmitButton from "../components/btns/SubmitButton.vue";
 	import ResetButton from "../components/btns/ResetButton.vue";
 	import NavBar from "../components/NavBar.vue";
+	import { required } from "@vuelidate/validators";
+
+	const props = defineProps({
+		onSubmit: Function,
+	});
+
+	const emit = defineEmits(["submit"]);
+
+	const form = reactive({
+		username: "",
+		password: "",
+	});
+
+	const rules = computed(() => {
+		return {
+			username: {
+				required,
+			},
+			password: {
+				required,
+			},
+		};
+	});
+
+	const v$ = useVuelidate(rules, form);
+
+	const submit = async () => {
+		const result = await v$.value.$validate();
+		if (!result) {
+			return;
+		}
+		const formData = {
+			username: form.username,
+			password: form.password,
+		};
+		emit("submit", formData);
+		alert("enviado");
+	};
 </script>
 
 <template>
 	<main class="login">
-		<picture class="login__img-container">
-		</picture>
+		<picture class="login__img-container"> </picture>
 		<div class="login__form-container">
 			<NavBar />
 			<div class="container-text">
@@ -31,19 +70,38 @@
 				</h2>
 			</div>
 
-			<form class="form">
+			<form
+				class="form"
+				@submit.prevent="submit"
+			>
 				<input
 					type="text"
 					name="username"
 					placeholder="Nombre de usuario"
 					class="form__input"
+					v-model="form.username"
 				/>
+				<span
+					v-for="error in v$.username.$errors"
+					:key="error.$uid"
+					class="error-red"
+				>
+					{{ error.$message }}
+				</span>
 				<input
-					type="text"
+					type="password"
 					name="password"
 					placeholder="Introduce tu contraseña"
 					class="form__input"
+					v-model="form.password"
 				/>
+				<span
+					v-for="error in v$.username.$errors"
+					:key="error.$uid"
+					class="error-red"
+				>
+					{{ error.$message }}
+				</span> 
 
 				<ResetButton class="btn-reset" />
 				<SubmitButton
@@ -113,8 +171,6 @@
 			@include m.mv(600px) {
 				height: 90%;
 			}
-
-			
 
 			.form {
 				@include m.flex(flex, column, auto, auto, auto);

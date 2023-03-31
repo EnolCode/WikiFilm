@@ -43,7 +43,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/register", "/api/login", "/api/films").permitAll()
                         .requestMatchers("/api/logout").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/films/add").hasRole("ADMIN")
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
                 .userDetailsService(service)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .httpBasic(basic -> basic.authenticationEntryPoint(authenticationEntryPoint));
