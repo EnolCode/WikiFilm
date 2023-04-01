@@ -10,12 +10,18 @@
 
 ## Pagina de Inicio
 ![image](https://user-images.githubusercontent.com/116892825/229278546-0f50d031-a1d5-4409-966d-fe5ee25b2657.png)
+![image](https://user-images.githubusercontent.com/116892825/229279079-f6dfd260-2a68-472b-9773-2942b8130dc8.png)
+
 
 ## Formulario de Regsitro
 ![image](https://user-images.githubusercontent.com/116892825/229278568-4a243f93-950c-40d4-bb7d-85e4b1aeaa7f.png)
+![image](https://user-images.githubusercontent.com/116892825/229279091-7bd576ee-4cfd-41b4-81ba-2dccb171bc3e.png)
+
 
 ## Formulario de Inicio de Sesión 
 ![image](https://user-images.githubusercontent.com/116892825/229278587-63d9ea82-b376-431c-a807-0ef22cd05e34.png)
+![image](https://user-images.githubusercontent.com/116892825/229279160-17e4c05b-8156-4f7f-82ed-73693ebfaa85.png)
+
 
 ## :heavy_check_mark: Herramientas utilizadas:
 - HTML5 (metodología BEM)
