@@ -16,3 +16,20 @@
 
 ## Formulario de Inicio de Sesión 
 ![image](https://user-images.githubusercontent.com/116892825/229278587-63d9ea82-b376-431c-a807-0ef22cd05e34.png)
+
+## :heavy_check_mark: Herramientas utilizadas:
+- HTML5 (metodología BEM)
+- SASS (SCSS)
+- JS
+- VUE3
+- Vuelidate
+- Vite
+- Pinia
+- Java
+- Spring Boot
+- Spring Security
+- Junit
+
+### Autor
+
+- [Enol Igareta](https://github.com/EnolCode)
