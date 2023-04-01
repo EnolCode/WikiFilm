@@ -25,7 +25,7 @@
 				position: "top",
 				duration: 5000,
 			});
-			router.push("/");
+			router.push("/dashboard");
 		} catch (error) {
 			if (error.response && error.response.status === 401) {
 				oruga.notification.open({
