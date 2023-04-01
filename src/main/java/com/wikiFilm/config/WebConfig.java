@@ -15,4 +15,5 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .allowedMethods("GET", "POST", "DELETE", "OPTION", "PUT");
     }
+
 }
