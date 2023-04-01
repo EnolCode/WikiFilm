@@ -8,7 +8,8 @@ body{
 
 //Estilo para modificar el btn-burguer
 .bm-burger-bars {
-    background-color: white;
+    color: map-get(c.$colors, "white");  
+
   }
 
 .red{
@@ -20,8 +21,34 @@ body{
     color: map-get(c.$colors, "red");  
 }
 
-					
-					
 .inline{
     display: inline;
+}
+
+//Oruga notifications
+.error-notification,
+.success-notification {
+  padding: .5em;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 12%), 0 0 6px rgb(0 0 0 / 4%);
+  animation: fadeIn .5s;
+}
+
+.error-notification {
+  background: rgb(236, 33, 33);
+}
+
+.success-notification {
+  background: green;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

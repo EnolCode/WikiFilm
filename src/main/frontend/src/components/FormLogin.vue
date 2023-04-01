@@ -40,7 +40,6 @@
 			password: form.password,
 		};
 		emit("submit", formData);
-		alert("enviado");
 	};
 </script>
 
@@ -84,7 +83,7 @@
 				<span
 					v-for="error in v$.username.$errors"
 					:key="error.$uid"
-					class="error-red"
+					class="red"
 				>
 					{{ error.$message }}
 				</span>
@@ -98,7 +97,7 @@
 				<span
 					v-for="error in v$.username.$errors"
 					:key="error.$uid"
-					class="error-red"
+					class="red"
 				>
 					{{ error.$message }}
 				</span> 

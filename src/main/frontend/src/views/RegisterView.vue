@@ -27,7 +27,7 @@
         message: 'Lo siento, ya existe un usuario con ese nombre.',
 		variant: 'danger',
         rootClass: 'error-notification',
-		duration: 2000,
+		duration: 3000,
         position: 'top'
       });
     } else {
@@ -47,15 +47,4 @@
 
 <style lang="scss">
 
-.error-notification{
-	background:red;
-	padding: .5em;
-	border-radius: 2px;
-}
-
-.success-notification{
-	background:green;
-	padding: .5em;
-	border-radius: 2px;
-}
 </style>

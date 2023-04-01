@@ -2,7 +2,8 @@
 	import { ref } from 'vue'
 	import { Slide } from "vue3-burger-menu";
 	import { useAuthStore } from "@/stores/authStore";
-	
+	import AuthService from "@/services/auth/AuthService.js";
+
 	const auth = useAuthStore();
 	const roles = ref(auth.roles[0]);
 
@@ -14,7 +15,7 @@
 			console.log(error)
 		}
 	}
-	console.log(auth.roles[0]);
+
 </script>
 
 <template>
