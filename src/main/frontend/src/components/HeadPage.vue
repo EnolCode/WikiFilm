@@ -56,8 +56,8 @@
 				>Recomendacion semanal</a
 			>
 		</Slide>
-		 <router-link to="/register" class="sign-in nav__link" href=""
-        >REGISTRATE</router-link
+		 <router-link to="/login" class="sign-in nav__link" href=""
+        >INICIA SESION</router-link
       >
 	</header>
 </template>
@@ -88,11 +88,11 @@
 		}
 
 		.nav-bar {
-			@include m.flex(flex, row, auto, space-evenly, center);
-			width: 65%;
+			@include m.flex(flex, row, auto, space-around, center);
+			width: 55%;
 
 			&__link {
-				@include m.font(400, 0.9em, map-get(c.$colors, "white"));
+				@include m.font(400, 0.8em, map-get(c.$colors, "white"));
 				letter-spacing: 1px;
 				margin: 0 1em;
 
@@ -107,7 +107,7 @@
 		}
 
 		.sign-in {
-			@include m.font(600, 0.9em, map-get(c.$colors, "white"));
+			@include m.font(600, 0.8em, map-get(c.$colors, "white"));
 			margin: 0 1em;
 
 			&:hover {

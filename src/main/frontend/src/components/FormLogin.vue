@@ -150,10 +150,6 @@
 			@include m.mv(900px) {
 				position: static;
 			}
-
-			@include m.mv(500px) {
-				width: 3em;
-			}
 		}
 		&__form-container {
 			@include m.flex(flex, column, auto, space-between, auto);
