@@ -1,0 +1,28 @@
+import { defineComponent, h } from 'vue';
+
+var SlotComponent = defineComponent({
+    name: 'OSlotComponent',
+    props: {
+        component: {
+            type: Object,
+            required: true
+        },
+        name: {
+            type: String,
+            default: 'default'
+        },
+        props: {
+            type: Object
+        },
+        tag: {
+            type: String,
+            default: 'div'
+        }
+    },
+    render() {
+        const slot = this.component.$slots[this.name](this.props);
+        return h(this.tag, {}, slot);
+    }
+});
+
+export { SlotComponent as S };

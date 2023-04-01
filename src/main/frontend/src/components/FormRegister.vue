@@ -13,6 +13,7 @@
 		sameAs,
 	} from "@vuelidate/validators";
 	import { helpers } from "@vuelidate/validators";
+	import AuthService from "@/services/auth/AuthService.js";
 
 	const props = defineProps({
 		onSubmit: Function,
@@ -62,7 +63,6 @@
 			password: form.password,
 		};
 		emit("submit", formData);
-		alert("enviado");
 	};
 </script>
 

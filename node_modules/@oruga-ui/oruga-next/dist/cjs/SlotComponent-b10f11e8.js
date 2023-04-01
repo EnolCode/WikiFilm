@@ -1,0 +1,30 @@
+'use strict';
+
+var vue = require('vue');
+
+var SlotComponent = vue.defineComponent({
+    name: 'OSlotComponent',
+    props: {
+        component: {
+            type: Object,
+            required: true
+        },
+        name: {
+            type: String,
+            default: 'default'
+        },
+        props: {
+            type: Object
+        },
+        tag: {
+            type: String,
+            default: 'div'
+        }
+    },
+    render() {
+        const slot = this.component.$slots[this.name](this.props);
+        return vue.h(this.tag, {}, slot);
+    }
+});
+
+exports.SlotComponent = SlotComponent;

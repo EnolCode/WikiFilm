@@ -1,5 +1,20 @@
 <script setup>
+	import { ref } from 'vue'
 	import { Slide } from "vue3-burger-menu";
+	import { useAuthStore } from "@/stores/authStore";
+	
+	const auth = useAuthStore();
+	const roles = ref(auth.roles[0]);
+
+	const logout = async () =>{
+		const authService = new AuthService();
+		try {
+			const response = await authService.logout();
+		} catch (error) {
+			console.log(error)
+		}
+	}
+	console.log(auth.roles[0]);
 </script>
 
 <template>
@@ -33,7 +48,7 @@
 		<Slide
 			width="250"
 			right
-			class="slide"
+			class="slide" 
 		>
 			<a
 				href="#"
@@ -56,10 +71,23 @@
 				>Recomendacion semanal</a
 			>
 		</Slide>
-		 <router-link to="/login" class="sign-in nav__link" href=""
-        >INICIA SESION</router-link
-      >
+		<router-link
+			to="/login"
+			class="sign-in nav__link"
+			href=""
+			v-if="roles === undefined"
+			>INICIA SESION</router-link
+		>
+		<router-link
+			@click="logout"
+			to="/"
+			class="logout nav__link"
+			href=""
+			v-if="roles !== undefined"
+			>DESCONECTAR</router-link
+		>
 	</header>
+
 </template>
 
 <style lang="scss" scoped>
@@ -106,7 +134,8 @@
 			}
 		}
 
-		.sign-in {
+		.sign-in,
+		.logout {
 			@include m.font(600, 0.8em, map-get(c.$colors, "white"));
 			margin: 0 1em;
 

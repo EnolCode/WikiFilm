@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 import { baseUrl } from '@/config.js';
 
 export default class AuthLogout {
@@ -7,9 +7,10 @@ export default class AuthLogout {
     async logout() {
         try {
             localStorage.removeItem("auth");
-            const response = await axios.get(`${baseUrl}/api/logout`);
             window.location.reload();
+            const response = await axios.get(`${baseUrl}/api/logout`);
         } catch (error) {
             console.error(error);
         }
+    }
 }

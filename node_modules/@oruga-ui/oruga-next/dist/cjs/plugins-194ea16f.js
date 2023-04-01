@@ -1,0 +1,107 @@
+'use strict';
+
+var vue = require('vue');
+var helpers = require('./helpers.js');
+var config = require('./config.js');
+
+const _defaultSuffixProcessor = (input, suffix) => {
+    return helpers.blankIfUndefined(input)
+        .split(' ')
+        .filter((cls) => cls.length > 0)
+        .map((cls) => cls + suffix)
+        .join(' ');
+};
+const _getContext = (vm) => {
+    const computedNames = vm.$options.computed ? Object.keys(vm.$options.computed) : [];
+    const computed = computedNames.filter(e => !helpers.endsWith(e, 'Classes')).reduce((o, key) => {
+        o[key] = vm[key];
+        return o;
+    }, {});
+    return { props: vm.$props, data: vm.$data, computed };
+};
+var BaseComponentMixin = vue.defineComponent({
+    isOruga: true,
+    props: {
+        override: Boolean
+    },
+    methods: {
+        computedClass(field, defaultValue, suffix = '') {
+            const config$1 = this.$props.override === true ? {} : config.getOptions();
+            const override = this.$props.override || helpers.getValueByPath(config$1, `${this.$options.configField}.override`, false);
+            const overrideClass = helpers.getValueByPath(config$1, `${this.$options.configField}.${field}.override`, override);
+            const globalTransformClasses = helpers.getValueByPath(config$1, `transformClasses`, undefined);
+            const localTransformClasses = helpers.getValueByPath(config$1, `${this.$options.configField}.transformClasses`, undefined);
+            let globalClass = helpers.getValueByPath(config$1, `${this.$options.configField}.${field}.class`, '')
+                || helpers.getValueByPath(config$1, `${this.$options.configField}.${field}`, '');
+            let currentClass = helpers.getValueByPath(this.$props, field);
+            if (Array.isArray(currentClass)) {
+                currentClass = currentClass.join(' ');
+            }
+            if (defaultValue.search("{*}") !== -1) {
+                defaultValue = defaultValue.replace(/\{\*\}/g, suffix);
+            }
+            else {
+                defaultValue = defaultValue + suffix;
+            }
+            let context = null;
+            if (typeof currentClass === "function") {
+                context = _getContext(this);
+                currentClass = currentClass(suffix, context);
+            }
+            else {
+                currentClass = _defaultSuffixProcessor(currentClass, suffix);
+            }
+            if (typeof globalClass === "function") {
+                globalClass = globalClass(suffix, context || _getContext(this));
+            }
+            else {
+                globalClass = _defaultSuffixProcessor(globalClass, suffix);
+            }
+            let appliedClasses = (`${(override && !overrideClass) || (!override && !overrideClass) ? defaultValue : ''} `
+                + `${helpers.blankIfUndefined(globalClass)} `
+                + `${helpers.blankIfUndefined(currentClass)}`).trim().replace(/\s\s+/g, ' ');
+            if (localTransformClasses) {
+                appliedClasses = localTransformClasses(appliedClasses);
+            }
+            if (globalTransformClasses) {
+                appliedClasses = globalTransformClasses(appliedClasses);
+            }
+            return appliedClasses;
+        }
+    }
+});
+
+// oruga object for programmatic components
+const oruga = {};
+// add components to the oruga object
+function addProgrammatic(property, component) {
+    oruga[property] = component;
+}
+// composable for internal and external usage
+function useProgrammatic() {
+    return { oruga, addProgrammatic };
+}
+
+const registerPlugin = (app, plugin) => {
+    app.use(plugin);
+};
+const registerComponent = (app, component) => {
+    app.component(component.name, component);
+};
+const registerComponentProgrammatic = (app, property, component) => {
+    // use composable for unified access to programmatic oruga object
+    const { oruga, addProgrammatic } = useProgrammatic();
+    // add component (manipulates the programmatic oruga object)
+    addProgrammatic(property, component);
+    // add provide and $oruga (only needed once)
+    if (!(app._context.provides && app._context.provides.oruga))
+        app.provide('oruga', oruga);
+    if (!app.config.globalProperties.$oruga)
+        app.config.globalProperties.$oruga = oruga;
+};
+
+exports.BaseComponentMixin = BaseComponentMixin;
+exports.registerComponent = registerComponent;
+exports.registerComponentProgrammatic = registerComponentProgrammatic;
+exports.registerPlugin = registerPlugin;
+exports.useProgrammatic = useProgrammatic;
