@@ -1,4 +1,18 @@
-<script setup></script>
+<script setup>
+	import { ref } from "vue";
+
+	const isLiked = ref(false);
+	const isDisliked = ref(false);
+	const like = () => {
+		isLiked.value = !isLiked.value;
+		isDisliked.value = false;
+	};
+
+	const dislike = () => {
+        isDisliked.value = !isDisliked.value;
+		isLiked.value = false;
+	};
+</script>
 <template>
 	<div class="card-film">
 		<picture class="card-film__image">
@@ -15,9 +29,15 @@
 			<div class="separator-btns">
 				<i class="fa-solid fa-check card-film__btn btn--check"></i>
 				<i class="fa-solid fa-play card-film__btn btn--play"></i>
-				<i class="fa-solid fa-thumbs-up card-film__btn btn--like"></i>
+				<i
+					class="fa-solid fa-thumbs-up card-film__btn btn--like"
+					:class="{ active: isLiked }"
+					@click="like"
+				></i>
 				<i
 					class="fa-solid fa-thumbs-down card-film__btn btn--dislike"
+					:class="{ active: isDisliked }"
+					@click="dislike"
 				></i>
 			</div>
 			<div class="separator-rating">
@@ -34,7 +54,7 @@
 	.card-film {
 		&__image {
 			.card-film__info {
-    			@include m.flex(flex, row, auto, space-around, center);
+				@include m.flex(flex, row, auto, space-around, center);
 				width: 10em;
 				color: map-get(c.$colors, "white");
 				position: relative;
@@ -57,10 +77,10 @@
 		&__container-btns {
 			@include m.flex(flex, row, auto, space-between, center);
 			position: relative;
-            height: .6em;
-			bottom: .5em;
+			height: 0.6em;
+			bottom: 0.5em;
 			font-size: 1.2em;
-            padding: 0 .3em;
+			padding: 0 0.3em;
 
 			.separator-btns {
 				display: flex;
@@ -103,6 +123,11 @@
 		}
 		.btn-rating {
 			color: map-get(c.$colors, "red");
+		}
+
+		.btn--like.active,
+		.btn--dislike.active {
+			color: map-get(c.$colors, "orange");
 		}
 	}
 </style>
