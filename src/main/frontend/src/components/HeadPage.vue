@@ -25,26 +25,32 @@
 			style="color: #ffffff"
 		></i>
 		<nav class="nav-bar">
-			<a
-				href="#"
+			<router-link
+				to="/"
 				class="nav-bar__link"
-				>Series</a
 			>
-			<a
-				href="#"
+				<p>Series</p>
+			</router-link>
+
+			<router-link
+				to="/"
 				class="nav-bar__link"
-				>Peliculas</a
 			>
-			<a
-				href="#"
+				<p>Peliculas</p>
+			</router-link>
+
+			<router-link
+				to="/dashboard"
 				class="nav-bar__link"
-				>Ranking Valoraciones</a
 			>
-			<a
-				href="#"
+				Ranking
+			</router-link>
+			<router-link
+				to="/"
 				class="nav-bar__link"
-				>Recomendacion semanal</a
 			>
+				<p>Recomendados</p>
+			</router-link>
 		</nav>
 		<Slide
 			width="250"
@@ -118,7 +124,7 @@
 
 		.nav-bar {
 			@include m.flex(flex, row, auto, space-around, center);
-			width: 55%;
+			width: 45%;
 
 			&__link {
 				@include m.font(400, 0.8em, map-get(c.$colors, "white"));

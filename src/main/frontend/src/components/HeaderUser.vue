@@ -112,7 +112,7 @@
 
 	.header {
 		@include m.flex(flex, row, auto, space-between, center);
-		padding: 1em;
+		padding: .5em;
 		background:  map-get(c.$colors, "grey-dark");
 		position: fixed;
 		width: 100%;
@@ -146,7 +146,7 @@
 				position: relative;
 				bottom: -1em;
 				width: 6%;
-				transform: scale(2.2);
+				transform: scale(1.5);
 			}
 
 			&__user {

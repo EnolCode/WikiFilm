@@ -7,7 +7,18 @@
 <template>
 	<HeaderUser />
 	<main>
-    <CardFilm />
+    <CardFilm class="card"/>
+    <CardFilm class="card"/>
+    <CardFilm class="card"/>
+    <CardFilm class="card"/>
+    <CardFilm class="card"/>
+    <CardFilm class="card"/>
+    <CardFilm class="card"/>
+    <CardFilm class="card"/>
+    <CardFilm class="card"/>
+    <CardFilm class="card"/>
+    <CardFilm class="card"/>
+
     </main>
 </template>
 
@@ -15,9 +26,22 @@
 	@use "../scss/colors" as c;
 	@use "../scss/mixins" as m;
 
-	main {
-        height: 100vh;
-		background: map-get(c.$colors, "black");
-			@include m.flex(flex, row, auto, center, center);
-	}
+	 main {
+    display: grid;
+ 	background: map-get(c.$colors, "black");
+	width: 80%;
+	gap: 1em;
+	margin: 0 auto;
+
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: minmax(5em, auto);
+  }
+  .card {
+	  border: 1px solid white;
+    grid-column: span 2;
+  }
+  .card:first-child,
+  .card:nth-child(2) {
+    grid-column: span 3;
+  }
 </style>

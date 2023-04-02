@@ -33,10 +33,9 @@
 	@use "@/scss/mixins" as m;
 	.card-film {
 		&__image {
-			max-width: 35em;
 			.card-film__info {
     			@include m.flex(flex, row, auto, space-around, center);
-				width: 30%;
+				width: 10em;
 				color: map-get(c.$colors, "white");
 				position: relative;
 				bottom: 2em;
@@ -58,8 +57,10 @@
 		&__container-btns {
 			@include m.flex(flex, row, auto, space-between, center);
 			position: relative;
-			bottom: 0.8em;
+            height: .6em;
+			bottom: .5em;
 			font-size: 1.2em;
+            padding: 0 .3em;
 
 			.separator-btns {
 				display: flex;

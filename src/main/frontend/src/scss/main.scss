@@ -3,7 +3,8 @@
 @use "./_fonts.scss";
 
 body{
-    font-family: 'Roboto';
+  font-family: 'Roboto';
+ 	background: map-get(c.$colors, "black");
 }
 
 //Estilo para modificar el btn-burguer
