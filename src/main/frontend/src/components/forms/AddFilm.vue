@@ -1,8 +1,26 @@
 <script setup>
+	import { ref, reactive,computed } from "vue";
 	import axios from "axios";
 
-	import { ref, reactive } from "vue";
+	const url = ref("");
+	const imageUrl = computed(() => url.value);
 
+	const onFileChange = event => {
+		const file = event.target.files[0];
+		if (file) {
+			const formData = new FormData();
+			formData.append("file", file);
+			axios({
+					method: "POST",
+					url: "http://localhost:8080/media/upload",
+					data: formData,
+				})
+				.then(response => {
+					url.value = response.data.url;
+					console.log(response.data.url)})
+				.catch(e => {console.log(e)})
+		}
+	};
 	const film = {
 		title: "El pianista",
 		releaseYear: 2023,
@@ -17,16 +35,21 @@
 	};
 
 	const submit = async () => {
-		axios({
-			method: "POST",
-			url: "http://localhost:8080/api/films/add",
-			data: film,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then(res => alert("enviado"))
-			.catch(err => console.log(err));
+		try {
+			const [res1, res2] = await Promise.all([
+				axios({
+					method: "POST",
+					url: "http://localhost:8080/api/films/add",
+					data: film,
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}),
+			]);
+			alert("enviado");
+		} catch (err) {
+			console.log(err);
+		}
 	};
 </script>
 <template>
@@ -70,7 +93,7 @@
 			class="input"
 			v-model="film.rating"
 		/>
-		<!-- <label
+		<label
 			for="image"
 			type="file"
 			name="file"
@@ -82,7 +105,9 @@
 			name="file"
 			class="file-img input"
 			@change="onFileChange"
-		/> -->
+		/>
+
+		<img v-if="url" class="img" :src="imageUrl" alt="">
 
 		<button type="submit">submit</button>
 	</form>
@@ -95,5 +120,10 @@
 
 	button {
 		background: red;
+	}
+
+	.img{
+		width: 100%;
+		height: 100%;
 	}
 </style>
