@@ -37,8 +37,8 @@ public class FilmServiceTest {
 
     @BeforeEach
     public void init() {
-        film = new Film(1L, "name", 2023, 5, "ya",null,null);
-        film2 = new Film(2L, "name2", 2023, 5, "ya", null, null);
+        film = new Film(1L, "name", 2023, 5, "ya",null,null,null);
+        film2 = new Film(2L, "name2", 2023, 5, "ya", null, null,null);
     }
 
     @Test

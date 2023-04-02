@@ -42,8 +42,8 @@ public class WebSecurityConfig {
                         .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/api/register", "/api/login", "/api/films").permitAll()
                         .requestMatchers("/api/logout").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/api/films/add").hasRole("ADMIN")
-                        .anyRequest().authenticated())
+                        // .requestMatchers("/api/films/add").hasRole("USER")
+                        .anyRequest().permitAll())
                 .userDetailsService(service)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).enableSessionUrlRewriting(false))
                 .httpBasic(basic -> basic.authenticationEntryPoint(authenticationEntryPoint));
