@@ -1,12 +1,107 @@
-<script setup>
-
-</script>
+<script setup></script>
 <template>
-    <div>
-        
-    </div>
+	<div class="card-film">
+		<picture class="card-film__image">
+			<img
+				src="@/assets/images/BBWW.jpg"
+				alt="Walter White"
+			/>
+			<div class="card-film__info">
+				<p class="card-film__title">Breaking Bad</p>
+				<span class="card-film__year">2010</span>
+			</div>
+		</picture>
+		<div class="card-film__container-btns">
+			<div class="separator-btns">
+				<i class="fa-solid fa-check card-film__btn btn--check"></i>
+				<i class="fa-solid fa-play card-film__btn btn--play"></i>
+				<i class="fa-solid fa-thumbs-up card-film__btn btn--like"></i>
+				<i
+					class="fa-solid fa-thumbs-down card-film__btn btn--dislike"
+				></i>
+			</div>
+			<div class="separator-rating">
+				<i class="fa-solid fa-heart card-film__btn btn-rating"></i>
+				<span class="card-film__rating">90%</span>
+			</div>
+		</div>
+	</div>
 </template>
 
 <style lang="scss">
-    
+	@use "@/scss/colors" as c;
+	@use "@/scss/mixins" as m;
+	.card-film {
+		&__image {
+			max-width: 35em;
+			.card-film__info {
+    			@include m.flex(flex, row, auto, space-around, center);
+				width: 30%;
+				color: map-get(c.$colors, "white");
+				position: relative;
+				bottom: 2em;
+
+				.card-film__title {
+					font-weight: bold;
+				}
+
+				.card-film__year {
+					font-size: 0.8em;
+					color: white;
+					background: map-get(c.$colors, "grey");
+					padding: 0.2em;
+					border-radius: 2px;
+				}
+			}
+		}
+
+		&__container-btns {
+			@include m.flex(flex, row, auto, space-between, center);
+			position: relative;
+			bottom: 0.8em;
+			font-size: 1.2em;
+
+			.separator-btns {
+				display: flex;
+				justify-content: space-between;
+				width: 18%;
+			}
+			.card-film__btn {
+				color: map-get(c.$colors, "white");
+				cursor: pointer;
+				padding: 0.2em;
+			}
+
+			.btn--check {
+				color: map-get(c.$colors, "purple");
+				font-size: 1.1em;
+				&:hover {
+					background: map-get(c.$colors, "purple");
+					color: map-get(c.$colors, "white");
+				}
+			}
+
+			.btn--play {
+				color: map-get(c.$colors, "green");
+				&:hover {
+					background: map-get(c.$colors, "green");
+					color: map-get(c.$colors, "white");
+				}
+			}
+
+			.btn--like,
+			.btn--dislike {
+				&:hover {
+					color: map-get(c.$colors, "orange");
+				}
+			}
+		}
+		&__rating {
+			color: map-get(c.$colors, "white");
+			font-weight: bold;
+		}
+		.btn-rating {
+			color: map-get(c.$colors, "red");
+		}
+	}
 </style>
