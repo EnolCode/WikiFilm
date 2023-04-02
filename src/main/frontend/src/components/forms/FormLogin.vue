@@ -1,19 +1,10 @@
 <script setup>
 	import { computed, reactive, defineProps } from "vue";
 	import { useVuelidate } from "@vuelidate/core";
-	import SubmitButton from "../components/btns/SubmitButton.vue";
-	import ResetButton from "../components/btns/ResetButton.vue";
-	import NavBar from "../components/NavBar.vue";
-	import {
-		required,
-		minLength,
-		minValue,
-		maxValue,
-		maxLength,
-		sameAs,
-	} from "@vuelidate/validators";
-	import { helpers } from "@vuelidate/validators";
-	import AuthService from "@/services/auth/AuthService.js";
+	import SubmitButton from "@/components/btns/SubmitButton.vue";
+	import ResetButton from "@/components/btns/ResetButton.vue";
+	import NavBar from "@/components/NavBar.vue";
+	import { required } from "@vuelidate/validators";
 
 	const props = defineProps({
 		onSubmit: Function,
@@ -24,33 +15,19 @@
 	const form = reactive({
 		username: "",
 		password: "",
-		repeatPassword: "",
 	});
-
-	const containsNumber = helpers.withMessage(
-		"La contraseña debe contener al menos un número",
-		value => /\d/.test(value)
-	);
 
 	const rules = computed(() => {
 		return {
 			username: {
 				required,
-				minLength: minLength(3),
-				maxLength: maxLength(20),
 			},
 			password: {
 				required,
-				minLength: minLength(5),
-				maxLength: maxLength(15),
-				containsNumber,
-			},
-			repeatPassword: {
-				required,
-				sameAsPassword: sameAs(form.password),
 			},
 		};
 	});
+
 	const v$ = useVuelidate(rules, form);
 
 	const submit = async () => {
@@ -67,36 +44,27 @@
 </script>
 
 <template>
-	<main class="register">
-		<picture class="register__img-container">
-			<img
-				src="@/assets/images/deadpool.jpg"
-				alt="deadpool"
-				class="register__img"
-			/>
-		</picture>
-		<div class="register__form-container">
+	<main class="login">
+		<picture class="login__img-container"> </picture>
+		<div class="login__form-container">
 			<NavBar />
 			<div class="container-text">
 				<router-link
 					to="/"
-					class="register__logo"
+					class="login__logo"
 				>
 					<img
 						src="@/assets/images/logo-W.png"
 						alt="logo"
 				/></router-link>
-				<p class="register__join-text">Únete gratis.</p>
-				<h1 class="register__title">
-					Crea tu cuenta<span class="red">.</span>
+				<h1 class="login__title">
+					Inicia sesión<span class="red">.</span>
 				</h1>
-
-				<h2 class="register__subtitle">
-					¿Ya eres miembro?
-					<router-link
-						to="/login"
+				<h2 class="login__subtitle">
+					¿No eres miembro?<router-link
+						to="/register"
 						class="inline"
-						><span class="red"> Inicia sesión</span>
+						><span class="red"> Registrate.</span>
 					</router-link>
 				</h2>
 			</div>
@@ -122,35 +90,22 @@
 				<input
 					type="password"
 					name="password"
-					placeholder="Introduce una contraseña"
+					placeholder="Introduce tu contraseña"
 					class="form__input"
 					v-model="form.password"
 				/>
 				<span
-					v-for="error in v$.password.$errors"
+					v-for="error in v$.username.$errors"
 					:key="error.$uid"
 					class="red"
 				>
 					{{ error.$message }}
-				</span>
-				<input
-					type="password"
-					name="repeatPassword"
-					placeholder="Repite la contraseña"
-					class="form__input"
-					v-model="form.repeatPassword"
-				/>
-				<span
-					v-for="error in v$.repeatPassword.$errors"
-					:key="error.$uid"
-					class="red"
-				>
-					{{ error.$message }}
-				</span>
-				<ResetButton class="btn-submit btn" />
+				</span> 
+
+				<ResetButton class="btn-reset" />
 				<SubmitButton
-					text="REGISTRATE"
-					class="btn"
+					text="INICIA SESION"
+					class="btn-submit"
 				/>
 			</form>
 		</div>
@@ -158,10 +113,10 @@
 </template>
 
 <style lang="scss" scoped>
-	@use "../scss/colors" as c;
-	@use "../scss/mixins" as m;
+	@use "@/scss/colors" as c;
+	@use "@/scss/mixins" as m;
 
-	.register {
+	.login {
 		display: grid;
 		grid-template-columns: 1.1fr 0.9fr;
 		justify-items: center;
@@ -170,48 +125,45 @@
 		@include m.mv(900px) {
 			display: flex;
 			flex-direction: column;
+			align-items: center;
 			height: 100vh;
 		}
 
 		&__img-container {
-			width: 100%;
 			height: 100vh;
+			background: url("@/assets/images/peaky-blinders.svg");
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: 0 -100px;
+			width: 120%;
 			@include m.mv(900px) {
 				display: none;
 			}
-			.register__img {
-				width: 100%;
-				object-fit: cover;
-				height: 100vh;
-			}
 		}
 
-		.register__logo {
-			width: 6em;
+		.login__logo {
+			width: 5em;
 			align-self: center;
 			position: relative;
-			bottom: -35%;
-			margin-bottom: 3em;
+			bottom: 20%;
 			@include m.mv(900px) {
 				position: static;
-			}
-
-			@include m.mv(500px) {
-				width: 5em;
-				margin-bottom: 1em;
 			}
 		}
 		&__form-container {
 			@include m.flex(flex, column, auto, space-between, auto);
-			min-height: 65%;
+			height: 60%;
+			align-self: start;
+			margin-top: 8em;
+
 			@include m.mv(900px) {
-				@include m.flex(flex, column, auto, space-between, center);
+				@include m.flex(flex, column, auto, center, center);
 				height: 80%;
 				margin: 0;
 				width: 100%;
 			}
 
-			@include m.mv(900px) {
+			@include m.mv(600px) {
 				height: 90%;
 			}
 
@@ -221,32 +173,30 @@
 					@include m.flex(flex, column, auto, auto, center);
 					width: 100%;
 				}
-
 				&__input {
 					background: map-get(c.$colors, "grey");
 					padding: 1em;
 					width: 20em;
 					margin: 1em 0;
 					color: white;
-
-					&::placeholder {
-						color: white;
-					}
-
 					@include m.mv(500px) {
 						width: 90%;
 						margin: 0.5em auto;
+					}
+					&::placeholder {
+						color: white;
 					}
 				}
 			}
 
 			.container-text {
 				@include m.flex(flex, column, auto, center, start);
-				height: 10%;
+				height: 50%;
 				@include m.mv(500px) {
 					@include m.flex(flex, column, auto, center, center);
 				}
-				.register__join-text {
+
+				.login__join-text {
 					@include m.font(
 						500,
 						0.8em,
@@ -254,15 +204,14 @@
 					);
 				}
 
-				.register__title {
+				.login__title {
 					@include m.font(700, 3em, map-get(c.$colors, "white"));
 					@include m.mv(500px) {
-						font-size: 2em;
+						font-size: 3em;
 					}
 				}
 
-				.register__subtitle {
-					width: 100%;
+				.login__subtitle {
 					@include m.font(
 						500,
 						1em,
@@ -270,7 +219,6 @@
 					);
 
 					span {
-						display: inline;
 						&:hover {
 							@include m.pointer-opacity();
 						}
@@ -283,12 +231,21 @@
 				}
 			}
 
-			.btn-submit {
-				margin-top: 1em;
+			.btn-reset {
 				width: 20em;
+				margin-top: 2em;
 				@include m.mv(500px) {
-					width: 90%;
 					margin-top: 1em;
+					width: 90%;
+				}
+			}
+
+			.btn-submit {
+				width: 20em;
+				margin-top: 1em;
+				@include m.mv(500px) {
+					margin-top: 1em;
+					width: 90%;
 				}
 			}
 		}

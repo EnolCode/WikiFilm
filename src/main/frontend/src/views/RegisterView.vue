@@ -1,5 +1,5 @@
 <script setup>
-	import FormRegister from "@/components/FormRegister.vue";
+	import FormRegister from "@/components/forms/FormRegister.vue";
 	import AuthService from "@/services/auth/AuthService.js";
 	import { useRouter } from "vue-router";
 	import { useProgrammatic } from '@oruga-ui/oruga-next'

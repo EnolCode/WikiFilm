@@ -25,18 +25,18 @@
 		></i>
 		<nav class="nav-bar">
 			<router-link
-			to="/"
-			class="nav-bar__link"
-		>
-			<p>Series</p>
-		</router-link>
+				to="/"
+				class="nav-bar__link"
+			>
+				<p>Series</p>
+			</router-link>
 
-		<router-link
-			to="/"
-			class="nav-bar__link"
-		>
-			<p>Peliculas</p>
-		</router-link>
+			<router-link
+				to="/"
+				class="nav-bar__link"
+			>
+				<p>Peliculas</p>
+			</router-link>
 
 			<img
 				src="@/assets/images/logo-W.png"
@@ -45,17 +45,17 @@
 			/>
 
 			<router-link
-			to="/dashboard"
-			class="nav-bar__link"
-		>
-			Ranking
-		</router-link>
+				to="/dashboard"
+				class="nav-bar__link"
+			>
+				Ranking
+			</router-link>
 			<router-link
-			to="/"
-			class="nav-bar__link"
-		>
-			<p>Recomendados</p>
-		</router-link>
+				to="/"
+				class="nav-bar__link"
+			>
+				<p>Recomendados</p>
+			</router-link>
 		</nav>
 		<Slide
 			width="250"
@@ -113,7 +113,7 @@
 	.header {
 		@include m.flex(flex, row, auto, space-between, center);
 		padding: 1em;
-		background: #252222;
+		background:  map-get(c.$colors, "grey-dark");
 		position: fixed;
 		width: 100%;
 
@@ -137,7 +137,6 @@
 			&__link {
 				letter-spacing: 1px;
 				margin: 0 1em;
-
 				&:hover {
 					color: map-get(c.$colors, "red");
 				}

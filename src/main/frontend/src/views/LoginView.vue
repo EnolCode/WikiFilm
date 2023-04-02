@@ -1,9 +1,10 @@
 <script setup>
-	import FormLogin from "@/components/FormLogin.vue";
+	import FormLogin from "@/components/forms/FormLogin.vue";
 	import AuthService from "@/services/auth/AuthService.js";
 	import { useRouter } from "vue-router";
 	import { useAuthStore } from "@/stores/authStore";
 	import { useProgrammatic } from "@oruga-ui/oruga-next";
+	
 
 	const { oruga } = useProgrammatic();
 	const authStore = useAuthStore();
