@@ -55,6 +55,8 @@ public class UserService implements BaseService<User> {
 
     }
 
+  
+
     @Transactional
     public User store(User user) {
 

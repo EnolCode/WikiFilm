@@ -4,9 +4,21 @@ INSERT INTO films( id, title, release_year, rating, description) VALUES (default
 INSERT INTO films( id, title, release_year, rating, description) VALUES (default, 'Film4', 2023, 8,  'Good Film')
 INSERT INTO films( id, title, release_year, rating, description) VALUES (default, 'Film5', 2023, 8,  'Good Film')
 INSERT INTO films( id, title, release_year, rating, description) VALUES (default, 'Film6', 2023, 8,  'Good Film')
-INSERT INTO genres (id, name) VALUES (default,'Comedy')
-INSERT INTO genres (id, name) VALUES (default,'Drama')
-INSERT INTO genres (id, name) VALUES (default,'Country')
+INSERT INTO genres (id, name) VALUES (default,'Acción');
+INSERT INTO genres (id, name) VALUES (default,'Comedia');
+INSERT INTO genres (id, name) VALUES (default,'Horror');
+INSERT INTO genres (id, name) VALUES (default,'Ciencia ficción');
+INSERT INTO genres (id, name) VALUES (default,'Western');
+INSERT INTO genres (id, name) VALUES (default,'Romance');
+INSERT INTO genres (id, name) VALUES (default,'Suspenso');
+INSERT INTO genres (id, name) VALUES (default,'Fantasía');
+INSERT INTO genres (id, name) VALUES (default,'Aventura');
+INSERT INTO genres (id, name) VALUES (default,'Drama');
+INSERT INTO genres (id, name) VALUES (default,'Misterio');
+INSERT INTO genres (id, name) VALUES (default,'Animación');
+INSERT INTO genres (id, name) VALUES (default,'Documental');
+INSERT INTO genres (id, name) VALUES (default,'Musical');
+INSERT INTO genres (id, name) VALUES (default,'Crimen');
 INSERT INTO authors (id, name, surname, country, age, rating) VALUES (default,'Quentin', "Tarantino", "EEUU","59", 9)
 INSERT INTO authors (id, name, surname, country, age, rating) VALUES (default,'Quentina', "Tarantina", "EEUU","59", 9)
 INSERT INTO authors (id, name, surname, country, age, rating) VALUES (default,'Quentine', "Tarantine", "EEUU","59", 9)

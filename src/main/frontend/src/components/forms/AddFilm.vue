@@ -1,6 +1,7 @@
 <script setup>
-	import { ref, reactive,computed } from "vue";
+	import { ref, reactive, computed } from "vue";
 	import axios from "axios";
+	import { optionsGenres } from "@/config.js";
 
 	const url = ref("");
 	const imageUrl = computed(() => url.value);
@@ -11,41 +12,44 @@
 			const formData = new FormData();
 			formData.append("file", file);
 			axios({
-					method: "POST",
-					url: "http://localhost:8080/media/upload",
-					data: formData,
-				})
+				method: "POST",
+				url: "http://localhost:8080/media/upload",
+				data: formData,
+			})
 				.then(response => {
 					url.value = response.data.url;
-					console.log(response.data.url)})
-				.catch(e => {console.log(e)})
+				})
+				.catch(e => {
+					console.log(e);
+				});
 		}
 	};
-	const film = {
-		title: "El pianista",
-		releaseYear: 2023,
-		rating: 8,
-		description: "Gran pelicula",
-		genres: [
-			{
-				id: 1,
-				name: "comedy",
-			},
-		],
-	};
+	const titleModel = ref("");
+	const yearModel = ref("");
+	const ratingModel = ref("");
+	const genreModel = ref("");
+	const descriptionModel = ref("");
 
 	const submit = async () => {
 		try {
-			const [res1, res2] = await Promise.all([
-				axios({
-					method: "POST",
-					url: "http://localhost:8080/api/films/add",
-					data: film,
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}),
-			]);
+			await axios({
+				method: "POST",
+				url: "http://localhost:8080/api/films/add",
+				data: {
+					title: titleModel.value,
+					releaseYear: yearModel.value,
+					rating: ratingModel.value,
+					description: descriptionModel.value,
+					genres: [
+						{
+							id: genreModel.value,
+						},
+					],
+				},
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
 			alert("enviado");
 		} catch (err) {
 			console.log(err);
@@ -55,74 +59,116 @@
 <template>
 	<form
 		method="post"
-		enctype="multipart/form-data"
+		class="form-film"
 		@submit.prevent="submit"
 	>
+		<h1 class="form-film__title">Añade un nuevo titulo</h1>
 		<input
 			type="text"
 			name="title"
-			placeholder="title"
-			class="input"
-			v-model="film.title"
+			placeholder="Título"
+			class="form-film__input"
+			v-model="titleModel"
 		/>
 		<input
-			type="text"
+			type="number"
 			name="year"
-			placeholder="year"
-			class="input"
-			v-model="film.releaseYear"
+			placeholder="Año de estreno"
+			class="form-film__input"
+			v-model="yearModel"
 		/>
 		<input
 			type="text"
-			name="author"
-			placeholder="author"
-			class="input"
-			v-model="film.author"
+			name="Autor"
+			placeholder="Director"
+			class="form-film__input"
 		/>
 		<input
 			type="text"
 			name="description"
-			placeholder="description"
-			class="input"
-			v-model="film.description"
+			placeholder="Descripción"
+			class="form-film__input"
+			v-model="descriptionModel"
 		/>
+		<o-field
+			label="Selecciona un género"
+			class="form-film-select"
+		>
+			<o-select
+				v-model="genreModel"
+				placeholder="Género"
+			>
+				<option
+					v-for="option in optionsGenres"
+					:value="option.value"
+				>
+					{{ option.label }}
+				</option>
+			</o-select>
+		</o-field>
 		<input
 			type="number"
 			name="rating"
-			placeholder="rating"
-			class="input"
-			v-model="film.rating"
+			placeholder="Puntuacion"
+			class="form-film__input"
+			v-model="ratingModel"
 		/>
-		<label
-			for="image"
-			type="file"
-			name="file"
-			id="image"
-			>Image</label
-		>
+
 		<input
 			type="file"
 			name="file"
-			class="file-img input"
+			class="file-img form-film__input"
 			@change="onFileChange"
 		/>
 
-		<img v-if="url" class="img" :src="imageUrl" alt="">
+		<img
+			v-if="url"
+			class="img"
+			:src="imageUrl"
+			alt=""
+		/>
 
 		<button type="submit">submit</button>
 	</form>
 </template>
 <style lang="scss" scoped>
-	.input {
-		background: white;
-		color: black;
+	.form-film {
+		width: 60%;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 1em;
+		padding: 1em;
+
+		&__title {
+			font-size: 2em;
+			color: red;
+		}
+		&__input {
+			background: white;
+			padding: 1em;
+			width: 50%;
+			color: black;
+		}
+
+		&-select {
+			display: flex;
+			justify-content: space-between;
+			padding: 1em;
+			width: 50%;
+			background: white;
+		}
 	}
 
 	button {
 		background: red;
+		padding: 1em;
+		width: 50%;
 	}
 
-	.img{
+	.img {
 		width: 100%;
 		height: 100%;
 	}
