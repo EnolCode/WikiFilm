@@ -5,20 +5,20 @@
   import FilmService from "@/services/FilmService.js";
 
   const service = new FilmService();
-  let films = reactive();
-
+  let films = ref([]);
 
   onBeforeMount( async () => {
     await service.fetchAllFilms();
-    films = service.getFilms();
+    films.value = service.getFilms();
     console.log(films.value)
   });
+
 </script>
 
 <template>
 	<HeaderUser />
 	<main>
-    <CardFilm class="card" v-for="film in films"  :film="films"/>
+    <CardFilm class="card" v-for="film in films" :film="film" />
     </main>
 </template>
 

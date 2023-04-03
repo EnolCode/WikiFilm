@@ -1,5 +1,11 @@
 <script setup>
-	import { ref } from "vue";
+	import { ref, defineProps } from "vue";
+
+	const props = defineProps({
+		film: {
+			type: Object,
+		},
+	})
 
 	const isLiked = ref(false);
 	const isDisliked = ref(false);
@@ -12,6 +18,8 @@
         isDisliked.value = !isDisliked.value;
 		isLiked.value = false;
 	};
+
+
 </script>
 <template>
 	<div class="card-film">
@@ -21,8 +29,8 @@
 				alt="Walter White"
 			/>
 			<div class="card-film__info">
-				<p class="card-film__title">Breaking Bad</p>
-				<span class="card-film__year">2010</span>
+				<p class="card-film__title"> {{ film.title }} </p>
+				<span class="card-film__year">{{ film.releaseYear }} </span>
 			</div>
 		</picture>
 		<div class="card-film__container-btns">
@@ -42,7 +50,7 @@
 			</div>
 			<div class="separator-rating">
 				<i class="fa-solid fa-heart card-film__btn btn-rating"></i>
-				<span class="card-film__rating">90%</span>
+				<span class="card-film__rating">{{film.rating}}%</span>
 			</div>
 		</div>
 	</div>
