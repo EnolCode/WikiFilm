@@ -1,24 +1,24 @@
 <script setup>
-	import { ref, reactive } from "vue";
+	import { ref, reactive, onBeforeMount } from "vue";
 	import HeaderUser from "@/components/HeaderUser.vue";
 	import CardFilm from "@/components/CardFilm.vue";
+  import FilmService from "@/services/FilmService.js";
+
+  const service = new FilmService();
+  let films = reactive();
+
+
+  onBeforeMount( async () => {
+    await service.fetchAllFilms();
+    films = service.getFilms();
+    console.log(films.value)
+  });
 </script>
 
 <template>
 	<HeaderUser />
 	<main>
-    <CardFilm class="card"/>
-    <CardFilm class="card"/>
-    <CardFilm class="card"/>
-    <CardFilm class="card"/>
-    <CardFilm class="card"/>
-    <CardFilm class="card"/>
-    <CardFilm class="card"/>
-    <CardFilm class="card"/>
-    <CardFilm class="card"/>
-    <CardFilm class="card"/>
-    <CardFilm class="card"/>
-
+    <CardFilm class="card" v-for="film in films"  :film="films"/>
     </main>
 </template>
 
