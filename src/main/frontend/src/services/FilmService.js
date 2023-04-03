@@ -14,5 +14,15 @@ export default class FilmService{
         return this.films;
     }
 
+    async fetchAllFilms() {
+        try {
+            const response = await axios.get(`${baseUrl}/films`).then(res=>{
+                this.films.value = response.data;
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async addFilm()
 }
