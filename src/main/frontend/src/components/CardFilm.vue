@@ -5,7 +5,7 @@
 		film: {
 			type: Object,
 		},
-	})
+	});
 
 	const isLiked = ref(false);
 	const isDisliked = ref(false);
@@ -15,11 +15,9 @@
 	};
 
 	const dislike = () => {
-        isDisliked.value = !isDisliked.value;
+		isDisliked.value = !isDisliked.value;
 		isLiked.value = false;
 	};
-
-
 </script>
 <template>
 	<div class="card-film">
@@ -29,14 +27,20 @@
 				alt="Walter White"
 			/>
 			<div class="card-film__info">
-				<p class="card-film__title"> {{ film.title }} </p>
+				<p class="card-film__title">{{ film.title }}</p>
 				<span class="card-film__year">{{ film.releaseYear }} </span>
 			</div>
 		</picture>
 		<div class="card-film__container-btns">
 			<div class="separator-btns">
 				<i class="fa-solid fa-check card-film__btn btn--check"></i>
+				<div class="text-hover text-hover--check">
+					Añade este titulo a tu lista.
+				</div>
 				<i class="fa-solid fa-play card-film__btn btn--play"></i>
+				<div class="text-hover text-hover--play">
+					Reproduce este titulo.
+				</div>
 				<i
 					class="fa-solid fa-thumbs-up card-film__btn btn--like"
 					:class="{ active: isLiked }"
@@ -50,7 +54,7 @@
 			</div>
 			<div class="separator-rating">
 				<i class="fa-solid fa-heart card-film__btn btn-rating"></i>
-				<span class="card-film__rating">{{film.rating}}%</span>
+				<span class="card-film__rating">{{ film.rating }}%</span>
 			</div>
 		</div>
 	</div>
@@ -101,12 +105,27 @@
 				padding: 0.2em;
 			}
 
+			.text-hover {
+				display: none;
+				position: absolute;
+				border-radius: 5px;
+				font-size: 0.8em;
+				padding: 0.3em;
+				width: 6em;
+			}
+
 			.btn--check {
 				color: map-get(c.$colors, "purple");
-				font-size: 1.1em;
+
 				&:hover {
 					background: map-get(c.$colors, "purple");
 					color: map-get(c.$colors, "white");
+				}
+
+				&:hover ~ .text-hover--check {
+					display: block;
+					background: map-get(c.$colors, "light-purple");
+					top: 2em;
 				}
 			}
 
@@ -115,6 +134,12 @@
 				&:hover {
 					background: map-get(c.$colors, "green");
 					color: map-get(c.$colors, "white");
+				}
+
+				&:hover ~ .text-hover--play {
+					display: block;
+					background: map-get(c.$colors, "light-green");
+					top: 2em;
 				}
 			}
 

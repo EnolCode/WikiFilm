@@ -6,55 +6,47 @@
 	const url = ref("");
 	const imageUrl = computed(() => url.value);
 
-	const onFileChange = event => {
-		const file = event.target.files[0];
-		if (file) {
-			const formData = new FormData();
-			formData.append("file", file);
-			axios({
-				method: "POST",
-				url: "http://localhost:8080/media/upload",
-				data: formData,
-			})
-				.then(response => {
-					url.value = response.data.url;
-				})
-				.catch(e => {
-					console.log(e);
-				});
-		}
-	};
-	const titleModel = ref("");
-	const yearModel = ref("");
-	const ratingModel = ref("");
-	const genreModel = ref("");
-	const descriptionModel = ref("");
+	const file = ref(null);
 
-	const submit = async () => {
-		try {
-			await axios({
-				method: "POST",
-				url: "http://localhost:8080/api/films/add",
-				data: {
-					title: titleModel.value,
-					releaseYear: yearModel.value,
-					rating: ratingModel.value,
-					description: descriptionModel.value,
-					genres: [
-						{
-							id: genreModel.value,
-						},
-					],
-				},
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-			alert("enviado");
-		} catch (err) {
-			console.log(err);
-		}
-	};
+const onFileChange = event => {
+    file.value = event.target.files[0];
+};
+
+const titleModel = ref("");
+const yearModel = ref("");
+const ratingModel = ref("");
+const genreModel = ref("");
+const descriptionModel = ref("");
+
+const submit = async () => {
+    try {
+        const formData = new FormData();
+        formData.append("film", JSON.stringify({
+            title: titleModel.value,
+            releaseYear: yearModel.value,
+            rating: ratingModel.value,
+            description: descriptionModel.value,
+            genres: [
+                {
+                    id: genreModel.value,
+                },
+            ],
+        }));
+        formData.append("file", file.value);
+
+        await axios({
+            method: "POST",
+            url: "http://localhost:8080/media/upload",
+            data: formData,
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        alert("enviado");
+    } catch (err) {
+        console.log(err);
+    }
+};
 </script>
 <template>
 	<form
