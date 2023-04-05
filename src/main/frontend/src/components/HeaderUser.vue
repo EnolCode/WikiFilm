@@ -4,6 +4,13 @@
 	import { useAuthStore } from "@/stores/authStore";
 	import AuthService from "@/services/auth/AuthService.js";
 
+	const showLogout = ref(false);
+
+	function toggleLogout() {
+		showLogout.value = !showLogout.value;
+		console.log("hola");
+	}
+
 	const auth = useAuthStore();
 	const roles = ref(auth.roles[0]);
 
@@ -75,26 +82,17 @@
 			<a
 				href="#"
 				class="nav-bar__link"
-				>Ranking Valoraciones</a
+				>Ranking</a
 			>
 			<a
 				href="#"
 				class="nav-bar__link"
-				>Recomendacion semanal</a
+				>Recomendados</a
 			>
 		</Slide>
-		<router-link
-			to="/login"
-			class="sign-in nav-bar__link"
-			href=""
-			v-if="roles === undefined"
-			>INICIA SESION</router-link
-		>
-		<router-link
-			to="/"
-			class="logout nav__link nav-bar__user"
-			href=""
-			v-if="roles !== undefined"
+		<div
+			@click="toggleLogout"
+			class="nav__link nav-bar__user"
 		>
 			<img
 				src="@/assets/images/user.png"
@@ -102,7 +100,16 @@
 			/>
 
 			{{ auth.username }}
-		</router-link>
+
+			<router-link
+				to="/"
+				class="nav__link nav-bar__logout"
+				href=""
+				@click="logout"
+				v-if="showLogout"
+				>Cerrar sesion
+			</router-link>
+		</div>
 	</header>
 </template>
 
@@ -112,8 +119,8 @@
 
 	.header {
 		@include m.flex(flex, row, auto, space-between, center);
-		padding: .5em;
-		background:  map-get(c.$colors, "grey-dark");
+		padding: 0.5em;
+		background: map-get(c.$colors, "grey-dark");
 		position: fixed;
 		width: 100%;
 
@@ -151,30 +158,27 @@
 
 			&__user {
 				@include m.flex(flex, row, auto, space-around, center);
+				@include m.font(600, 0.8em, map-get(c.$colors, "white"));
+				position: relative;
+				margin: 0 1em;
+				&:hover {
+					@include m.pointer-opacity();
+				}
+
+				@include m.mv(750px) {
+					display: none;
+				}
 				& img {
 					width: 2em;
 					margin-right: 0.5em;
 				}
 			}
 
-			@include m.mv(750px) {
+			&__logout {
 				display: none;
 			}
 		}
 
-		.sign-in,
-		.logout {
-			@include m.font(600, 0.8em, map-get(c.$colors, "white"));
-			margin: 0 1em;
-
-			&:hover {
-				@include m.pointer-opacity();
-			}
-
-			@include m.mv(750px) {
-				display: none;
-			}
-		}
 		.slide {
 			display: none;
 
@@ -185,9 +189,28 @@
 				top: -3em;
 
 				.bm-burger-bars {
-					background-color: white;
+					background-color: map-get(c.$colors, "white");
 				}
 			}
+		}
+
+		.nav-bar__logout {
+			display: block;
+			position: absolute;
+			top: 3em;
+			border-radius: 5px;
+			padding: 0.4em 2em;
+			background-color: map-get(c.$colors, "light-grey");
+		}
+		.nav-bar__logout::before {
+			content: "";
+			position: absolute;
+			top: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-bottom: 10px solid map-get(c.$colors, "light-grey");
 		}
 	}
 </style>

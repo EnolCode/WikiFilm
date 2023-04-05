@@ -64,6 +64,9 @@
 	@use "@/scss/colors" as c;
 	@use "@/scss/mixins" as m;
 	.card-film {
+		&:last-child {
+				margin-bottom: 4em;
+			}
 		&__image {
 			.card-film__info {
 				@include m.flex(flex, row, auto, space-around, center);
@@ -83,7 +86,7 @@
 					padding: 0.2em;
 					border-radius: 2px;
 				}
-			}
+			}			
 		}
 
 		&__container-btns {

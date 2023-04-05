@@ -45,7 +45,7 @@ public class WebSecurityConfig {
                         // .requestMatchers("/api/films/add").hasRole("USER")
                         .anyRequest().permitAll())
                 .userDetailsService(service)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).enableSessionUrlRewriting(false))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .httpBasic(basic -> basic.authenticationEntryPoint(authenticationEntryPoint));
         return http.build();
     }

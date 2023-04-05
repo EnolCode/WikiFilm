@@ -7,7 +7,6 @@ export default class AuthLogout {
     async logout() {
         try {
             localStorage.removeItem("auth");
-            window.location.reload();
             const response = await axios.get(`${baseUrl}/api/logout`);
         } catch (error) {
             console.error(error);

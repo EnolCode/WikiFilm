@@ -8,12 +8,14 @@
 	const roles = ref(auth.roles[0]);
 
 	const logout = async () =>{
+
 		const authService = new AuthService();
 		try {
 			const response = await authService.logout();
 		} catch (error) {
 			console.log(error)
 		}
+		window.location.reload();
 	}
 
 </script>
