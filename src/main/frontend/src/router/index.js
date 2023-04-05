@@ -21,13 +21,17 @@ const router = createRouter({
     },
     {
       path: '/dashboard',
-      name: 'Dashboard',
+      name: 'dashboard',
       component: () => import('../views/DashboardView.vue')
     },
     {
       path: '/addFilm',
       name: 'addFilm',
-      component: () => import('../views/addFilmView.vue')
+      component: () => import('../views/AddFilmView.vue')
+    },{
+      path: '/myList',
+      name: 'MyList',
+      component: () => import('../views/MyListView.vue')
     }
   ]
 })

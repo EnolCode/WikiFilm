@@ -65,8 +65,8 @@
 	@use "@/scss/mixins" as m;
 	.card-film {
 		&:last-child {
-				margin-bottom: 4em;
-			}
+			margin-bottom: 4em;
+		}
 		&__image {
 			.card-film__info {
 				@include m.flex(flex, row, auto, space-around, center);
@@ -86,7 +86,7 @@
 					padding: 0.2em;
 					border-radius: 2px;
 				}
-			}			
+			}
 		}
 
 		&__container-btns {
@@ -115,6 +115,7 @@
 				font-size: 0.8em;
 				padding: 0.3em;
 				width: 6em;
+				color: map-get(c.$colors, "white");
 			}
 
 			.btn--check {

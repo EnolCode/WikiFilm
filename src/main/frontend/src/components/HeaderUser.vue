@@ -8,7 +8,6 @@
 
 	function toggleLogout() {
 		showLogout.value = !showLogout.value;
-		console.log("hola");
 	}
 
 	const auth = useAuthStore();
@@ -57,11 +56,12 @@
 			>
 				Ranking
 			</router-link>
+
 			<router-link
-				to="/"
+				to="/myList"
 				class="nav-bar__link"
 			>
-				<p>Recomendados</p>
+				<p>Mi lista</p>
 			</router-link>
 		</nav>
 		<Slide
