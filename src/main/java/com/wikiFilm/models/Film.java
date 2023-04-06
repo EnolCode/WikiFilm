@@ -1,6 +1,9 @@
 package com.wikiFilm.models;
 
 import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,6 +47,7 @@ public class Film {
     @Column(nullable = true)
     private String image;
 
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "film_genre", joinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
     private List<Genre> genres;
@@ -51,4 +55,8 @@ public class Film {
     @ManyToOne(fetch = FetchType.EAGER)    
     @JoinColumn(name= "author_id" , nullable = true, referencedColumnName = "id")
     Author author;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "films")
+    Set<User> users;
 }
