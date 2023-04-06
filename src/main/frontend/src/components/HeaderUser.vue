@@ -3,9 +3,21 @@
 	import { Slide } from "vue3-burger-menu";
 	import { useAuthStore } from "@/stores/authStore";
 	import AuthService from "@/services/auth/AuthService.js";
+	import AvatarService from "@/services/avatar/AvatarService.js";
 	import axios from "axios";
 
 	const showLogout = ref(false);
+	let url = ref("");
+	const auth = useAuthStore();
+	const roles = ref(auth.roles[0]);
+	const avatarService = new AvatarService();
+	const authService = new AuthService();
+	
+	onBeforeMount(() => {
+		avatarService
+			.getAvatar(auth.username)
+			.then(res => (url.value = res));
+	});
 
 	function toggleLogout() {
 		showLogout.value = !showLogout.value;
@@ -16,35 +28,12 @@
 		if (file) {
 			const formData = new FormData();
 			formData.append("file", file);
-			axios({
-				method: "POST",
-				url: "http://localhost:8080/media/upload",
-				data: formData,
-				withCredentials: true,
-			})
-				.then(response => {
-					console.log(response);
-				})
-				.catch(e => {
-					console.log(e);
-				});
+			avatarService.uploadAvatar(formData);
 		}
 	};
-		let url = ref("");
-	onBeforeMount( () => {
-		const get =  axios.get("http://localhost:8080/api/users/username/" + auth.username).then(res=> url.value = res.data.avatar)
-	});
-
-	const auth = useAuthStore();
-	const roles = ref(auth.roles[0]);
 
 	const logout = async () => {
-		const authService = new AuthService();
-		try {
-			const response = await authService.logout();
-		} catch (error) {
-			console.log(error);
-		}
+		await authService.logout();
 	};
 </script>
 
