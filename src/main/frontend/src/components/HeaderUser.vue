@@ -101,14 +101,20 @@
 
 			{{ auth.username }}
 
-			<router-link
-				to="/"
-				class="nav__link nav-bar__logout"
-				href=""
+			<div
+				class="nav-bar__user-actions"
 				@click="logout"
 				v-if="showLogout"
-				>Cerrar sesion
-			</router-link>
+			>
+				<router-link
+					to="/"
+					href=""
+					class="user-actions__btn"
+					>Cerrar sesion
+				</router-link>
+
+				<p class="user-actions__btn">Cambiar avatar</p>
+			</div>
 		</div>
 	</header>
 </template>
@@ -173,10 +179,6 @@
 					margin-right: 0.5em;
 				}
 			}
-
-			&__logout {
-				display: none;
-			}
 		}
 
 		.slide {
@@ -194,15 +196,25 @@
 			}
 		}
 
-		.nav-bar__logout {
+		.nav-bar__user-actions {
+			@include m.flex(flex, column, auto, center, center);
 			display: block;
 			position: absolute;
 			top: 3em;
 			border-radius: 5px;
-			padding: 0.4em 2em;
+			padding: 1em 0.5em;
+			width: 8em;
+			left: -3em;
 			background-color: map-get(c.$colors, "light-grey");
+			gap: 0.8em;
+
+			.user-actions__btn {
+				&:hover {
+					color: map-get(c.$colors, "black");
+				}
+			}
 		}
-		.nav-bar__logout::before {
+		.nav-bar__user-actions::before {
 			content: "";
 			position: absolute;
 			top: -10px;
