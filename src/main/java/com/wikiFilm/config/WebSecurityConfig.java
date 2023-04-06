@@ -41,7 +41,7 @@ public class WebSecurityConfig {
                         .deleteCookies("JSESSIONID"))
                         .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/api/register", "/api/login", "/api/films").permitAll()
-                        .requestMatchers("/api/logout").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/logout", "/media/upload/**").hasAnyRole("USER", "ADMIN")
                         // .requestMatchers("/api/films/add").hasRole("USER")
                         .anyRequest().permitAll())
                 .userDetailsService(service)

@@ -43,7 +43,7 @@ public class UserControllerTest {
 
     @BeforeEach
     void setUp() {
-        user = new User(1L, "user1", "pass1", null);
+        user = new User(1L, "user1", "pass1", null,null,null);
     }
 
     @Test
@@ -106,7 +106,7 @@ public class UserControllerTest {
 
     @Test
     public void testUpdateUser() throws Exception {
-        User updatedUser = new User(1L, "userUpdate", "passUpdate", null);
+        User updatedUser = new User(1L, "userUpdate", "passUpdate", null,null,null);
         when(service.updateUser(any(Long.class), any(User.class))).thenReturn(updatedUser);
 
         MockHttpServletResponse response = mockMvc.perform(put("/api/users/update/1")

@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.wikiFilm.models.Film;
-import com.wikiFilm.services.FilmService;
+
+import com.wikiFilm.models.User;
+import com.wikiFilm.services.UserService;
 import com.wikiFilm.services.Storage.StorageService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,21 +31,22 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MediaController {
     private final StorageService storageService;
-    private final HttpServletRequest request;   
-    private FilmService filmService;
+    private final HttpServletRequest request;  
+    private final UserService userService; 
 
     @PostMapping("upload")
-    public Map<String, String> uploadFile(@RequestParam("file") MultipartFile multipartFile, @RequestPart("film") Film film) {
+    public Map<String, String> uploadFile(@RequestParam("file") MultipartFile multipartFile, User user) {
 
-        Film savedFilm = filmService.save(film);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        user = userService.findByUsername(currentUsername);
 
-        savedFilm.setImage(multipartFile.getOriginalFilename());
-        filmService.save(savedFilm);
-
+        user.setAvatar(multipartFile.getOriginalFilename());
+        userService.save(user);
+        
         String path = storageService.store(multipartFile); // Almacena usando el servicio de almacenamiento
         String host = request.getRequestURL().toString().replace(request.getRequestURI(),""); // Obtiene la URL del archivo que podra ser consultada por otro metodo
         
-
         String url = ServletUriComponentsBuilder    
                 .fromHttpUrl(host)
                 .path("/media/")

@@ -42,7 +42,7 @@ public class FilmControllerTest {
 
     @BeforeEach
     void setUp() {
-        film = new Film(1L, "film1", null, 5, "description", null,null,null);
+        film = new Film(1L, "film1", null, 5, "description", null,null,null,null);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class FilmControllerTest {
 
     @Test
     public void testUpdateFilm() throws Exception {
-        Film updatedFilm = new Film(1L, "film1", null, 5, "film update", null,null, null);
+        Film updatedFilm = new Film(1L, "film1", null, 5, "film update", null,null, null,null);
         when(service.updateFilm(any(Long.class), any(Film.class))).thenReturn(updatedFilm);
 
         MockHttpServletResponse response = mockMvc.perform(put("/api/films/update/1")

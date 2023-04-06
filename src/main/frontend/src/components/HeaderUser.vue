@@ -1,14 +1,39 @@
 <script setup>
-	import { ref } from "vue";
+	import { ref, onBeforeMount } from "vue";
 	import { Slide } from "vue3-burger-menu";
 	import { useAuthStore } from "@/stores/authStore";
 	import AuthService from "@/services/auth/AuthService.js";
+	import axios from "axios";
 
 	const showLogout = ref(false);
 
 	function toggleLogout() {
 		showLogout.value = !showLogout.value;
 	}
+
+	const onFileChange = event => {
+		const file = event.target.files[0];
+		if (file) {
+			const formData = new FormData();
+			formData.append("file", file);
+			axios({
+				method: "POST",
+				url: "http://localhost:8080/media/upload",
+				data: formData,
+				withCredentials: true,
+			})
+				.then(response => {
+					console.log(response);
+				})
+				.catch(e => {
+					console.log(e);
+				});
+		}
+	};
+		let url = ref("");
+	onBeforeMount( () => {
+		const get =  axios.get("http://localhost:8080/api/users/username/" + auth.username).then(res=> url.value = res.data.avatar)
+	});
 
 	const auth = useAuthStore();
 	const roles = ref(auth.roles[0]);
@@ -95,25 +120,39 @@
 			class="nav__link nav-bar__user"
 		>
 			<img
-				src="@/assets/images/user.png"
+				:src="'http://localhost:8080/media/' + url"
 				alt="avatar user"
+				class="nav-bar__avatar"
 			/>
 
 			{{ auth.username }}
 
 			<div
 				class="nav-bar__user-actions"
-				@click="logout"
 				v-if="showLogout"
 			>
 				<router-link
 					to="/"
 					href=""
 					class="user-actions__btn"
+					@click="logout"
 					>Cerrar sesion
 				</router-link>
 
-				<p class="user-actions__btn">Cambiar avatar</p>
+				<input
+					type="file"
+					accept="image/*"
+					ref="fileInput"
+					@change="onFileChange"
+					class="hidden"
+					hidden
+				/>
+				<p
+					class="user-actions__btn"
+					@click="$refs.fileInput.click()"
+				>
+					Cambiar avatar
+				</p>
 			</div>
 		</div>
 	</header>
@@ -177,6 +216,7 @@
 				& img {
 					width: 2em;
 					margin-right: 0.5em;
+					border-radius: 50%;
 				}
 			}
 		}
@@ -198,15 +238,14 @@
 
 		.nav-bar__user-actions {
 			@include m.flex(flex, column, auto, center, center);
-			display: block;
 			position: absolute;
 			top: 3em;
 			border-radius: 5px;
-			padding: 1em 0.5em;
+			padding: 1em 0;
+			gap: 1em;
 			width: 8em;
 			left: -3em;
 			background-color: map-get(c.$colors, "light-grey");
-			gap: 0.8em;
 
 			.user-actions__btn {
 				&:hover {

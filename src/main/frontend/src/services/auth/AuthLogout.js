@@ -7,7 +7,7 @@ export default class AuthLogout {
     async logout() {
         try {
             localStorage.removeItem("auth");
-            const response = await axios.get(`${baseUrl}/api/logout`);
+            const response = await axios.get(`${baseUrl}/api/logout`, { withCredentials: true });
         } catch (error) {
             console.error(error);
         }
