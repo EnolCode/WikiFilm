@@ -64,27 +64,26 @@
 	@use "@/scss/colors" as c;
 	@use "@/scss/mixins" as m;
 	.card-film {
-		&:last-child {
-			margin-bottom: 4em;
-		}
 		&__image {
 			.card-film__info {
-				@include m.flex(flex, row, auto, space-around, center);
-				width: 10em;
+				@include m.flex(flex, row, auto, start, center);
+				min-width: 8em;
 				color: map-get(c.$colors, "white");
 				position: relative;
 				bottom: 2em;
+				padding-left: .5em;
 
 				.card-film__title {
 					font-weight: bold;
+					margin-right: .5em;
 				}
 
 				.card-film__year {
 					font-size: 0.8em;
 					color: white;
 					background: map-get(c.$colors, "grey");
-					padding: 0.2em;
-					border-radius: 2px;
+					padding: 0.3em;
+					border-radius: 3px;
 				}
 			}
 		}

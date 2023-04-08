@@ -1,52 +1,53 @@
 <script setup>
-	import { ref, reactive, computed } from "vue";
-	import axios from "axios";
-	import { optionsGenres } from "@/config.js";
+		import { ref, reactive, computed } from "vue";
+		import axios from "axios";
+		import { optionsGenres } from "@/config.js";
 
-	const url = ref("");
-	const imageUrl = computed(() => url.value);
+		const url = ref("");
+		const imageUrl = computed(() => url.value);
 
-	const file = ref(null);
+		const file = ref(null);
 
-const onFileChange = event => {
-    file.value = event.target.files[0];
-};
+	const onFileChange = event => {
+	    file.value = event.target.files[0];
+	};
 
-const titleModel = ref("");
-const yearModel = ref("");
-const ratingModel = ref("");
-const genreModel = ref("");
-const descriptionModel = ref("");
+	const titleModel = ref("");
+	const yearModel = ref("");
+	const ratingModel = ref("");
+	const genreModel = ref("");
+	const descriptionModel = ref("");
 
-const submit = async () => {
-    try {
-        const formData = new FormData();
-        formData.append("film", JSON.stringify({
-            title: titleModel.value,
-            releaseYear: yearModel.value,
-            rating: ratingModel.value,
-            description: descriptionModel.value,
-            genres: [
-                {
-                    id: genreModel.value,
-                },
-            ],
-        }));
-        formData.append("file", file.value);
+	const submit = async () => {
+	    try {
+	        const film = {
+	            title: titleModel.value,
+	            releaseYear: yearModel.value,
+	            rating: ratingModel.value,
+	            description: descriptionModel.value,
+	            genres: [
+	                {
+	                    id: genreModel.value,
+	                },
+	            ],
+	        };
+	        // formData.append("file", file.value);
 
-        await axios({
-            method: "POST",
-            url: "http://localhost:8080/media/upload",
-            data: formData,
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
-        alert("enviado");
-    } catch (err) {
-        console.log(err);
-    }
-};
+	        await axios({
+	            method: "POST",
+	            url: "http://localhost:8080/api/films/add",
+	            data: film,
+				withCredentials: true ,
+	            headers: {
+	                "Content-Type": "application/json",
+	            } ,
+				
+	        });
+	        alert("enviado");
+	    } catch (err) {
+	        console.log(err);
+	    }
+	};
 </script>
 <template>
 	<form
