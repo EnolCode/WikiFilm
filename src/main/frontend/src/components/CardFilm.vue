@@ -67,15 +67,14 @@
 		&__image {
 			.card-film__info {
 				@include m.flex(flex, row, auto, start, center);
-				min-width: 8em;
 				color: map-get(c.$colors, "white");
 				position: relative;
 				bottom: 2em;
-				padding-left: .5em;
+				padding-left: 0.5em;
 
 				.card-film__title {
 					font-weight: bold;
-					margin-right: .5em;
+					margin-right: 0.5em;
 				}
 
 				.card-film__year {
@@ -99,7 +98,7 @@
 			.separator-btns {
 				display: flex;
 				justify-content: space-between;
-				width: 18%;
+				width: 10%;
 			}
 			.card-film__btn {
 				color: map-get(c.$colors, "white");

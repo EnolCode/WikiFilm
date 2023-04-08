@@ -4,6 +4,7 @@
 	import { useAuthStore } from "@/stores/authStore";
 	import AuthService from "@/services/auth/AuthService.js";
 	import AvatarService from "@/services/avatar/AvatarService.js";
+	import FilterBar from "@/components/FilterBar.vue"
 	import axios from "axios";
 
 	const showLogout = ref(false);
@@ -39,10 +40,7 @@
 
 <template>
 	<header class="header">
-		<i
-			class="fa-solid fa-magnifying-glass header__search"
-			style="color: #ffffff"
-		></i>
+		<FilterBar />
 		<nav class="nav-bar">
 			<router-link
 				to="/"
