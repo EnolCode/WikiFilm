@@ -6,11 +6,15 @@ import java.util.Optional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.wikiFilm.exception.UserNotFoundException;
+import com.wikiFilm.models.Film;
 import com.wikiFilm.models.User;
+import com.wikiFilm.repositories.FilmRepository;
 import com.wikiFilm.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -21,6 +25,7 @@ import lombok.AllArgsConstructor;
 public class UserService implements BaseService<User> {
 
     private UserRepository userRepository;
+    private final FilmRepository filmRepository;
 
     @Override
     @Transactional
@@ -29,9 +34,9 @@ public class UserService implements BaseService<User> {
     }
 
     @Transactional
-    public User findByUsername(String username){
+    public User findByUsername(String username) {
         return userRepository.findByUsername(username)
-                         .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username));
+                .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username));
     }
 
     @Override
@@ -87,6 +92,24 @@ public class UserService implements BaseService<User> {
         user.setUsername(UserDetails.getUsername());
         user.setPassword(UserDetails.getPassword());
         return save(user);
+    }
+
+    @Transactional
+    public void addFilmWatchList(Long filmId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        User user = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new RuntimeException("User not found with username " + currentUsername));
+
+        Film film = filmRepository.findById(filmId)
+                .orElseThrow(() -> new RuntimeException("Event not found with id " + filmId));
+
+        if(user.getFilms().contains(film)) {
+            throw new RuntimeException("Film already added to watch list");
+        }
+
+        user.getFilms().add(film);
+        userRepository.save(user);
     }
 
 }

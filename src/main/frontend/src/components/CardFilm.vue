@@ -1,5 +1,6 @@
 <script setup>
 	import { ref, defineProps } from "vue";
+	import axios from 'axios'
 
 	const props = defineProps({
 		film: {
@@ -10,14 +11,25 @@
 	const isLiked = ref(false);
 	const isDisliked = ref(false);
 	const like = () => {
+		const idFilm = props.film.id;
 		isLiked.value = !isLiked.value;
 		isDisliked.value = false;
+	         axios({
+	            method: "POST",
+	            url: "http://localhost:8080/api/users/addFilm/" + idFilm,
+				withCredentials: true ,
+	            headers: {
+	                "Content-Type": "application/json",
+	            } ,
+				
+	        });
 	};
 
 	const dislike = () => {
 		isDisliked.value = !isDisliked.value;
 		isLiked.value = false;
 	};
+
 </script>
 <template>
 	<div class="card-film">

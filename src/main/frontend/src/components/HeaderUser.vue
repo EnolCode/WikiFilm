@@ -4,12 +4,18 @@
 	import { useAuthStore } from "@/stores/authStore";
 	import AuthService from "@/services/auth/AuthService.js";
 	import AvatarService from "@/services/avatar/AvatarService.js";
-	import FilterBar from "@/components/FilterBar.vue"
+	import FilterBar from "@/components/FilterBar.vue";
 	import axios from "axios";
 
+	onBeforeMount(() => {
+		avatarService
+			.getAvatar(auth.username)
+			.then(res => (url.value = res));
+	});
+	
 	const props = defineProps({
 		modelValue: String,
-	})
+	});
 
 	const showLogout = ref(false);
 	let url = ref("");
@@ -17,12 +23,6 @@
 	const roles = ref(auth.roles[0]);
 	const avatarService = new AvatarService();
 	const authService = new AuthService();
-	
-	onBeforeMount(() => {
-		avatarService
-			.getAvatar(auth.username)
-			.then(res => (url.value = res));
-	});
 
 	function toggleLogout() {
 		showLogout.value = !showLogout.value;
@@ -44,7 +44,10 @@
 
 <template>
 	<header class="header">
-		<FilterBar :modelValue="modelValue" @update:modelValue="$emit('update:modelValue', $event)"  />
+		<FilterBar
+			:modelValue="modelValue"
+			@update:modelValue="$emit('update:modelValue', $event)"
+		/>
 		<nav class="nav-bar">
 			<router-link
 				to="/"

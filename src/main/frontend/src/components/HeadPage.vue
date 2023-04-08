@@ -1,5 +1,5 @@
 <script setup>
-	import { ref } from 'vue'
+	import { ref } from "vue";
 	import { Slide } from "vue3-burger-menu";
 	import { useAuthStore } from "@/stores/authStore";
 	import AuthService from "@/services/auth/AuthService.js";
@@ -7,25 +7,28 @@
 	const auth = useAuthStore();
 	const roles = ref(auth.roles[0]);
 
-	const logout = async () =>{
-
+	const logout = async () => {
 		const authService = new AuthService();
 		try {
 			const response = await authService.logout();
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 		window.location.reload();
-	}
-
+	};
 </script>
 
 <template>
 	<header class="header">
-		<i
-			class="fa-solid fa-magnifying-glass header__search"
-			style="color: #ffffff"
-		></i>
+		<router-link
+			to="/dashboard"
+			class="nav-bar__link"
+		>
+			<i
+				class="fa-solid fa-magnifying-glass header__search"
+				style="color: #ffffff"
+			></i>
+		</router-link>
 		<nav class="nav-bar">
 			<router-link
 				to="/"
@@ -57,7 +60,7 @@
 		<Slide
 			width="250"
 			right
-			class="slide" 
+			class="slide"
 		>
 			<a
 				href="#"
@@ -96,7 +99,6 @@
 			>DESCONECTAR</router-link
 		>
 	</header>
-
 </template>
 
 <style lang="scss" scoped>
