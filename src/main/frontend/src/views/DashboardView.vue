@@ -1,11 +1,12 @@
 <script setup>
-	import { ref, reactive, onBeforeMount } from "vue";
+	import { ref, reactive, onBeforeMount, computed } from "vue";
 	import HeaderUser from "@/components/HeaderUser.vue";
 	import CardFilm from "@/components/CardFilm.vue";
   import FilmService from "@/services/FilmService.js";
 
   const service = new FilmService();
   let films = ref([]);
+  let searchFilms = ref("");
 
   onBeforeMount( async () => {
     await service.fetchAllFilms();
@@ -13,12 +14,17 @@
     console.log(films.value)
   });
 
+  const filteredFilmForTitle = computed (() => {
+    if(!searchFilms.value) return films.value;
+    return films.value.filter(film => film.title.toLowerCase().includes(searchFilms.value.toLowerCase()))
+  })
+
 </script>
 
 <template>
-	<HeaderUser />
+	<HeaderUser v-model="searchFilms" @update:modelValue="searchFilms = $event" />
 	<main>
-    <CardFilm class="card" v-for="film in films" :film="film" />
+    <CardFilm class="card" v-for="film in filteredFilmForTitle" :film="film" />
     </main>
 </template>
 

@@ -1,11 +1,15 @@
 <script setup>
-	import { ref, onBeforeMount } from "vue";
+	import { ref, onBeforeMount, defineProps } from "vue";
 	import { Slide } from "vue3-burger-menu";
 	import { useAuthStore } from "@/stores/authStore";
 	import AuthService from "@/services/auth/AuthService.js";
 	import AvatarService from "@/services/avatar/AvatarService.js";
 	import FilterBar from "@/components/FilterBar.vue"
 	import axios from "axios";
+
+	const props = defineProps({
+		modelValue: String,
+	})
 
 	const showLogout = ref(false);
 	let url = ref("");
@@ -40,7 +44,7 @@
 
 <template>
 	<header class="header">
-		<FilterBar />
+		<FilterBar :modelValue="modelValue" @update:modelValue="$emit('update:modelValue', $event)"  />
 		<nav class="nav-bar">
 			<router-link
 				to="/"
@@ -171,7 +175,7 @@
 			@include m.font(400, 0.8em, map-get(c.$colors, "white"));
 			width: 40%;
 			position: relative;
-			left: 2.8%;
+			left: -2.7%;
 
 			&__link {
 				letter-spacing: 1px;
