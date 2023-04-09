@@ -26,8 +26,18 @@
 	};
 
 	const dislike = () => {
+		const idFilm = props.film.id;
 		isDisliked.value = !isDisliked.value;
 		isLiked.value = false;
+		axios({
+	            method: "DELETE",
+	            url: "http://localhost:8080/api/users/deleteFilm/" + idFilm,
+				withCredentials: true ,
+	            headers: {
+	                "Content-Type": "application/json",
+	            } ,
+				
+	        });
 	};
 
 </script>

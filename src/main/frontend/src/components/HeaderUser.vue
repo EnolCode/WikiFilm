@@ -178,7 +178,7 @@
 			@include m.font(400, 0.8em, map-get(c.$colors, "white"));
 			width: 40%;
 			position: relative;
-			left: -2.7%;
+			left: -2.3%;
 
 			&__link {
 				letter-spacing: 1px;

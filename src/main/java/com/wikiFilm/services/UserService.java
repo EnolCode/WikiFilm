@@ -105,10 +105,24 @@ public class UserService implements BaseService<User> {
                 .orElseThrow(() -> new RuntimeException("Event not found with id " + filmId));
 
         if(user.getFilms().contains(film)) {
-            throw new RuntimeException("Film already added to watch list");
+            user.getFilms().remove(film);
+        }else{
+            user.getFilms().add(film);
         }
+        userRepository.save(user);
+    }
 
-        user.getFilms().add(film);
+    @Transactional
+    public void deleteFilmWatchList(Long FilmId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        User user = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new RuntimeException("User not found with username " + currentUsername));
+
+        Film film = filmRepository.findById(FilmId)
+                .orElseThrow(() -> new RuntimeException("Event not found with id " + FilmId));
+
+        user.getFilms().remove(film);
         userRepository.save(user);
     }
 
