@@ -39,7 +39,7 @@
 
 		&__input {
 			color: white;
-			padding: 0.1em;
+			padding: .1em 0.5em;
 			outline: none;
 
 			&:focus {
