@@ -86,6 +86,7 @@
 	@use "@/scss/colors" as c;
 	@use "@/scss/mixins" as m;
 	.card-film {
+		border: 1px solid white;
 		&__image {
 			.card-film__info {
 				@include m.flex(flex, row, auto, start, center);

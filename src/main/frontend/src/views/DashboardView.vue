@@ -2,17 +2,17 @@
 	import { ref, reactive, onBeforeMount, computed } from "vue";
 	import HeaderUser from "@/components/HeaderUser.vue";
 	import CardFilm from "@/components/CardFilm.vue";
-	import FilmService from "@/services/FilmService.js";
+  import { useFilmStore } from "@/stores/FilmStore.js"
 	import axios from "axios";
 
-	const service = new FilmService();
+  const storeFilms = useFilmStore();
+
 	let films = ref([]);
 	let searchFilms = ref("");
+  let watchList = ref([]);
 
 	onBeforeMount(async () => {
-		await service.fetchAllFilms();
-		films.value = service.getFilms();
-		console.log(films.value);
+    films.value = await  storeFilms.getAllFilms();
 	});
 
 	const filteredFilmForTitle = computed(() => {
@@ -54,7 +54,6 @@
 		grid-auto-rows: minmax(5em, auto);
 	}
 	.card {
-		border: 1px solid white;
 		grid-column: span 2;
 	}
 	.card:first-child,
