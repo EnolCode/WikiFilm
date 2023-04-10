@@ -5,6 +5,7 @@
 	const props = defineProps({
 		film: {
 			type: Object,
+			isFilmInWatchList: Boolean,
 		},
 	});
 
