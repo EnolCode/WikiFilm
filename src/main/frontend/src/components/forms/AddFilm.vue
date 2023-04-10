@@ -31,7 +31,6 @@
 	                },
 	            ],
 	        };
-	        // formData.append("file", file.value);
 
 	        await axios({
 	            method: "POST",
@@ -41,7 +40,6 @@
 	            headers: {
 	                "Content-Type": "application/json",
 	            } ,
-				
 	        });
 	        alert("enviado");
 	    } catch (err) {

@@ -2,52 +2,63 @@
 	import { ref, reactive, onBeforeMount, computed } from "vue";
 	import HeaderUser from "@/components/HeaderUser.vue";
 	import CardFilm from "@/components/CardFilm.vue";
-  import FilmService from "@/services/FilmService.js";
+	import FilmService from "@/services/FilmService.js";
+	import axios from "axios";
 
-  const service = new FilmService();
-  let films = ref([]);
-  let searchFilms = ref("");
+	const service = new FilmService();
+	let films = ref([]);
+	let searchFilms = ref("");
 
-  onBeforeMount( async () => {
-    await service.fetchAllFilms();
-    films.value = service.getFilms();
-    console.log(films.value)
-  });
+	onBeforeMount(async () => {
+		await service.fetchAllFilms();
+		films.value = service.getFilms();
+		console.log(films.value);
+	});
 
-  const filteredFilmForTitle = computed (() => {
-    if(!searchFilms.value) return films.value;
-    return films.value.filter(film => film.title.toLowerCase().includes(searchFilms.value.toLowerCase()))
-  })
-
+	const filteredFilmForTitle = computed(() => {
+		if (!searchFilms.value) return films.value;
+		return films.value.filter(film =>
+			film.title
+				.toLowerCase()
+				.includes(searchFilms.value.toLowerCase())
+		);
+	});
 </script>
 
 <template>
-	<HeaderUser v-model="searchFilms" @update:modelValue="searchFilms = $event" />
+	<HeaderUser
+		v-model="searchFilms"
+		@update:modelValue="searchFilms = $event"
+	/>
 	<main>
-    <CardFilm class="card" v-for="film in filteredFilmForTitle" :film="film" />
-    </main>
+		<CardFilm
+			class="card"
+			v-for="film in filteredFilmForTitle"
+			:film="film"
+		/>
+	</main>
 </template>
 
-<style lang="scss" >
+<style lang="scss">
 	@use "../scss/colors" as c;
 	@use "../scss/mixins" as m;
 
-	 main {
-    display: grid;
- 	background: map-get(c.$colors, "black");
-	width: 80%;
-	gap: 1em;
-	margin: 0 auto;
-
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: minmax(5em, auto);
-  }
-  .card {
-	  border: 1px solid white;
-    grid-column: span 2;
-  }
-  .card:first-child,
-  .card:nth-child(2) {
-    grid-column: span 3;
-  }
+	main {
+		display: grid;
+		background: map-get(c.$colors, "black");
+		width: 80%;
+		gap: 1em;
+		margin: 0 auto;
+    margin-top: 1em;
+		grid-template-columns: repeat(6, 1fr);
+		grid-auto-rows: minmax(5em, auto);
+	}
+	.card {
+		border: 1px solid white;
+		grid-column: span 2;
+	}
+	.card:first-child,
+	.card:nth-child(2) {
+		grid-column: span 3;
+	}
 </style>

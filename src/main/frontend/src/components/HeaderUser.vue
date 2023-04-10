@@ -160,7 +160,9 @@
 		@include m.flex(flex, row, auto, space-between, center);
 		padding: 0.5em;
 		background: map-get(c.$colors, "grey-dark");
-		position: fixed;
+		position: sticky;
+		top:0;
+		// border-bottom: 10em;
 		width: 100%;
 
 		.header__search {
