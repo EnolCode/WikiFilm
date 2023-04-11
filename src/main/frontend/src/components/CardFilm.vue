@@ -1,59 +1,86 @@
 <script setup>
-	import { ref, defineProps } from "vue";
-	import axios from "axios";
-	import { useFilmStore } from "@/stores/FilmStore.js";
+		import { ref, defineProps, watch } from "vue";
+		import axios from "axios";
+		import { useFilmStore } from "@/stores/FilmStore.js";
 
-	const filmStore = useFilmStore();
+		const filmStore = useFilmStore();
 
-	const props = defineProps({
-		film: {
-			type: Object,
-		},
+
+
+		const props = defineProps({
+			film: {
+				type: Object,
+			},
+		});
+
+		filmStore.getWatchList().then(res => {
+	    const watchListIds = res.map(film => film.id);
+	    isWatched.value = watchListIds.includes(props.film.id);
 	});
 
-	filmStore.getWatchList().then(res => {
-    const watchListIds = res.map(film => film.id);
-    isWatched.value = watchListIds.includes(props.film.id);
-});
+		const isWatched = ref(false);
+		const isLiked = ref(false);
+		const isDisliked = ref(false);
 
-	const isWatched = ref(false);
-	const isLiked = ref(false);
-	const isDisliked = ref(false);
+		const like = () => {
+			const idFilm = props.film.id;
+			isLiked.value = !isLiked.value;
+			isDisliked.value = false;
+			axios({
+				method: "POST",
+				url: "http://localhost:8080/api/films/like/" + idFilm,
+				withCredentials: true,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+		};
 
-	const like = () => {
-		const idFilm = props.film.id;
-		isLiked.value = !isLiked.value;
-		isDisliked.value = false;
-		axios({
-			method: "POST",
-			url: "http://localhost:8080/api/films/like/" + idFilm,
-			withCredentials: true,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-	};
+		const dislike = () => {
+			const idFilm = props.film.id;
+			isDisliked.value = !isDisliked.value;
+			isLiked.value = false;
+			axios({
+				method: "POST",
+				url: "http://localhost:8080/api/films/dislike/" + idFilm,
+				withCredentials: true,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+		};
 
-	const dislike = () => {
-		const idFilm = props.film.id;
-		isDisliked.value = !isDisliked.value;
-		isLiked.value = false;
-	};
+		const addFilmWatchList = () => {
+			const idFilm = props.film.id;
+			isWatched.value
+				? (isWatched.value = false)
+				: (isWatched.value = true);
+			axios({
+				method: "POST",
+				url: "http://localhost:8080/api/users/addFilm/" + idFilm,
+				withCredentials: true,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+		};
 
-	const addFilmWatchList = () => {
-		const idFilm = props.film.id;
-		isWatched.value
-			? (isWatched.value = false)
-			: (isWatched.value = true);
-		axios({
-			method: "POST",
-			url: "http://localhost:8080/api/users/addFilm/" + idFilm,
-			withCredentials: true,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-	};
+		watch(isLiked, (newValue, oldValue) => {
+	    if (newValue) {
+	        props.film.rating++;
+	    } else {
+	        props.film.rating--;
+	    }
+			});
+
+		watch(isDisliked, (newValue, oldValue) => {
+	    if (newValue) {
+	        props.film.rating--;
+	    } else {
+	        props.film.rating++;
+	    }
+			});
+	    
 </script>
 <template>
 	<div class="card-film">
@@ -74,10 +101,16 @@
 					:class="{ watched: isWatched }"
 					@click="addFilmWatchList"
 				></i>
-				<div v-if="!isWatched" class="text-hover text-hover--check">
+				<div
+					v-if="!isWatched"
+					class="text-hover text-hover--check"
+				>
 					Añade este titulo a tu lista.
 				</div>
-				<div v-if="isWatched" class="text-hover text-hover--check">
+				<div
+					v-if="isWatched"
+					class="text-hover text-hover--check"
+				>
 					Elimina este titulo de tu lista.
 				</div>
 				<i class="fa-solid fa-play card-film__btn btn--play"></i>

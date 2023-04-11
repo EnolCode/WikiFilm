@@ -61,7 +61,7 @@ public class FilmController {
         return filmService.likedFilm(filmService.findById(id));
     }
 
-    @PutMapping("/dislike/{id}")
+    @PostMapping("/dislike/{id}")
     public Film dislikeFilm(@PathVariable Long id) {
         return filmService.dislikedFilm(filmService.findById(id));
     }
