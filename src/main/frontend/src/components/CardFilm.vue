@@ -1,46 +1,51 @@
 <script setup>
 	import { ref, defineProps } from "vue";
-	import axios from 'axios'
+	import axios from "axios";
+	import { useFilmStore } from "@/stores/FilmStore.js";
+
+	const filmStore = useFilmStore();
 
 	const props = defineProps({
 		film: {
 			type: Object,
-			isFilmInWatchList: Boolean,
 		},
 	});
 
+	filmStore.getWatchList().then(res => {
+    const watchListIds = res.map(film => film.id);
+    isWatched.value = watchListIds.includes(props.film.id);
+});
+
+	const isWatched = ref(false);
 	const isLiked = ref(false);
 	const isDisliked = ref(false);
+
 	const like = () => {
 		const idFilm = props.film.id;
 		isLiked.value = !isLiked.value;
 		isDisliked.value = false;
-	         axios({
-	            method: "POST",
-	            url: "http://localhost:8080/api/users/addFilm/" + idFilm,
-				withCredentials: true ,
-	            headers: {
-	                "Content-Type": "application/json",
-	            } ,
-				
-	        });
 	};
 
 	const dislike = () => {
 		const idFilm = props.film.id;
 		isDisliked.value = !isDisliked.value;
 		isLiked.value = false;
-		axios({
-	            method: "DELETE",
-	            url: "http://localhost:8080/api/users/deleteFilm/" + idFilm,
-				withCredentials: true ,
-	            headers: {
-	                "Content-Type": "application/json",
-	            } ,
-				
-	        });
 	};
 
+	const addFilmWatchList = () => {
+		const idFilm = props.film.id;
+		isWatched.value
+			? (isWatched.value = false)
+			: (isWatched.value = true);
+		axios({
+			method: "POST",
+			url: "http://localhost:8080/api/users/addFilm/" + idFilm,
+			withCredentials: true,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+	};
 </script>
 <template>
 	<div class="card-film">
@@ -56,9 +61,16 @@
 		</picture>
 		<div class="card-film__container-btns">
 			<div class="separator-btns">
-				<i class="fa-solid fa-check card-film__btn btn--check"></i>
-				<div class="text-hover text-hover--check">
+				<i
+					class="fa-solid fa-check card-film__btn btn--check"
+					:class="{ watched: isWatched }"
+					@click="addFilmWatchList"
+				></i>
+				<div v-if="!isWatched" class="text-hover text-hover--check">
 					Añade este titulo a tu lista.
+				</div>
+				<div v-if="isWatched" class="text-hover text-hover--check">
+					Elimina este titulo de tu lista.
 				</div>
 				<i class="fa-solid fa-play card-film__btn btn--play"></i>
 				<div class="text-hover text-hover--play">
@@ -184,9 +196,13 @@
 			color: map-get(c.$colors, "red");
 		}
 
-		.btn--like.active,
-		.btn--dislike.active {
+		.active {
 			color: map-get(c.$colors, "orange");
+		}
+
+		.watched {
+			background: map-get(c.$colors, "purple");
+			color: white;
 		}
 	}
 </style>
