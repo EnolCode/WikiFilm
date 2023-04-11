@@ -8,17 +8,29 @@
 	const storeFilms = useFilmStore();
 	const auth = useAuthStore();
 	let watchList = ref([]);
+	let searchFilms = ref("");
 
 	onBeforeMount(async () => {
 		watchList.value = await storeFilms.getWatchList();
 	});
-	
+
+	const filteredFilmForTitle = computed(() => {
+		if (!searchFilms.value) return watchList.value;
+		return watchList.value.filter(film =>
+			film.title
+				.toLowerCase()
+				.includes(searchFilms.value.toLowerCase())
+		);
+	});
 </script>
 <template>
-	<HeaderUser />
+	<HeaderUser
+		v-model="searchFilms"
+		@update:modelValue="searchFilms = $event"
+	/>
 	<main class="main">
 		<CardFilm
-			v-for="film in watchList"
+			v-for="film in filteredFilmForTitle"
 			:film="film"
 		/>
 	</main>
