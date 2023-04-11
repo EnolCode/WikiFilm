@@ -26,14 +26,14 @@ public class GenreRepositoryTest {
     public void findById(){
        Genre genre =  repository.findById(1L).orElseThrow();
        assertThat(genre.getId()).isEqualTo(1L);
-       assertThat(genre.getName()).isEqualTo("Comedy");
+       assertThat(genre.getName()).isEqualTo("Acción");
     }
 
     @Test
     public void findByName(){
-        Genre genre = repository.findByName("Comedy").orElseThrow();
+        Genre genre = repository.findByName("Acción").orElseThrow();
         assertThat(genre.getId()).isEqualTo(1L);
-        assertThat(genre.getName()).isEqualTo("Comedy");
+        assertThat(genre.getName()).isEqualTo("Acción");
     }
      
     @Test

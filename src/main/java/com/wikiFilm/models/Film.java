@@ -39,7 +39,7 @@ public class Film {
     private Integer releaseYear;
 
     @Column(nullable = false)
-    private float rating;
+    private Integer rating = 50;
 
     @Column(nullable = true)
     private String description;
