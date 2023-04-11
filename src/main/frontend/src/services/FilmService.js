@@ -24,6 +24,7 @@ export default class FilmService{
         try {
              await axios.get(`${baseUrl}/api/films`).then(res=>{
                 this.films.value = res.data;
+                console.log(res.data)
             })
         } catch (error) {
             console.log(error)

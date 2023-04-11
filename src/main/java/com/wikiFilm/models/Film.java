@@ -38,7 +38,6 @@ public class Film {
     @Column(nullable = true)
     private Integer releaseYear;
 
-    @Column(nullable = false)
     private Integer rating = 50;
 
     @Column(nullable = true)

@@ -23,7 +23,6 @@
 	        const film = {
 	            title: titleModel.value,
 	            releaseYear: yearModel.value,
-	            rating: ratingModel.value,
 	            description: descriptionModel.value,
 	            genres: [
 	                {
@@ -97,13 +96,6 @@
 				</option>
 			</o-select>
 		</o-field>
-		<input
-			type="number"
-			name="rating"
-			placeholder="Puntuacion"
-			class="form-film__input"
-			v-model="ratingModel"
-		/>
 
 		<input
 			type="file"

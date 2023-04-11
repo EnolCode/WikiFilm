@@ -5,11 +5,9 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.wikiFilm.exception.FilmNotFoundException;
 import com.wikiFilm.models.Film;
 import com.wikiFilm.repositories.FilmRepository;
-
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
@@ -46,6 +44,18 @@ public class FilmService implements BaseService<Film> {
     @Transactional
     public Film save(Film film) {
         return filmRepository.save(film);
+    }
+
+    @Transactional
+    public Film likedFilm(Film film) {
+        film.setRating(film.getRating() + 1);
+        return save(film);
+    }
+
+    @Transactional
+    public Film dislikedFilm(Film film) {
+        film.setRating(film.getRating() - 1);
+        return save(film);
     }
 
     @Transactional

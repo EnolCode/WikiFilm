@@ -1,9 +1,10 @@
-INSERT INTO films( id, title, release_year, rating, description) VALUES (default, 'Film1', 2023, 8,  'Good Film')
-INSERT INTO films( id, title, release_year, rating, description) VALUES (default, 'Film2', 2023, 8,  'Good Film')
-INSERT INTO films( id, title, release_year, rating, description) VALUES (default, 'Film3', 2023, 8,  'Good Film')
-INSERT INTO films( id, title, release_year, rating, description) VALUES (default, 'Film4', 2023, 8,  'Good Film')
-INSERT INTO films( id, title, release_year, rating, description) VALUES (default, 'Film5', 2023, 8,  'Good Film')
-INSERT INTO films( id, title, release_year, rating, description) VALUES (default, 'Film6', 2023, 8,  'Good Film')
+INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film1', 2023, 50,'Good Film');
+INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film2', 2022, 50,'Good Film');
+INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film3', 2021, 50,'Good Film');
+INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film4', 2010, 50,'Good Film');
+INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film5', 1999, 50,'Good Film');
+INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film6', 2012, 50,'Good Film');
+INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film7', 2017, 50,'Good Film');
 INSERT INTO genres (id, name) VALUES (default,'Acción');
 INSERT INTO genres (id, name) VALUES (default,'Comedia');
 INSERT INTO genres (id, name) VALUES (default,'Horror');

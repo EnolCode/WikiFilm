@@ -24,6 +24,14 @@
 		const idFilm = props.film.id;
 		isLiked.value = !isLiked.value;
 		isDisliked.value = false;
+		axios({
+			method: "POST",
+			url: "http://localhost:8080/api/films/like/" + idFilm,
+			withCredentials: true,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 	};
 
 	const dislike = () => {

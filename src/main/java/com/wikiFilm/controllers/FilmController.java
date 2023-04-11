@@ -50,9 +50,20 @@ public class FilmController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedFilm);
     }
 
+
     @PutMapping("/update/{id}")
     public Film updateFilm(@PathVariable Long id, @RequestBody Film filmDetails) {
         return filmService.updateFilm(id, filmDetails);
+    }
+
+    @PostMapping("/like/{id}")
+    public Film likeFilm(@PathVariable Long id) {
+        return filmService.likedFilm(filmService.findById(id));
+    }
+
+    @PutMapping("/dislike/{id}")
+    public Film dislikeFilm(@PathVariable Long id) {
+        return filmService.dislikedFilm(filmService.findById(id));
     }
 
     @DeleteMapping("/{id}")
