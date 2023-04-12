@@ -52,7 +52,6 @@ public class FyleSistemStorageService implements StorageService {
         } catch (IOException e) {
             throw new RuntimeException("failed to store file", e);
         }
-
     }
 
     @Override

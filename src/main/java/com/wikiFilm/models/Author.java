@@ -38,7 +38,7 @@ public class Author {
     private String country;
 
     @Column(nullable = true)
-    private Integer age;
+    private Integer birthYear;
 
     @Column(nullable = true)
     private Float rating;

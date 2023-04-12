@@ -157,6 +157,14 @@
 				>
 					Cambiar avatar
 				</p>
+
+				<router-link
+					to="/addFilm"
+					v-if="auth.roles == 'ROLE_ADMIN'"
+					class="user-actions__btn"
+					>Añadir pelicula
+				</router-link>
+
 			</div>
 		</div>
 	</header>
@@ -172,7 +180,6 @@
 		background: map-get(c.$colors, "grey-dark");
 		position: sticky;
 		top: 0;
-		// border-bottom: 10em;
 		width: 100%;
 
 		.header__search {
@@ -248,12 +255,11 @@
 			position: absolute;
 			top: 3em;
 			border-radius: 5px;
-			padding: 1em 0;
+			padding: 1em 0em;
 			gap: 1em;
-			width: 8em;
+			width: 8.5em;
 			left: -3em;
 			background-color: map-get(c.$colors, "light-grey");
-
 			.user-actions__btn {
 				&:hover {
 					color: map-get(c.$colors, "black");

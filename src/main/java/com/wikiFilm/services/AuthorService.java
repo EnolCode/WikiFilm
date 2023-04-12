@@ -49,7 +49,7 @@ public class AuthorService implements BaseService<Author> {
         Author author = findById(id);
         author.setName(authorDetails.getName());
         author.setSurname(authorDetails.getSurname());
-        author.setAge(authorDetails.getAge());
+        author.setBirthYear(authorDetails.getBirthYear());
         author.setCountry(authorDetails.getCountry());
         author.setRating(authorDetails.getRating());
         return save(author);
