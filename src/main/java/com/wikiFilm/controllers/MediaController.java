@@ -18,7 +18,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.wikiFilm.models.Film;
 import com.wikiFilm.models.User;
+import com.wikiFilm.services.FilmService;
 import com.wikiFilm.services.UserService;
 import com.wikiFilm.services.Storage.StorageService;
 
@@ -32,6 +34,7 @@ public class MediaController {
     private final StorageService storageService;
     private final HttpServletRequest request;  
     private final UserService userService; 
+    private final FilmService filmService;
 
     @PostMapping("upload")
     public Map<String, String> uploadFile(@RequestParam("file") MultipartFile multipartFile, User user) {
@@ -42,6 +45,24 @@ public class MediaController {
 
         user.setAvatar(multipartFile.getOriginalFilename());
         userService.save(user);
+        
+        String path = storageService.store(multipartFile); // Almacena usando el servicio de almacenamiento
+        String host = request.getRequestURL().toString().replace(request.getRequestURI(),""); // Obtiene la URL del archivo que podra ser consultada por otro metodo
+        
+        String url = ServletUriComponentsBuilder    
+                .fromHttpUrl(host)
+                .path("/media/")
+                .path(path)
+                .toUriString();
+
+        return Map.of("url", url); // Retorna un mapa con un solo elemento para la URL
+    }
+
+    @PostMapping("upload/film")
+    public Map<String, String> uploadFilm(@RequestParam("file") MultipartFile multipartFile, Film film) {
+
+        film.setImage(multipartFile.getOriginalFilename());
+        filmService.save(film);
         
         String path = storageService.store(multipartFile); // Almacena usando el servicio de almacenamiento
         String host = request.getRequestURL().toString().replace(request.getRequestURI(),""); // Obtiene la URL del archivo que podra ser consultada por otro metodo

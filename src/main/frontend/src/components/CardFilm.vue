@@ -1,93 +1,91 @@
 <script setup>
-		import { ref, defineProps, watch } from "vue";
-		import axios from "axios";
-		import { useFilmStore } from "@/stores/FilmStore.js";
+	import { ref, defineProps, watch } from "vue";
+	import axios from "axios";
+	import { useFilmStore } from "@/stores/FilmStore.js";
 
-		const filmStore = useFilmStore();
+	const filmStore = useFilmStore();
 
-
-
-		const props = defineProps({
-			film: {
-				type: Object,
-			},
-		});
-
-		filmStore.getWatchList().then(res => {
-	    const watchListIds = res.map(film => film.id);
-	    isWatched.value = watchListIds.includes(props.film.id);
+	const props = defineProps({
+		film: {
+			type: Object,
+		},
 	});
 
-		const isWatched = ref(false);
-		const isLiked = ref(false);
-		const isDisliked = ref(false);
+	filmStore.getWatchList().then(res => {
+		const watchListIds = res.map(film => film.id);
+		isWatched.value = watchListIds.includes(props.film.id);
+	});
 
-		const like = () => {
-			const idFilm = props.film.id;
-			isLiked.value = !isLiked.value;
-			isDisliked.value = false;
-			axios({
-				method: "POST",
-				url: "http://localhost:8080/api/films/like/" + idFilm,
-				withCredentials: true,
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-		};
+	const isWatched = ref(false);
+	const isLiked = ref(false);
+	const isDisliked = ref(false);
 
-		const dislike = () => {
-			const idFilm = props.film.id;
-			isDisliked.value = !isDisliked.value;
-			isLiked.value = false;
-			axios({
-				method: "POST",
-				url: "http://localhost:8080/api/films/dislike/" + idFilm,
-				withCredentials: true,
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-		};
+	const like = () => {
+		const idFilm = props.film.id;
+		isLiked.value = !isLiked.value;
+		isDisliked.value = false;
+		axios({
+			method: "POST",
+			url: "http://localhost:8080/api/films/like/" + idFilm,
+			withCredentials: true,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+	};
 
-		const addFilmWatchList = () => {
-			const idFilm = props.film.id;
-			isWatched.value
-				? (isWatched.value = false)
-				: (isWatched.value = true);
-			axios({
-				method: "POST",
-				url: "http://localhost:8080/api/users/addFilm/" + idFilm,
-				withCredentials: true,
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-		};
+	const dislike = () => {
+		const idFilm = props.film.id;
+		isDisliked.value = !isDisliked.value;
+		isLiked.value = false;
+		axios({
+			method: "POST",
+			url: "http://localhost:8080/api/films/dislike/" + idFilm,
+			withCredentials: true,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+	};
 
-		watch(isLiked, (newValue, oldValue) => {
-	    if (newValue) {
-	        props.film.rating++;
-	    } else {
-	        props.film.rating--;
-	    }
-			});
+	const addFilmWatchList = () => {
+		const idFilm = props.film.id;
+		isWatched.value
+			? (isWatched.value = false)
+			: (isWatched.value = true);
+		axios({
+			method: "POST",
+			url: "http://localhost:8080/api/users/addFilm/" + idFilm,
+			withCredentials: true,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+	};
 
-		watch(isDisliked, (newValue, oldValue) => {
-	    if (newValue) {
-	        props.film.rating--;
-	    } else {
-	        props.film.rating++;
-	    }
-			});
-	    
+	watch(isLiked, (newValue, oldValue) => {
+		if (newValue) {
+			props.film.rating++;
+		} else {
+			props.film.rating--;
+		}
+	});
+
+	watch(isDisliked, (newValue, oldValue) => {
+		if (newValue) {
+			props.film.rating--;
+		} else {
+			props.film.rating++;
+		}
+	});
 </script>
 <template>
 	<div class="card-film">
 		<picture class="card-film__image">
 			<img
-				src="@/assets/images/BBWW.jpg"
-				alt="Walter White"
+				:src="'http://localhost:8080/media/' + film.image"
+				alt="film image"
+				onerror="this.src='https://wallpapercave.com/wp/wp1932771.jpg'"
 			/>
 			<div class="card-film__info">
 				<p class="card-film__title">{{ film.title }}</p>

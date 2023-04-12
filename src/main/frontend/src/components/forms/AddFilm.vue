@@ -1,15 +1,15 @@
 <script setup>
-		import { ref, reactive, computed } from "vue";
-		import axios from "axios";
-		import { optionsGenres } from "@/config.js";
+	import { ref, reactive, computed } from "vue";
+	import axios from "axios";
+	import { optionsGenres } from "@/config.js";
 
-		const url = ref("");
-		const imageUrl = computed(() => url.value);
+	const url = ref("");
+	const imageUrl = computed(() => url.value);
 
-		const file = ref(null);
+	const file = ref(null);
 
 	const onFileChange = event => {
-	    file.value = event.target.files[0];
+		file.value = event.target.files[0];
 	};
 
 	const titleModel = ref("");
@@ -19,31 +19,29 @@
 	const descriptionModel = ref("");
 
 	const submit = async () => {
-	    try {
-	        const film = {
-	            title: titleModel.value,
-	            releaseYear: yearModel.value,
-	            description: descriptionModel.value,
-	            genres: [
-	                {
-	                    id: genreModel.value,
-	                },
-	            ],
-	        };
+		try {
+			const formData = new FormData();
+			formData.append("title", titleModel.value);
+			formData.append("releaseYear", yearModel.value);
+			formData.append("description", descriptionModel.value);
+			formData.append("genres[0].id", genreModel.value);
+			if (file.value) {
+				formData.append("file", file.value);
+			}
 
-	        await axios({
-	            method: "POST",
-	            url: "http://localhost:8080/api/films/add",
-	            data: film,
-				withCredentials: true ,
-	            headers: {
-	                "Content-Type": "application/json",
-	            } ,
-	        });
-	        alert("enviado");
-	    } catch (err) {
-	        console.log(err);
-	    }
+			await axios({
+				method: "POST",
+				url: "http://localhost:8080/media/upload/film",
+				data: formData,
+				withCredentials: true,
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			});
+			alert("enviado");
+		} catch (err) {
+			console.log(err);
+		}
 	};
 </script>
 <template>

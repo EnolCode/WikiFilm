@@ -13,7 +13,6 @@
 		films.value = await storeFilms.getAllFilms();
 	});
 
-
 	const filteredFilmForTitle = computed(() => {
 		if (!searchFilms.value) return films.value;
 		return films.value.filter(film =>
@@ -58,5 +57,6 @@
 	.card:first-child,
 	.card:nth-child(2) {
 		grid-column: span 3;
+		
 	}
 </style>

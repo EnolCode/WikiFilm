@@ -12,7 +12,7 @@
 			.getAvatar(auth.username)
 			.then(res => (url.value = res));
 	});
-	
+
 	const props = defineProps({
 		modelValue: String,
 	});
@@ -113,10 +113,20 @@
 			@click="toggleLogout"
 			class="nav__link nav-bar__user"
 		>
+			<router-link
+				to="/login"
+				class="nav__link"
+				href=""
+				v-if="roles === undefined"
+				>INICIA SESION</router-link
+			>
+
 			<img
+				v-else
 				:src="'http://localhost:8080/media/' + url"
 				alt="avatar user"
 				class="nav-bar__avatar"
+				onerror="this.src='src/assets/images/user.png'"
 			/>
 
 			{{ auth.username }}
@@ -161,7 +171,7 @@
 		padding: 0.5em;
 		background: map-get(c.$colors, "grey-dark");
 		position: sticky;
-		top:0;
+		top: 0;
 		// border-bottom: 10em;
 		width: 100%;
 
