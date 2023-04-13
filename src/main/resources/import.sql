@@ -31,7 +31,8 @@ INSERT INTO authors (id, name, surname, country, birth_year, rating) VALUES (def
 INSERT INTO authors (id, name, surname, country, birth_year, rating) VALUES (default,'Damien', "Chazelle", "EEUU", 1985, 8)
 INSERT INTO authors (id, name, surname, country, birth_year, rating) VALUES (default,'Todd', "Philips", "EEUU", 1970, 5)
 INSERT INTO authors (id, name, surname, country, birth_year, rating) VALUES (default,'Rodrigo', "Sorogoyen", "España", 1981, 5)
-
+INSERT INTO authors (id, name, surname, country, birth_year, rating) VALUES (default,'Pedro', "Almodovar", "España", 1949, 4)
+INSERT INTO authors (id, name, surname, country, birth_year, rating) VALUES (default,'Guillermo', "del Toro", "Mexico", 1964, 7)
 INSERT INTO film_genre (film_id, genre_id) VALUES (1,1)
 INSERT INTO film_genre (film_id, genre_id) VALUES (2,1)
 INSERT INTO film_genre (film_id, genre_id) VALUES (3,2)
