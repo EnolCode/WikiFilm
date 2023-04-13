@@ -1,5 +1,5 @@
 <script setup>
-	import { ref, reactive, computed } from "vue";
+	import { ref, reactive, computed, onBeforeMount } from "vue";
 	import axios from "axios";
 	import { optionsGenres } from "@/config.js";
 
@@ -16,7 +16,24 @@
 	const yearModel = ref("");
 	const ratingModel = ref("");
 	const genreModel = ref("");
+	const authorModel = ref("");
 	const descriptionModel = ref("");
+	const authors = ref([]);
+
+	onBeforeMount(async () => {
+		try {
+			const res = await axios.get(
+				"http://localhost:8080/api/authors",
+				{
+					withCredentials: true,
+				}
+			);
+			authors.value = res.data;
+			console.log(authors.value);
+		} catch (err) {
+			console.log(err);
+		}
+	});
 
 	const submit = async () => {
 		try {
@@ -25,6 +42,7 @@
 			formData.append("releaseYear", yearModel.value);
 			formData.append("description", descriptionModel.value);
 			formData.append("genres[0].id", genreModel.value);
+			formData.append("author.id", authorModel.value);
 			if (file.value) {
 				formData.append("file", file.value);
 			}
@@ -65,12 +83,22 @@
 			class="form-film__input"
 			v-model="yearModel"
 		/>
-		<input
-			type="text"
-			name="Autor"
-			placeholder="Director"
-			class="form-film__input"
-		/>
+		<o-field
+			label="Selecciona un director"
+			class="form-film-select"
+		>
+			<o-select
+				v-model="authorModel"
+				placeholder="Director"
+			>
+				<option
+					v-for="(author, index) in authors"
+					:value="index"
+				>
+					{{ author.name + " " + author.surname }}
+				</option>
+			</o-select>
+		</o-field>
 		<input
 			type="text"
 			name="description"
