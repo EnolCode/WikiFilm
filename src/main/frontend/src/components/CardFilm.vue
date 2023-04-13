@@ -2,6 +2,9 @@
 	import { ref, defineProps, watch } from "vue";
 	import axios from "axios";
 	import { useFilmStore } from "@/stores/FilmStore.js";
+	import FilmService from "@/services/FilmService.js";
+
+	const service = new FilmService();
 
 	const filmStore = useFilmStore();
 
@@ -78,9 +81,22 @@
 			props.film.rating++;
 		}
 	});
+
+	const deleteFilm = () => {
+		if (confirm("¿Seguro que quieres eliminar esta película?")) {
+			const idFilm = props.film.id;
+			service.deleteFilm(idFilm);
+		}else{
+			return;
+		}
+	};
 </script>
 <template>
 	<div class="card-film">
+		<i
+			class="fa-solid fa-xmark delete-film"
+			@click="deleteFilm"
+		></i>
 		<picture class="card-film__image">
 			<img
 				:src="'http://localhost:8080/media/' + film.image"
@@ -138,6 +154,7 @@
 	@use "@/scss/colors" as c;
 	@use "@/scss/mixins" as m;
 	.card-film {
+		position: relative;
 		border: 1px solid white;
 		&__image {
 			.card-film__info {
@@ -242,6 +259,18 @@
 		.watched {
 			background: map-get(c.$colors, "purple");
 			color: white;
+		}
+
+		.delete-film {
+			color: red;
+			position: absolute;
+			font-size: 1.5em;
+			top: 2%;
+			right: 3%;
+			cursor: pointer;
+			&:hover {
+				opacity: 0.8;
+			}
 		}
 	}
 </style>

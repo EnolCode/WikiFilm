@@ -181,6 +181,7 @@
 		position: sticky;
 		top: 0;
 		width: 100%;
+		z-index: 2;
 
 		.header__search {
 			margin: 0 1em;

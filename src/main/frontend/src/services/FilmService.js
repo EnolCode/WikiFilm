@@ -40,4 +40,12 @@ export default class FilmService{
             console.log(error)
         }
     }
+
+    async deleteFilm(idFilm) {
+        try {
+            await axios.delete(`${baseUrl}/api/films/${idFilm}`)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

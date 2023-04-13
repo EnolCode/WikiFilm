@@ -137,7 +137,7 @@
 			alt=""
 		/>
 
-		<button type="submit">submit</button>
+		<button type="submit">Submit</button>
 	</form>
 </template>
 <style lang="scss" scoped>
@@ -175,6 +175,11 @@
 		background: red;
 		padding: 1em;
 		width: 50%;
+		cursor:pointer;
+		color: white;
+		&:hover{
+			opacity: .8;
+		}
 	}
 
 	.img {
