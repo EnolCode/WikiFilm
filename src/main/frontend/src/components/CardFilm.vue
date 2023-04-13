@@ -2,15 +2,17 @@
 	import { ref, defineProps, watch } from "vue";
 	import axios from "axios";
 	import { useFilmStore } from "@/stores/FilmStore.js";
-	import FilmService from "@/services/FilmService.js";
-
-	const service = new FilmService();
+	import { useAuthStore } from "@/stores/authStore";
 
 	const filmStore = useFilmStore();
+	const auth = useAuthStore();
 
 	const props = defineProps({
 		film: {
 			type: Object,
+		},
+		deleteFilm: {
+			type: Function,
 		},
 	});
 
@@ -82,20 +84,18 @@
 		}
 	});
 
-	const deleteFilm = () => {
+	const onDelete = () => {
 		if (confirm("¿Seguro que quieres eliminar esta película?")) {
-			const idFilm = props.film.id;
-			service.deleteFilm(idFilm);
-		}else{
-			return;
+			props.deleteFilm(props.film.id);
 		}
 	};
 </script>
 <template>
 	<div class="card-film">
 		<i
+			v-if="auth.roles == 'ROLE_ADMIN'"
 			class="fa-solid fa-xmark delete-film"
-			@click="deleteFilm"
+			@click="onDelete"
 		></i>
 		<picture class="card-film__image">
 			<img

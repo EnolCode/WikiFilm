@@ -1,10 +1,12 @@
 <script setup>
 	import { ref, reactive, onBeforeMount, computed } from "vue";
+	import axios from "axios";
 	import HeaderUser from "@/components/HeaderUser.vue";
 	import CardFilm from "@/components/CardFilm.vue";
 	import { useFilmStore } from "@/stores/FilmStore.js";
-	import axios from "axios";
+	import FilmService from "@/services/FilmService.js";
 
+	const service = new FilmService();
 	const storeFilms = useFilmStore();
 	let films = ref([]);
 	let searchFilms = ref("");
@@ -21,6 +23,11 @@
 				.includes(searchFilms.value.toLowerCase())
 		);
 	});
+
+	const deleteFilm = id => {
+		films.value = films.value.filter(film => film.id !== id);
+		service.deleteFilm(id);
+	};
 </script>
 
 <template>
@@ -33,6 +40,7 @@
 			class="card"
 			v-for="film in filteredFilmForTitle"
 			:film="film"
+			 :delete-film="deleteFilm"
 		/>
 	</main>
 </template>
@@ -57,6 +65,5 @@
 	.card:first-child,
 	.card:nth-child(2) {
 		grid-column: span 3;
-		
 	}
 </style>
