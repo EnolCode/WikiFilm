@@ -99,13 +99,14 @@
 				</option>
 			</o-select>
 		</o-field>
-		<input
+		<!-- <input
 			type="text"
 			name="description"
 			placeholder="Descripción"
 			class="form-film__input"
 			v-model="descriptionModel"
-		/>
+		/> -->
+
 		<o-field
 			label="Selecciona un género"
 			class="form-film-select"
@@ -128,6 +129,11 @@
 			name="file"
 			class="file-img form-film__input"
 			@change="onFileChange"
+		/>
+		<textarea
+			placeholder="Descripción"
+			v-model="descriptionModel"
+			class="form-film__input"
 		/>
 
 		<img
@@ -175,10 +181,10 @@
 		background: red;
 		padding: 1em;
 		width: 50%;
-		cursor:pointer;
+		cursor: pointer;
 		color: white;
-		&:hover{
-			opacity: .8;
+		&:hover {
+			opacity: 0.8;
 		}
 	}
 

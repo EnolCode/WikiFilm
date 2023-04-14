@@ -1,10 +1,4 @@
-INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film1', 2023, 50,'Good Film');
-INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film2', 2022, 50,'Good Film');
-INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film3', 2021, 50,'Good Film');
-INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film4', 2010, 50,'Good Film');
-INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film5', 1999, 50,'Good Film');
-INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film6', 2012, 50,'Good Film');
-INSERT INTO films (id, title, release_year, rating, description) VALUES (default, 'Film7', 2017, 50,'Good Film');
+
 INSERT INTO genres (id, name) VALUES (default,'Acción');
 INSERT INTO genres (id, name) VALUES (default,'Comedia');
 INSERT INTO genres (id, name) VALUES (default,'Horror');
@@ -39,7 +33,7 @@ INSERT INTO film_genre (film_id, genre_id) VALUES (3,2)
 INSERT INTO film_genre (film_id, genre_id) VALUES (4,2)
 INSERT INTO film_genre (film_id, genre_id) VALUES (5,3)
 INSERT INTO film_genre (film_id, genre_id) VALUES (5,3)
-INSERT INTO users (id, username, password) VALUES (default, 'enol', '$2a$12$ZlqRb.X/BlEYvOSEaqh0uePb8XNGPYms25wrIWE1lvgSopFTxhYny')
+INSERT INTO users (id, username, password) VALUES (default, 'admin', '$2a$12$ZlqRb.X/BlEYvOSEaqh0uePb8XNGPYms25wrIWE1lvgSopFTxhYny')
 INSERT INTO roles (id, role_name) VALUES (default, "ROLE_ADMIN")
 INSERT INTO roles (id, role_name) VALUES (default, "ROLE_USER")
 INSERT INTO user_roles (user_id, role_id) VALUES (1,1)
