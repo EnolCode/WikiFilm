@@ -62,7 +62,9 @@
 				message: "Pelicula añadida correctamente!",
 				rootClass: "success-notification",
 				position: "top",
+				duration: 3000,
 			});
+			onReset();
 		} catch (err) {
 			oruga.notification.open({
 				message: "Ha ocurrido un error al enviar el formulario.",
@@ -71,6 +73,15 @@
 			});
 		}
 	};
+
+	const onReset = () => {
+		titleModel.value = "";
+		yearModel.value = "";
+		genreModel.value = "";
+		authorModel.value = "";
+		descriptionModel.value = "";
+		file.value = null;
+	}
 </script>
 <template>
 	<form
@@ -133,6 +144,7 @@
 			class="file-img form-film__input"
 			@change="onFileChange"
 		/>
+
 		<textarea
 			placeholder="Descripción"
 			v-model="descriptionModel"

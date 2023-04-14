@@ -157,10 +157,11 @@
 		position: relative;
 		border: 1px solid white;
 		&__image {
+			width: 100%;
 			img{
-				// width: 40%;
-				// height: 25em;
-				object-fit: cover;
+				width: 100%;
+				height: 100%;
+				// object-fit: contain;
 			}
 			.card-film__info {
 				@include m.flex(flex, row, auto, start, center);
@@ -206,6 +207,7 @@
 			.text-hover {
 				display: none;
 				position: absolute;
+				z-index: 5;
 				border-radius: 5px;
 				font-size: 0.8em;
 				padding: 0.3em;
