@@ -150,13 +150,18 @@
 	</div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	@use "@/scss/colors" as c;
 	@use "@/scss/mixins" as m;
 	.card-film {
 		position: relative;
 		border: 1px solid white;
 		&__image {
+			img{
+				// width: 40%;
+				// height: 25em;
+				object-fit: cover;
+			}
 			.card-film__info {
 				@include m.flex(flex, row, auto, start, center);
 				color: map-get(c.$colors, "white");

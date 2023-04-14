@@ -2,7 +2,9 @@
 	import { ref, reactive, computed, onBeforeMount } from "vue";
 	import axios from "axios";
 	import { optionsGenres } from "@/config.js";
+	import { useProgrammatic } from "@oruga-ui/oruga-next";
 
+	const { oruga } = useProgrammatic();
 	const url = ref("");
 	const imageUrl = computed(() => url.value);
 
@@ -42,7 +44,7 @@
 			formData.append("releaseYear", yearModel.value);
 			formData.append("description", descriptionModel.value);
 			formData.append("genres[0].id", genreModel.value);
-			formData.append("author.id", authorModel.value);
+			formData.append("author.id", authorModel.value + 1);
 			if (file.value) {
 				formData.append("file", file.value);
 			}
@@ -56,9 +58,17 @@
 					"Content-Type": "multipart/form-data",
 				},
 			});
-			alert("enviado");
+			oruga.notification.open({
+				message: "Pelicula añadida correctamente!",
+				rootClass: "success-notification",
+				position: "top",
+			});
 		} catch (err) {
-			console.log(err);
+			oruga.notification.open({
+				message: "Ha ocurrido un error al enviar el formulario.",
+				rootClass: "error-notification",
+				position: "top",
+			});
 		}
 	};
 </script>
@@ -99,13 +109,6 @@
 				</option>
 			</o-select>
 		</o-field>
-		<!-- <input
-			type="text"
-			name="description"
-			placeholder="Descripción"
-			class="form-film__input"
-			v-model="descriptionModel"
-		/> -->
 
 		<o-field
 			label="Selecciona un género"
