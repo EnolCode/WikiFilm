@@ -2,6 +2,7 @@
 	import { ref, reactive, onBeforeMount, computed } from "vue";
 	import axios from "axios";
 	import HeaderUser from "@/components/HeaderUser.vue";
+	import FootPage from "@/components/FootPage.vue";
 	import CardFilm from "@/components/CardFilm.vue";
 	import { useFilmStore } from "@/stores/FilmStore.js";
 	import FilmService from "@/services/FilmService.js";
@@ -42,6 +43,8 @@
 			:film="film"
 			 :delete-film="deleteFilm"
 		/>
+
+		<FootPage class="footer"/>
 	</main>
 </template>
 
@@ -65,5 +68,9 @@
 	.card:first-child,
 	.card:nth-child(2) {
 		grid-column: span 3;
+	}
+
+	.footer{
+		grid-column: span 6;
 	}
 </style>
