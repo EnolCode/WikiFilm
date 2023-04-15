@@ -3,7 +3,7 @@
 	import { useVuelidate } from "@vuelidate/core";
 	import SubmitButton from "@/components/btns/SubmitButton.vue";
 	import ResetButton from "@/components/btns/ResetButton.vue";
-	import NavBar from "@/components/NavBar.vue";
+	import NavBar from "@/components/layout/NavBar.vue";
 	import { required } from "@vuelidate/validators";
 
 	const props = defineProps({

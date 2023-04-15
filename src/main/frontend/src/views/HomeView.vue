@@ -1,5 +1,5 @@
 <script setup>
-	import Header from "../components/HeadPage.vue";
+	import Header from "../components/layout/HeadPage.vue";
 	import SubmitButton from "../components/btns/SubmitButton.vue";
 	import SocialMedia from "../components/SocialMedia.vue";
 </script>
@@ -41,8 +41,8 @@
 </template>
 
 <style lang="scss" scoped>
-	@use "../scss/colors" as c;
-	@use "../scss/mixins" as m;
+	@use "@/scss/colors" as c;
+	@use "@/scss/mixins" as m;
 
 	.main {
 		@include m.flex(flex, column, auto, auto, auto);

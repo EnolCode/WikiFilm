@@ -1,8 +1,8 @@
 <script setup>
 	import { ref, reactive, onBeforeMount, computed } from "vue";
 	import axios from "axios";
-	import HeaderUser from "@/components/HeaderUser.vue";
-	import FootPage from "@/components/FootPage.vue";
+	import HeaderUser from "@/components/layout/HeaderUser.vue";
+	import FootPage from "@/components/layout/FootPage.vue";
 	import CardFilm from "@/components/CardFilm.vue";
 	import { useFilmStore } from "@/stores/FilmStore.js";
 	import FilmService from "@/services/FilmService.js";

@@ -1,7 +1,7 @@
 <script setup>
 	import { ref, reactive, onBeforeMount, computed } from "vue";
 	import CardFilm from "@/components/CardFilm.vue";
-	import HeaderUser from "@/components/HeaderUser.vue";
+	import HeaderUser from "@/components/layout/HeaderUser.vue";
 	import { useFilmStore } from "@/stores/FilmStore.js";
 	import { useAuthStore } from "@/stores/authStore";
 

@@ -102,8 +102,8 @@
 </template>
 
 <style lang="scss" scoped>
-	@use "../scss/colors" as c;
-	@use "../scss/mixins" as m;
+	@use "@/scss/colors" as c;
+	@use "@/scss/mixins" as m;
 
 	.header {
 		@include m.flex(flex, row, auto, space-between, center);
