@@ -75,7 +75,7 @@
 	}
 
 	.copyright{
-		margin-left: 1em;
+		margin-left: 1.22em;
 	}
 
 </style>

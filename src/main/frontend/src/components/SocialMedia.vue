@@ -39,7 +39,7 @@
 		&__link {
 			margin: 0 0.5em;
 			&:hover {
-				@include m.pointer-opacity();
+				color: map-get(c.$colors, "red");
 			}
 		}
 	}
