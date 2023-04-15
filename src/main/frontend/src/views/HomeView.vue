@@ -117,8 +117,12 @@
 		}
 		.footer {
 			bottom: 0;
+			right: 0;
 			position: fixed;
 			width: 100%;
+			margin-bottom: 1em;
+			margin-right: 1.2em;
+
 		}
 	}
 </style>

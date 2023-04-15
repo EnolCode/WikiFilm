@@ -44,8 +44,8 @@
 			 :delete-film="deleteFilm"
 		/>
 
-		<FootPage class="footer"/>
 	</main>
+		<FootPage class="footer"/>
 </template>
 
 <style lang="scss">
@@ -70,7 +70,4 @@
 		grid-column: span 3;
 	}
 
-	.footer{
-		grid-column: span 6;
-	}
 </style>

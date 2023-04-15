@@ -36,11 +36,6 @@
 	.social-media {
 		@include m.flex(flex, row, auto, end, center);
 		@include m.font(default, 1.2em, map-get(c.$colors, "white"));
-		width: 100%;
-		font-size: 1.2em;
-		padding-right: 1.3em;
-		padding-bottom: 1em;
-
 		&__link {
 			margin: 0 0.5em;
 			&:hover {
