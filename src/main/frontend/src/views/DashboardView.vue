@@ -6,6 +6,8 @@
 	import CardFilm from "@/components/CardFilm.vue";
 	import { useFilmStore } from "@/stores/FilmStore.js";
 	import FilmService from "@/services/FilmService.js";
+	import CopyRight from "@/components/CopyRight.vue";
+
 
 	const service = new FilmService();
 	const storeFilms = useFilmStore();
@@ -45,7 +47,9 @@
 		/>
 
 	</main>
-		<FootPage class="footer"/>
+		<FootPage />
+        <CopyRight class="copyright" />
+
 </template>
 
 <style lang="scss">
@@ -68,6 +72,10 @@
 	.card:first-child,
 	.card:nth-child(2) {
 		grid-column: span 3;
+	}
+
+	.copyright{
+		margin-left: 1em;
 	}
 
 </style>

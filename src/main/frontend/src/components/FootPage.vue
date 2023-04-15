@@ -42,7 +42,6 @@
             </ul>
 
             <SocialMedia />
-            
         </nav>
 
             
@@ -58,7 +57,6 @@
 		width: 100%;
 		background: map-get(c.$colors, "red");
 		margin-top: 3em;
-		// height: 5em;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -68,7 +66,6 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
-			// align-items: ;
 
 			&__title {
 				color: map-get(c.$colors, "white");
