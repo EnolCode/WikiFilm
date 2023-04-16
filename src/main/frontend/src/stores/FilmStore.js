@@ -11,9 +11,10 @@ export const useFilmStore = defineStore("film", () => {
     const watchList = ref([]);
     const service = new FilmService();
 
-    const getAllFilms = async () => {
+    const getAllFilmsForRating = async () => {
         await service.fetchAllFilms();
         films.value = service.getFilms();
+        const sortedMovies = films.value.sort((a, b) => b.rating - a.rating);
         return films.value;
     }
 
@@ -26,7 +27,7 @@ export const useFilmStore = defineStore("film", () => {
     return {
         films,
         watchList,
-        getAllFilms,
+        getAllFilmsForRating,
         getWatchList,
     }
 });

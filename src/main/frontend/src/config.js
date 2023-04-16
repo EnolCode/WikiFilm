@@ -16,6 +16,7 @@ export const optionsGenres = [
     { value: 13, label: "Documental" },
     { value: 14, label: "Musical" },
     { value: 15, label: "Crimen" },
+    { value: 16, label: "Comedia Negra" },
   ];
 
   

@@ -5,17 +5,14 @@
 	import FootPage from "@/components/layout/FootPage.vue";
 	import CardFilm from "@/components/CardFilm.vue";
 	import { useFilmStore } from "@/stores/FilmStore.js";
-	import FilmService from "@/services/FilmService.js";
 	import CopyRight from "@/components/CopyRight.vue";
 
-
-	const service = new FilmService();
 	const storeFilms = useFilmStore();
 	let films = ref([]);
 	let searchFilms = ref("");
 
 	onBeforeMount(async () => {
-		films.value = await storeFilms.getAllFilms();
+		films.value = await storeFilms.getAllFilmsForRating();
 	});
 
 	const filteredFilmForTitle = computed(() => {
