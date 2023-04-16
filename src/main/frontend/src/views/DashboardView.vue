@@ -1,6 +1,5 @@
 <script setup>
 	import { ref, reactive, onBeforeMount, computed } from "vue";
-	import axios from "axios";
 	import HeaderUser from "@/components/layout/HeaderUser.vue";
 	import FootPage from "@/components/layout/FootPage.vue";
 	import CardFilm from "@/components/CardFilm.vue";
@@ -40,7 +39,7 @@
 			class="card"
 			v-for="film in filteredFilmForTitle"
 			:film="film"
-			 :delete-film="deleteFilm"
+			:delete-film="deleteFilm"
 		/>
 
 	</main>
