@@ -33,8 +33,8 @@ public class UserServiceTest {
 
     @BeforeEach
     public void init() {
-        user = new User(1L, "user1", "pass1", null,null,null);
-        user2 = new User(2L, "user2", "pass2", null,null,null);
+        user = new User(1L, "user1", "pass1", null,null,null,null);
+        user2 = new User(2L, "user2", "pass2", null,null,null, null);
     }
 
     @Test
