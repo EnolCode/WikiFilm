@@ -54,7 +54,7 @@
 				to="/"
 				class="nav-bar__link"
 			>
-				<p>Recomendados</p>
+				<p>Estrenos</p>
 			</router-link>
 		</nav>
 		<Slide

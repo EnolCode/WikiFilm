@@ -106,7 +106,7 @@
 			<a
 				href="#"
 				class="nav-bar__link"
-				>Recomendados</a
+				>Estrenos</a
 			>
 		</Slide>
 		<div
