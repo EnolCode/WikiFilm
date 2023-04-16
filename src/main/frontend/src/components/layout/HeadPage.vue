@@ -38,7 +38,7 @@
 			</router-link>
 
 			<router-link
-				to="/"
+				to="/films"
 				class="nav-bar__link"
 			>
 				<p>Peliculas</p>
