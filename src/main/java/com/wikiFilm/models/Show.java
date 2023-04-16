@@ -60,5 +60,4 @@ public class Show {
     @JsonIgnore
     @ManyToMany(mappedBy = "shows")
     Set<User> users;
-
 }

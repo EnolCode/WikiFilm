@@ -6,9 +6,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.wikiFilm.models.Film;
+import com.wikiFilm.models.Show;
 import com.wikiFilm.models.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
     Optional<User> findByUsername(String username);
     List<User> findAllByFilmsContaining(Film film);
+    List<User> findAllByShowsContaining(Show show);
 }

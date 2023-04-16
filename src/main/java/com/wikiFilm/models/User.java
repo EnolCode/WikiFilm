@@ -37,6 +37,6 @@ public class User {
     private Set<Film> films;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_shows", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "shows_id"))
+    @JoinTable(name = "users_shows", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "show_id"))
     private Set<Show> shows;
 }
