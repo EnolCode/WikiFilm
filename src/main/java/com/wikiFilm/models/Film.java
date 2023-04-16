@@ -51,7 +51,7 @@ public class Film {
     private List<Genre> genres;
     
     @ManyToOne(fetch = FetchType.EAGER)    
-    @JoinColumn(name= "author_id" , nullable = true, referencedColumnName = "id")
+    @JoinColumn(name= "author_id" , referencedColumnName = "id")
     Author author;
 
     @JsonIgnore
