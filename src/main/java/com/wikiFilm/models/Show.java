@@ -42,9 +42,6 @@ public class Show {
     private String image;
 
     @Column(nullable = false)
-    private String genre;
-
-    @Column(nullable = false)
     private String releaseYear;
 
     private Integer rating = 50;
