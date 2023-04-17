@@ -47,7 +47,7 @@ public class Show {
     private Integer rating = 50;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "film_genre", joinColumns = @JoinColumn(name = "show_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
+    @JoinTable(name = "show_genres", joinColumns = @JoinColumn(name = "show_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
     private List<Genre> genres;
 
     @ManyToOne(fetch = FetchType.EAGER)

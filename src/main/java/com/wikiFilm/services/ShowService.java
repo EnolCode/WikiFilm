@@ -92,12 +92,12 @@ public class ShowService implements BaseService<Show>{
     
     @Transactional
     public Show updateShow(Long id, Show showDetails) {
-        Show film = findById(id);
-        film.setTitle(showDetails.getTitle());
-        film.setReleaseYear(showDetails.getReleaseYear());
-        film.setRating(showDetails.getRating());
-        film.setDescription(showDetails.getDescription());
-        return save(film);
+        Show show = findById(id);
+        show.setTitle(showDetails.getTitle());
+        show.setReleaseYear(showDetails.getReleaseYear());
+        show.setRating(showDetails.getRating());
+        show.setDescription(showDetails.getDescription());
+        return save(show);
     }
 
 }

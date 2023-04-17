@@ -129,5 +129,4 @@ public class ShowControllerTest {
 
         assertThat(result.andReturn().getResponse().getStatus()).isEqualTo(200);
     }
-
 }
