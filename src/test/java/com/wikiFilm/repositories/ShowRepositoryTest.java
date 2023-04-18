@@ -42,4 +42,33 @@ public class ShowRepositoryTest {
         assertThat(foundShow.getDescription()).isEqualTo("Description");
     }
 
+    @Test
+    public void findAll_shouldReturnAllShow(){
+        Show show2 = new Show(2L,"show2","Description", "image", 2010,90,null,null,null);
+        repository.save(show2);
+        assertThat(repository.findAll()).hasSize(2);
+        assertThat(repository.findAll().contains(show2));
+    }
+
+    @Test
+    public void deleteById_shouldDeletedShowWithMatchingId(){
+        repository.deleteById(1L);
+        assertThat(repository.findAll()).hasSize(0);
+    }
+
+    @Test
+    public void deleteAll_shouldDeletedAllShow(){
+        Show show2 = new Show(2L,"show2","Description", "image", 2010,90,null,null,null);
+        repository.save(show2);
+        repository.deleteAll();
+        assertThat(repository.findAll()).hasSize(0);
+    }
+
+    @Test
+    public void save_shouldSaveShow(){
+        Show show2 = new Show(2L,"show2","Description", "image", 2010,90,null,null,null);
+        repository.save(show2);
+        assertThat(repository.findAll()).hasSize(2);
+        assertThat(repository.findAll().contains(show2));
+    }
 }
