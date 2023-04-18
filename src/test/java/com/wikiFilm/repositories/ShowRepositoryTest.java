@@ -28,12 +28,18 @@ public class ShowRepositoryTest {
         repository.save(show1);
     }
     
-
     @Test
-    public void findById(){
+    public void findById_shouldReturnShowWithMatchingId(){
         Show foundShow = repository.findById(1L).orElseThrow();
         assertThat(foundShow.getId()).isEqualTo(1L);
         assertThat(foundShow.getTitle()).isEqualTo("show1");
+    }
+
+    @Test
+    public void findByName_shouldReturnShowWithMatchingName(){
+        Show foundShow = repository.findByTitle("show1").orElseThrow(null);
+        assertThat(foundShow.getId()).isEqualTo(1L);
+        assertThat(foundShow.getDescription()).isEqualTo("Description");
     }
 
 }
