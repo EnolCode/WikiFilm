@@ -42,7 +42,7 @@ public class Show {
     private String image;
 
     @Column(nullable = false)
-    private String releaseYear;
+    private Integer releaseYear;
 
     private Integer rating = 50;
 
