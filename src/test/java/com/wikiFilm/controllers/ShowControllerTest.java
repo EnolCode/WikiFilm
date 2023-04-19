@@ -41,7 +41,7 @@ public class ShowControllerTest {
 
     @BeforeEach
     void setUp() {
-        show = new Show(1L, "show1", "description", "image1", "2022", 80, null,null ,null);
+        show = new Show(1L, "show1", "description", "image1", 2022, 80, null,null ,null);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class ShowControllerTest {
 
     @Test
     public void testUpdateShow() throws Exception {
-        Show updatedFilm = new Show(1L, "showUpdated", "description", "image2", "film update", 80,null, null,null);
+        Show updatedFilm = new Show(1L, "showUpdated", "description", "image2", 2222, 80,null, null,null);
 
         when(service.updateShow(any(Long.class), any(Show.class))).thenReturn(updatedFilm);
 
