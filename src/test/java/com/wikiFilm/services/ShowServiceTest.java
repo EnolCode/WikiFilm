@@ -1,6 +1,7 @@
 package com.wikiFilm.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.wikiFilm.exception.ShowNotFoundException;
 import com.wikiFilm.models.Show;
 import com.wikiFilm.repositories.ShowRepository;
 
@@ -50,6 +52,14 @@ public class ShowServiceTest {
 
         assertThat(currentShow.getId()).isEqualTo(1L);
         assertThat(currentShow.getTitle()).isEqualTo("show1");
+    }
+
+    @Test
+    public void findByTitle_shouldReturnNull_WhenShowDoesNotExist() {
+        when(repository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(ShowNotFoundException.class, () -> service.findById(1L));
+
     }
     
 }
