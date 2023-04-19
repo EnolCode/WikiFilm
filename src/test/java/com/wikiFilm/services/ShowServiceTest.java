@@ -42,5 +42,14 @@ public class ShowServiceTest {
         assertThat(currentShow.getId()).isEqualTo(1L);
         assertThat(currentShow.getTitle()).isEqualTo("show1");
     }
+
+    @Test
+    public void findByTitle_shouldReturnShow_WhenShowExists() {
+        when(repository.findByTitle("show1")).thenReturn(Optional.of(show));
+        Show currentShow = service.findByTitle("show1");
+
+        assertThat(currentShow.getId()).isEqualTo(1L);
+        assertThat(currentShow.getTitle()).isEqualTo("show1");
+    }
     
 }
