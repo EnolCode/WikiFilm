@@ -51,7 +51,7 @@
 
 			await axios({
 				method: "POST",
-				url: "http://localhost:8080/media/upload/film",
+				url: "http://localhost:8080/media/upload/show",
 				data: formData,
 				withCredentials: true,
 				headers: {

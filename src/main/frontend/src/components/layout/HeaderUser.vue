@@ -50,7 +50,7 @@
 		/>
 		<nav class="nav-bar">
 			<router-link
-				to="/"
+				to="/shows"
 				class="nav-bar__link"
 			>
 				<p>Series</p>

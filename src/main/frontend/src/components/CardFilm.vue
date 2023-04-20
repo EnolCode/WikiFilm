@@ -11,8 +11,15 @@
 		film: {
 			type: Object,
 		},
+		show: {
+			type: Object,
+		},
 		deleteFilm: {
 			type: Function,
+		},
+		type: {
+			type: String,
+			default: "film",
 		},
 	});
 
@@ -26,17 +33,18 @@
 	const isDisliked = ref(false);
 
 	const like = () => {
-		const idFilm = props.film.id;
-		isLiked.value = !isLiked.value;
-		isDisliked.value = false;
-		axios({
-			method: "POST",
-			url: "http://localhost:8080/api/films/like/" + idFilm,
-			withCredentials: true,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		const item = props.type === 'movie' ? props.film : props.show;
+	const id = item.id;
+	isLiked.value = !isLiked.value;
+	isDisliked.value = false;
+	axios({
+		method: "POST",
+		url: "http://localhost:8080/api/films/like/" + id,
+		withCredentials: true,
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
 	};
 
 	const dislike = () => {
@@ -99,13 +107,25 @@
 		></i>
 		<picture class="card-film__image">
 			<img
+				v-if="type == 'film'"
+				
 				:src="'http://localhost:8080/media/' + film.image"
 				alt="film image"
 				onerror="this.src='https://wallpapercave.com/wp/wp1932771.jpg'"
 			/>
+			<img
+				v-else
+				:src="'http://localhost:8080/media/' + show.image"
+				alt="film image"
+				onerror="this.src='https://wallpapercave.com/wp/wp1932771.jpg'"
+			/>
 			<div class="card-film__info">
-				<p class="card-film__title">{{ film.title }}</p>
-				<span class="card-film__year">{{ film.releaseYear }} </span>
+				<p class="card-film__title">
+					{{ type == "film" ? film.title : show.title }}
+				</p>
+				<span class="card-film__year"
+					>{{ type == "film" ? film.releaseYear : show.releaseYear }}
+				</span>
 			</div>
 		</picture>
 		<div class="card-film__container-btns">
@@ -144,7 +164,9 @@
 			</div>
 			<div class="separator-rating">
 				<i class="fa-solid fa-heart card-film__btn btn-rating"></i>
-				<span class="card-film__rating">{{ film.rating }}%</span>
+				<span class="card-film__rating"
+					>{{ type === "film" ? film.rating : show.rating }}%</span
+				>
 			</div>
 		</div>
 	</div>
@@ -158,7 +180,7 @@
 		border: 1px solid white;
 		&__image {
 			width: 100%;
-			img{
+			img {
 				width: 100%;
 				height: 100%;
 				// object-fit: contain;

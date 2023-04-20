@@ -1,27 +1,17 @@
 <script setup>
 	import { ref, onBeforeMount, computed } from "vue";
 	import HeaderUser from "@/components/layout/HeaderUser.vue";
-	import { useFilmStore } from "@/stores/FilmStore.js";
 	import { useShowStore } from "@/stores/ShowStore.js";
 	import CardFilm from "@/components/CardFilm.vue";
 	import FootPage from "@/components/layout/FootPage.vue";
 	import CopyRight from "@/components/CopyRight.vue";
-	import { useRoute } from "vue-router";
-
-	const route = useRoute();
 
 	const storeFilms = useFilmStore();
-	const storeShows = useShowStore();
 	let films = ref([]);
-	let shows = ref([]);
 	let searchFilms = ref("");
 
 	onBeforeMount(async () => {
-		if(route.path === "/films"){
-			films.value = await storeFilms.getAllFilmsForRating();
-		}else if(route.path === "/shows"){
-			shows.value = await storeShows.getAllShowsForRating();
-		}
+		films.value = await storeFilms.getAllFilmsForRating();
 	});
 
 	const deleteFilm = id => {
@@ -44,19 +34,11 @@
 		@update:modelValue="searchFilms = $event"
 	/>
 	<main>
-		<CardFilm v-if="route.path === '/films'"
+		<CardFilm
 			class="card"
 			v-for="film in films"
 			:film="film"
 			:delete-film="deleteFilm"
-
-		/>
-		<CardFilm v-else-if="route.path === '/shows'"
-			class="card"
-			v-for="show in shows"
-			:show="show"
-			:delete-show="deleteShow"
-			:type="show"
 		/>
 	</main>
 	<FootPage />

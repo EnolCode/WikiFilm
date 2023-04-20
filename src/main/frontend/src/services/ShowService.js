@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { ref } from "vue";
 import { baseUrl } from '@/config.js';
+import ApiService from '@/services/ApiService.js';
+
+const apiService = new ApiService();
 
 export default class ShowService{
     shows;
@@ -21,9 +24,27 @@ export default class ShowService{
 
     async fetchAllShows(){
         try {
-            await axios.get(`${baseUrl}/api/shows`)
+            const data = await apiService.get("/api/shows");
+            this.shows.value = data
         } catch (error) {
-            
+            console.log(error)
+        }
+    }
+
+    async fetchWatchList(username){
+        try {
+            const data  = await apiService.get(`/api/users/username/${username}`)
+            this.watchList.value = data.shows;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async deleteShow(idShow){
+        try {
+            await apiService.delete(`/api/shows/${idShow}`)
+        } catch (error) {
+            console.log(error)
         }
     }
 }
