@@ -5,10 +5,12 @@
 	import CardFilm from "@/components/CardFilm.vue";
 	import { useFilmStore } from "@/stores/FilmStore.js";
 	import CopyRight from "@/components/CopyRight.vue";
+	import FilmService from "@/services/FilmService.js";
 
 	const storeFilms = useFilmStore();
 	let films = ref([]);
 	let searchFilms = ref("");
+	const service = new FilmService();
 
 	onBeforeMount(async () => {
 		films.value = await storeFilms.getAllFilmsForRating();
@@ -73,5 +75,4 @@
 	.copyright{
 		margin-left: 1.22em;
 	}
-
 </style>
