@@ -18,6 +18,7 @@ export const optionsGenres = [
     { value: 15, label: "Crimen" },
     { value: 16, label: "Comedia Negra" },
     { value: 17, label: "Histórica" },
+    { value: 17, label: "Bélico" },
   ];
 
   

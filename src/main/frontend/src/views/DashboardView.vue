@@ -1,5 +1,5 @@
 <script setup>
-	import { ref, reactive, onBeforeMount, computed } from "vue";
+	import { ref, reactive, onBeforeMount, computed, onMounted } from "vue";
 	import HeaderUser from "@/components/layout/HeaderUser.vue";
 	import FootPage from "@/components/layout/FootPage.vue";
 	import CardFilm from "@/components/CardFilm.vue";
@@ -12,8 +12,9 @@
 	let searchFilms = ref("");
 	const service = new FilmService();
 
-	onBeforeMount(async () => {
+	onMounted(async () => {
 		films.value = await storeFilms.getAllFilmsForRating();
+		console.log(films.value)
 	});
 
 	const filteredFilmForTitle = computed(() => {

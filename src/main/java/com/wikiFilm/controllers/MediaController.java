@@ -19,8 +19,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.wikiFilm.models.Film;
+import com.wikiFilm.models.Show;
 import com.wikiFilm.models.User;
 import com.wikiFilm.services.FilmService;
+import com.wikiFilm.services.ShowService;
 import com.wikiFilm.services.UserService;
 import com.wikiFilm.services.Storage.StorageService;
 
@@ -35,6 +37,7 @@ public class MediaController {
     private final HttpServletRequest request;  
     private final UserService userService; 
     private final FilmService filmService;
+    private final ShowService showService;
 
     @PostMapping("upload")
     public Map<String, String> uploadFile(@RequestParam("file") MultipartFile multipartFile, User user) {
@@ -63,6 +66,24 @@ public class MediaController {
 
         film.setImage(multipartFile.getOriginalFilename());
         filmService.save(film);
+        
+        String path = storageService.store(multipartFile); // Almacena usando el servicio de almacenamiento
+        String host = request.getRequestURL().toString().replace(request.getRequestURI(),""); // Obtiene la URL del archivo que podra ser consultada por otro metodo
+        
+        String url = ServletUriComponentsBuilder    
+                .fromHttpUrl(host)
+                .path("/media/")
+                .path(path)
+                .toUriString();
+
+        return Map.of("url", url); // Retorna un mapa con un solo elemento para la URL
+    }
+
+    @PostMapping("upload/show")
+    public Map<String, String> uploadShow(@RequestParam("file") MultipartFile multipartFile, Show show) {
+
+        show.setImage(multipartFile.getOriginalFilename());
+        showService.save(show);
         
         String path = storageService.store(multipartFile); // Almacena usando el servicio de almacenamiento
         String host = request.getRequestURL().toString().replace(request.getRequestURI(),""); // Obtiene la URL del archivo que podra ser consultada por otro metodo

@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { ref } from "vue";
 import { baseUrl } from '@/config.js';
+import ApiService from '@/services/ApiService.js';
+
+const apiService = new ApiService();
 
 export default class FilmService{
 
@@ -22,10 +25,9 @@ export default class FilmService{
 
     async fetchAllFilms() {
         try {
-             await axios.get(`${baseUrl}/api/films`).then(res=>{
-                this.films.value = res.data;
-                console.log(res.data)
-            })
+             const data = await apiService.get("/api/films");
+             this.films.value = data
+             console.log(data)
         } catch (error) {
             console.log(error)
         }
@@ -33,9 +35,8 @@ export default class FilmService{
 
     async fetchWatchList(username) {
         try {
-             await axios.get(`${baseUrl}/api/users/username/${username}`).then(res=>{
-                this.watchList.value = res.data.films;
-            })
+             const data  = await apiService.get(`/api/users/username/${username}`)
+             this.watchList.value = data.films;
         } catch (error) {
             console.log(error)
         }
@@ -43,7 +44,7 @@ export default class FilmService{
 
     async deleteFilm(idFilm) {
         try {
-            await axios.delete(`${baseUrl}/api/films/${idFilm}`)
+            await apiService.delete(`/api/films/${idFilm}`)
         } catch (error) {
             console.log(error)
         }
