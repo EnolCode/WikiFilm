@@ -85,7 +85,7 @@ export default class FilmService {
 		try {
 			axios({
 				method: "POST",
-				url: "http://localhost:8080/api/films/addToWatchList/" + idFilm,
+				url: "http://localhost:8080/api/users/addFilm/" + idFilm,
 				withCredentials: true,
 				headers: {
 					"Content-Type": "application/json",

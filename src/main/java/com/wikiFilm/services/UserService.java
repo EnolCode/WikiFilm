@@ -105,7 +105,7 @@ public class UserService implements BaseService<User> {
                 .orElseThrow(() -> new RuntimeException("User not found with username " + currentUsername));
 
         Film film = filmRepository.findById(filmId)
-                .orElseThrow(() -> new RuntimeException("Event not found with id " + filmId));
+                .orElseThrow(() -> new RuntimeException("Film not found with id " + filmId));
 
         if (user.getFilms().contains(film)) {
             user.getFilms().remove(film);
@@ -123,21 +123,21 @@ public class UserService implements BaseService<User> {
                 .orElseThrow(() -> new RuntimeException("User not found with username " + currentUsername));
 
         Film film = filmRepository.findById(FilmId)
-                .orElseThrow(() -> new RuntimeException("Event not found with id " + FilmId));
+                .orElseThrow(() -> new RuntimeException("Film not found with id " + FilmId));
 
         user.getFilms().remove(film);
         userRepository.save(user);
     }
 
     @Transactional
-    public void addShowWatchList(Long id) {
+    public void addShowWatchList(Long idShow) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
         User user = userRepository.findByUsername(currentUsername)
                 .orElseThrow(() -> new RuntimeException("User not found with username " + currentUsername));
 
-        Show show = showRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found with id " + id));
+        Show show = showRepository.findById(idShow)
+                .orElseThrow(() -> new RuntimeException("Show not found with id " + idShow));
 
         if (user.getShows().contains(show)) {
             user.getShows().remove(show);
@@ -145,7 +145,20 @@ public class UserService implements BaseService<User> {
             user.getShows().add(show);
         }
         userRepository.save(user);
+    }
 
+    @Transactional
+    public void deleteShowWatchList(Long idShow) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        User user = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new RuntimeException("User not found with username " + currentUsername));
+
+        Show show = showRepository.findById(idShow)
+                .orElseThrow(() -> new RuntimeException("Show not found with id " + idShow));
+
+        user.getShows().remove(show);
+        userRepository.save(user);
     }
 
 }

@@ -82,7 +82,7 @@ export default class ShowService{
 		try {
 			axios({
 				method: "POST",
-				url: "http://localhost:8080/api/shows/addToWatchList/" + idShow,
+				url: "http://localhost:8080/api/users/addShow/" + idShow,
 				withCredentials: true,
 				headers: {
 					"Content-Type": "application/json",
