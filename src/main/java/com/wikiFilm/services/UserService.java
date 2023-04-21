@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import com.wikiFilm.exception.UserNotFoundException;
 import com.wikiFilm.models.Film;
+import com.wikiFilm.models.Show;
 import com.wikiFilm.models.User;
 import com.wikiFilm.repositories.FilmRepository;
+import com.wikiFilm.repositories.ShowRepository;
 import com.wikiFilm.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -26,6 +28,7 @@ public class UserService implements BaseService<User> {
 
     private UserRepository userRepository;
     private final FilmRepository filmRepository;
+    private final ShowRepository showRepository;
 
     @Override
     @Transactional
@@ -104,9 +107,9 @@ public class UserService implements BaseService<User> {
         Film film = filmRepository.findById(filmId)
                 .orElseThrow(() -> new RuntimeException("Event not found with id " + filmId));
 
-        if(user.getFilms().contains(film)) {
+        if (user.getFilms().contains(film)) {
             user.getFilms().remove(film);
-        }else{
+        } else {
             user.getFilms().add(film);
         }
         userRepository.save(user);
@@ -126,6 +129,23 @@ public class UserService implements BaseService<User> {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void addShowWatchList(Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        User user = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new RuntimeException("User not found with username " + currentUsername));
 
+        Show show = showRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Event not found with id " + id));
+
+        if (user.getShows().contains(show)) {
+            user.getShows().remove(show);
+        } else {
+            user.getShows().add(show);
+        }
+        userRepository.save(user);
+
+    }
 
 }

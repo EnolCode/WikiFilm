@@ -2,12 +2,14 @@
 	import { ref, defineProps, watch } from "vue";
 	import axios from "axios";
 	import { useFilmStore } from "@/stores/FilmStore.js";
+	import { useShowStore } from "@/stores/ShowStore.js";
 	import FilmService from "@/services/FilmService.js";
 	import ShowService from "@/services/ShowService.js";
 	import { useAuthStore } from "@/stores/authStore";
 
-	const filmStore = useFilmStore();
 	const auth = useAuthStore();
+	const filmStore = useFilmStore();
+	const showStore = useShowStore();
 	const filmService = new FilmService();
 	const showService = new ShowService();
 
@@ -30,10 +32,15 @@
 		},
 	});
 
-	filmStore.getWatchList().then(res => {
-		const watchListIds = res.map(film => film.id);
-		isWatched.value = watchListIds.includes(props.film.id);
-	});
+	props.type === "film"
+		? filmStore.getWatchList().then(res => {
+				const watchListIds = res.map(film => film.id);
+				isWatched.value = watchListIds.includes(props.film.id);
+		  })
+		: showStore.getWatchList().then(res => {
+				const watchListIds = res.map(show => show.id);
+				isWatched.value = watchListIds.includes(props.show.id);
+		  });
 
 	const isWatched = ref(false);
 	const isLiked = ref(false);
@@ -60,18 +67,14 @@
 	};
 
 	const addFilmWatchList = () => {
-		const idFilm = props.film.id;
+		const item = props.type === "film" ? props.film : props.show;
+		const id = item.id;
 		isWatched.value
 			? (isWatched.value = false)
 			: (isWatched.value = true);
-		axios({
-			method: "POST",
-			url: "http://localhost:8080/api/users/addFilm/" + idFilm,
-			withCredentials: true,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		props.type === "film"
+			? filmService.addFilmToWatchList(id)
+			: showService.addShowToWatchList(id);
 	};
 
 	watch(isLiked, (newValue, oldValue) => {
@@ -92,18 +95,18 @@
 
 	watch(isDisliked, (newValue, oldValue) => {
 		if (props.type === "film") {
-		if (newValue) {
-			props.film.rating--;
+			if (newValue) {
+				props.film.rating--;
+			} else {
+				props.film.rating++;
+			}
 		} else {
-			props.film.rating++;
+			if (newValue) {
+				props.show.rating--;
+			} else {
+				props.show.rating++;
+			}
 		}
-	} else {
-		if (newValue) {
-			props.show.rating--;
-		} else {
-			props.show.rating++;
-		}
-	}
 	});
 
 	const onDelete = () => {

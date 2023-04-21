@@ -13,7 +13,7 @@ export const useShowStore = defineStore("show",()=>{
     const getAllShowsForRating = async () => {
         await service.fetchAllShows();
         shows.value = service.getShows();
-        // const sortedShows = shows.value.sort((a, b) => b.rating - a.rating);
+        const sortedShows = shows.value.sort((a, b) => b.rating - a.rating);
         return shows.value;
     }
 

@@ -77,4 +77,19 @@ export default class ShowService{
             console.log(error)
         }
     }
+
+    async addShowToWatchList(idShow) {
+		try {
+			axios({
+				method: "POST",
+				url: "http://localhost:8080/api/shows/addToWatchList/" + idShow,
+				withCredentials: true,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+		} catch {
+			console.log(error);
+		}
+	}
 }

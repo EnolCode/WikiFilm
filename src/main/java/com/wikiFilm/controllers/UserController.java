@@ -63,6 +63,12 @@ public class UserController {
         return ResponseEntity.ok("Film added successfully");
     }
 
+    @PostMapping("/addShow/{id}")
+    public ResponseEntity<String> addShowWatchList(@PathVariable Long id) {
+        userService.addShowWatchList(id);
+        return ResponseEntity.ok("Show added successfully");
+    }
+
     @DeleteMapping("/deleteFilm/{id}")
     public ResponseEntity<String> deleteFilmWatchList(@PathVariable Long id) {
         userService.deleteFilmWatchList(id);
