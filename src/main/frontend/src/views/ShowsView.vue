@@ -6,39 +6,39 @@
 	import FootPage from "@/components/layout/FootPage.vue";
 	import CopyRight from "@/components/CopyRight.vue";
 
-	const storeFilms = useFilmStore();
-	let films = ref([]);
-	let searchFilms = ref("");
+	const showStore = useFilmStore();
+	let shows = ref([]);
+	let searchShows = ref("");
 
 	onBeforeMount(async () => {
-		films.value = await storeFilms.getAllFilmsForRating();
+		shows.value = await showStore.getAllShowsForRating();
 	});
 
-	const deleteFilm = id => {
-		films.value = films.value.filter(film => film.id !== id);
-		service.deleteFilm(id);
+	const deleteShow = id => {
+		shows.value = shows.value.filter(show => show.id !== id);
+		service.deleteShow(id);
 	};
 
-	const filteredFilmForTitle = computed(() => {
-		if (!searchFilms.value) return films.value;
-		return films.value.filter(film =>
-			film.title
+	const filteredShowForTitle = computed(() => {
+		if (!searchShows.value) return shows.value;
+		return shows.value.filter(show =>
+			show.title
 				.toLowerCase()
-				.includes(searchFilms.value.toLowerCase())
+				.includes(searchShows.value.toLowerCase())
 		);
 	});
 </script>
 <template>
 	<HeaderUser
-		v-model="searchFilms"
-		@update:modelValue="searchFilms = $event"
+		v-model="searchShows"
+		@update:modelValue="searchShows = $event"
 	/>
 	<main>
 		<CardFilm
 			class="card"
-			v-for="film in films"
-			:film="film"
-			:delete-film="deleteFilm"
+			v-for="show in shows"
+			:show="show"
+			:delete-show="deleteShow"
 		/>
 	</main>
 	<FootPage />
