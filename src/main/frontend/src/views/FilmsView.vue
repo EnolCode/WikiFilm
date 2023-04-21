@@ -11,17 +11,11 @@
 	const route = useRoute();
 
 	const storeFilms = useFilmStore();
-	const storeShows = useShowStore();
 	let films = ref([]);
-	let shows = ref([]);
 	let searchFilms = ref("");
 
 	onBeforeMount(async () => {
-		if(route.path === "/films"){
 			films.value = await storeFilms.getAllFilmsForRating();
-		}else if(route.path === "/shows"){
-			shows.value = await storeShows.getAllShowsForRating();
-		}
 	});
 
 	const deleteFilm = id => {
@@ -50,13 +44,6 @@
 			:film="film"
 			:delete-film="deleteFilm"
 
-		/>
-		<CardFilm v-else-if="route.path === '/shows'"
-			class="card"
-			v-for="show in shows"
-			:show="show"
-			:delete-show="deleteShow"
-			:type="show"
 		/>
 	</main>
 	<FootPage />

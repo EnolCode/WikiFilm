@@ -33,18 +33,18 @@
 	const isDisliked = ref(false);
 
 	const like = () => {
-		const item = props.type === 'movie' ? props.film : props.show;
-	const id = item.id;
-	isLiked.value = !isLiked.value;
-	isDisliked.value = false;
-	axios({
-		method: "POST",
-		url: "http://localhost:8080/api/films/like/" + id,
-		withCredentials: true,
-		headers: {
-			"Content-Type": "application/json",
-		},
-	});
+		const item = props.type === "movie" ? props.film : props.show;
+		const id = item.id;
+		isLiked.value = !isLiked.value;
+		isDisliked.value = false;
+		axios({
+			method: "POST",
+			url: "http://localhost:8080/api/films/like/" + id,
+			withCredentials: true,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 	};
 
 	const dislike = () => {
@@ -108,7 +108,6 @@
 		<picture class="card-film__image">
 			<img
 				v-if="type == 'film'"
-				
 				:src="'http://localhost:8080/media/' + film.image"
 				alt="film image"
 				onerror="this.src='https://wallpapercave.com/wp/wp1932771.jpg'"
