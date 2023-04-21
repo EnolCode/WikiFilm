@@ -32,17 +32,6 @@ export default class FilmService {
 		}
 	}
 
-	async fetchWatchList(username) {
-		try {
-			const data = await apiService.get(
-				`/api/users/username/${username}`
-			);
-			this.watchList.value = data.films;
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
 	async deleteFilm(idFilm) {
 		try {
 			await apiService.delete(`/api/films/${idFilm}`);

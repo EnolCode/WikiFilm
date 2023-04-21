@@ -1,10 +1,11 @@
 <script setup>
-	import { ref, defineProps, watch } from "vue";
+	import { ref, defineProps, watch, onBeforeMount } from "vue";
 	import axios from "axios";
 	import { useFilmStore } from "@/stores/FilmStore.js";
 	import { useShowStore } from "@/stores/ShowStore.js";
 	import FilmService from "@/services/FilmService.js";
 	import ShowService from "@/services/ShowService.js";
+	import UserService from "@/services/UserService.js";
 	import { useAuthStore } from "@/stores/authStore";
 
 	const auth = useAuthStore();
@@ -12,6 +13,7 @@
 	const showStore = useShowStore();
 	const filmService = new FilmService();
 	const showService = new ShowService();
+	const userService = new UserService();
 
 	const props = defineProps({
 		film: {
@@ -32,15 +34,14 @@
 		},
 	});
 
-	props.type === "film"
-		? filmStore.getWatchList().then(res => {
-				const watchListIds = res.map(film => film.id);
-				isWatched.value = watchListIds.includes(props.film.id);
-		  })
-		: showStore.getWatchList().then(res => {
-				const watchListIds = res.map(show => show.id);
-				isWatched.value = watchListIds.includes(props.show.id);
-		  });
+	let prueba = ref();
+	onBeforeMount(async () => {
+		await userService.fetchWatchList(auth.username);
+		const res = await userService.getWatchList();
+		const watchListIds = res.map(item => item.id);
+		const item = props.type === "film" ? props.film : props.show;
+		isWatched.value = watchListIds.includes(item.id);
+	});
 
 	const isWatched = ref(false);
 	const isLiked = ref(false);

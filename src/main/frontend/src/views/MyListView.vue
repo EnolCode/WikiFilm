@@ -1,6 +1,7 @@
 <script setup>
 	import { ref, reactive, onBeforeMount, computed } from "vue";
 	import CardFilm from "@/components/CardFilm.vue";
+	import UserService from "@/services/UserService.js"
 	import HeaderUser from "@/components/layout/HeaderUser.vue";
 	import { useFilmStore } from "@/stores/FilmStore.js";
 	import { useAuthStore } from "@/stores/authStore";
@@ -9,9 +10,12 @@
 	const auth = useAuthStore();
 	let watchList = ref([]);
 	let searchFilms = ref("");
+	const userService = new UserService();
 
 	onBeforeMount(async () => {
-		watchList.value = await storeFilms.getWatchList();
+		 await userService.fetchWatchList(auth.username);
+		 watchList.value = userService.getWatchList();
+		console.log(watchList.value)
 	});
 
 	const filteredFilmForTitle = computed(() => {
