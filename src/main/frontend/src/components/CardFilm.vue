@@ -3,11 +3,13 @@
 	import axios from "axios";
 	import { useFilmStore } from "@/stores/FilmStore.js";
 	import FilmService from "@/services/FilmService.js";
+	import ShowService from "@/services/ShowService.js";
 	import { useAuthStore } from "@/stores/authStore";
 
 	const filmStore = useFilmStore();
 	const auth = useAuthStore();
 	const filmService = new FilmService();
+	const showService = new ShowService();
 
 	const props = defineProps({
 		film: {
@@ -33,8 +35,6 @@
 		isWatched.value = watchListIds.includes(props.film.id);
 	});
 
-
-
 	const isWatched = ref(false);
 	const isLiked = ref(false);
 	const isDisliked = ref(false);
@@ -44,7 +44,9 @@
 		const id = item.id;
 		isLiked.value = !isLiked.value;
 		isDisliked.value = false;
-		filmService.likeFilm(id);
+		props.type === "film"
+			? filmService.likeFilm(id)
+			: showService.likeShow(id);
 	};
 
 	const dislike = () => {
@@ -52,7 +54,9 @@
 		const id = item.id;
 		isDisliked.value = !isDisliked.value;
 		isLiked.value = false;
-		props.type === "film" ? filmService.dislikeFilm(id) : showService.dislikeShow(id);
+		props.type === "film"
+			? filmService.dislikeFilm(id)
+			: showService.dislikeShow(id);
 	};
 
 	const addFilmWatchList = () => {
@@ -71,32 +75,48 @@
 	};
 
 	watch(isLiked, (newValue, oldValue) => {
-		if (newValue) {
-			props.film.rating++;
+		if (props.type === "film") {
+			if (newValue) {
+				props.film.rating++;
+			} else {
+				props.film.rating--;
+			}
 		} else {
-			props.film.rating--;
+			if (newValue) {
+				props.show.rating++;
+			} else {
+				props.show.rating--;
+			}
 		}
 	});
 
 	watch(isDisliked, (newValue, oldValue) => {
+		if (props.type === "film") {
 		if (newValue) {
 			props.film.rating--;
 		} else {
 			props.film.rating++;
 		}
+	} else {
+		if (newValue) {
+			props.show.rating--;
+		} else {
+			props.show.rating++;
+		}
+	}
 	});
 
 	const onDelete = () => {
-	if (props.type === "film") {
-		if (confirm("¿Seguro que quieres eliminar esta película?")) {
-			props.deleteFilm(props.film.id);
+		if (props.type === "film") {
+			if (confirm("¿Seguro que quieres eliminar esta película?")) {
+				props.deleteFilm(props.film.id);
+			}
+		} else {
+			if (confirm("¿Seguro que quieres eliminar esta serie?")) {
+				props.deleteShow(props.show.id);
+			}
 		}
-	} else {
-		if (confirm("¿Seguro que quieres eliminar esta serie?")) {
-			props.deleteShow(props.show.id);
-		}
-	}
-};
+	};
 </script>
 <template>
 	<div class="card-film">
