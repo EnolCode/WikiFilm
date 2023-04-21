@@ -5,8 +5,10 @@
 	import CardFilm from "@/components/CardFilm.vue";
 	import FootPage from "@/components/layout/FootPage.vue";
 	import CopyRight from "@/components/CopyRight.vue";
+	import ShowService from "@/services/ShowService.js";
 
-	const showStore = useFilmStore();
+	const service = new ShowService();
+	const showStore = useShowStore();
 	let shows = ref([]);
 	let searchShows = ref("");
 
@@ -39,6 +41,7 @@
 			v-for="show in shows"
 			:show="show"
 			:delete-show="deleteShow"
+			:type="show"
 		/>
 	</main>
 	<FootPage />

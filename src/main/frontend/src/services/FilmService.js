@@ -49,4 +49,34 @@ export default class FilmService{
             console.log(error)
         }
     }
+
+    async likeFilm(idFilm) {
+        try {
+            axios({
+			method: "POST",
+			url: "http://localhost:8080/api/films/like/" + idFilm,
+			withCredentials: true,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+        } catch{
+            console.log(error)
+        }
+    }
+
+    async dislikeFilm(idFilm) {
+        try {
+            axios({
+			method: "POST",
+			url: "http://localhost:8080/api/films/dislike/" + idFilm,
+			withCredentials: true,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+        } catch{
+            console.log(error)
+        }
+    }
 }

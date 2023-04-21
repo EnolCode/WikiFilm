@@ -7,7 +7,9 @@
 	import FootPage from "@/components/layout/FootPage.vue";
 	import CopyRight from "@/components/CopyRight.vue";
 	import { useRoute } from "vue-router";
+	import FilmService from "@/services/FilmService.js";
 
+	const service = new FilmService();
 	const route = useRoute();
 
 	const storeFilms = useFilmStore();

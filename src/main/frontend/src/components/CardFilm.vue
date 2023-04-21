@@ -2,10 +2,12 @@
 	import { ref, defineProps, watch } from "vue";
 	import axios from "axios";
 	import { useFilmStore } from "@/stores/FilmStore.js";
+	import FilmService from "@/services/FilmService.js";
 	import { useAuthStore } from "@/stores/authStore";
 
 	const filmStore = useFilmStore();
 	const auth = useAuthStore();
+	const filmService = new FilmService();
 
 	const props = defineProps({
 		film: {
@@ -15,6 +17,9 @@
 			type: Object,
 		},
 		deleteFilm: {
+			type: Function,
+		},
+		deleteShow: {
 			type: Function,
 		},
 		type: {
@@ -28,37 +33,26 @@
 		isWatched.value = watchListIds.includes(props.film.id);
 	});
 
+
+
 	const isWatched = ref(false);
 	const isLiked = ref(false);
 	const isDisliked = ref(false);
 
 	const like = () => {
-		const item = props.type === "movie" ? props.film : props.show;
+		const item = props.type === "film" ? props.film : props.show;
 		const id = item.id;
 		isLiked.value = !isLiked.value;
 		isDisliked.value = false;
-		axios({
-			method: "POST",
-			url: "http://localhost:8080/api/films/like/" + id,
-			withCredentials: true,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		filmService.likeFilm(id);
 	};
 
 	const dislike = () => {
-		const idFilm = props.film.id;
+		const item = props.type === "film" ? props.film : props.show;
+		const id = item.id;
 		isDisliked.value = !isDisliked.value;
 		isLiked.value = false;
-		axios({
-			method: "POST",
-			url: "http://localhost:8080/api/films/dislike/" + idFilm,
-			withCredentials: true,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		props.type === "film" ? filmService.dislikeFilm(id) : showService.dislikeShow(id);
 	};
 
 	const addFilmWatchList = () => {
@@ -93,10 +87,16 @@
 	});
 
 	const onDelete = () => {
+	if (props.type === "film") {
 		if (confirm("¿Seguro que quieres eliminar esta película?")) {
 			props.deleteFilm(props.film.id);
 		}
-	};
+	} else {
+		if (confirm("¿Seguro que quieres eliminar esta serie?")) {
+			props.deleteShow(props.show.id);
+		}
+	}
+};
 </script>
 <template>
 	<div class="card-film">
