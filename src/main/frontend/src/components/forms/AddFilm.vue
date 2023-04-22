@@ -3,15 +3,15 @@
 	import axios from "axios";
 	import { optionsGenres } from "@/config.js";
 	import { useProgrammatic } from "@oruga-ui/oruga-next";
-	import ApiService from "@/services/ApiService.js"
+	import ApiService from "@/services/ApiService.js";
 
 	const apiService = new ApiService();
 	const { oruga } = useProgrammatic();
 	const url = ref("");
 	const imageUrl = computed(() => url.value);
-
+	const type = ref();
 	const file = ref(null);
-
+ const typeModel = ref("");
 	const onFileChange = event => {
 		file.value = event.target.files[0];
 	};
@@ -51,7 +51,7 @@
 				formData.append("file", file.value);
 			}
 
-			 apiService.post("film",formData);
+			apiService.post("show", formData);
 			oruga.notification.open({
 				message: "Pelicula añadida correctamente!",
 				rootClass: "success-notification",
@@ -98,6 +98,19 @@
 			class="form-film__input"
 			v-model="yearModel"
 		/>
+
+		<o-field
+			label="Quieres añadir una pelicula ó una serie?"
+			class="form-film-select"
+		>
+			<o-select
+				v-model="typeModel"
+				placeholder="Pelicula"
+			>
+				<option>Pelicula</option>
+				<option>Serie</option>
+			</o-select>
+		</o-field>
 		<o-field
 			label="Selecciona un director"
 			class="form-film-select"
