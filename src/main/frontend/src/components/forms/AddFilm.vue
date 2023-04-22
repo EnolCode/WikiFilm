@@ -11,7 +11,7 @@
 	const imageUrl = computed(() => url.value);
 	const type = ref();
 	const file = ref(null);
- const typeModel = ref("");
+	const typeModel = ref("");
 	const onFileChange = event => {
 		file.value = event.target.files[0];
 	};
@@ -50,8 +50,12 @@
 			if (file.value) {
 				formData.append("file", file.value);
 			}
+			console.log(typeModel.value);
+			console.log(formData);
+			typeModel.value === "Pelicula"
+				? apiService.post("film", formData)
+				: apiService.post("show", formData);
 
-			apiService.post("show", formData);
 			oruga.notification.open({
 				message: "Pelicula añadida correctamente!",
 				rootClass: "success-notification",
@@ -100,7 +104,7 @@
 		/>
 
 		<o-field
-			label="Quieres añadir una pelicula ó una serie?"
+			label="Selecciona el tipo de titulo"
 			class="form-film-select"
 		>
 			<o-select
