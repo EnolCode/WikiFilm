@@ -3,7 +3,9 @@
 	import axios from "axios";
 	import { optionsGenres } from "@/config.js";
 	import { useProgrammatic } from "@oruga-ui/oruga-next";
+	import ApiService from "@/services/ApiService.js"
 
+	const apiService = new ApiService();
 	const { oruga } = useProgrammatic();
 	const url = ref("");
 	const imageUrl = computed(() => url.value);
@@ -49,15 +51,7 @@
 				formData.append("file", file.value);
 			}
 
-			await axios({
-				method: "POST",
-				url: "http://localhost:8080/media/upload/show",
-				data: formData,
-				withCredentials: true,
-				headers: {
-					"Content-Type": "multipart/form-data",
-				},
-			});
+			 apiService.post("film",formData);
 			oruga.notification.open({
 				message: "Pelicula añadida correctamente!",
 				rootClass: "success-notification",
@@ -81,7 +75,7 @@
 		authorModel.value = "";
 		descriptionModel.value = "";
 		file.value = null;
-	}
+	};
 </script>
 <template>
 	<form

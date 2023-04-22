@@ -1,6 +1,5 @@
 import axios from "axios";
 import { ref } from "vue";
-import { baseUrl } from "@/config.js";
 import ApiService from "@/services/ApiService.js";
 
 const apiService = new ApiService();
@@ -81,6 +80,14 @@ export default class FilmService {
 				},
 			});
 		} catch {
+			console.log(error);
+		}
+	}
+
+	async postFilm(formData){
+		try{
+			await apiService.post("/media/upload/film", formData);
+		}catch(error){
 			console.log(error);
 		}
 	}
