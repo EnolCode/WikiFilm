@@ -21,7 +21,9 @@ export default class UserService {
 			const data = await apiService.get(
 				`/api/users/username/${username}`
 			);
-			this.watchList.value = data.films;
+			const films =  data.films;
+			const shows =  data.shows;
+			this.watchList.value = [...films,...shows];
 		} catch (error) {
 			console.log(error);
 		}

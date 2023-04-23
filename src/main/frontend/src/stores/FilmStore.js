@@ -4,21 +4,30 @@ import { defineStore } from "pinia";
 import FilmService from "@/services/FilmService.js";
 import { useAuthStore } from "@/stores/authStore";
 
-
 export const useFilmStore = defineStore("film", () => {
-    const authStore = useAuthStore();
-    const films = ref([]);
-    const service = new FilmService();
+	const authStore = useAuthStore();
+	const films = ref([]);
+	const service = new FilmService();
+    const watchList = ref([]);
 
-    const getAllFilmsForRating = async () => {
-        await service.fetchAllFilms();
-        films.value = service.getFilms();
-        const sortedMovies = films.value.sort((a, b) => b.rating - a.rating);
-        return films.value;
-    }
-    
-    return {
-        films,
-        getAllFilmsForRating,
-    }
+	const getAllFilmsForRating = async () => {
+		await service.fetchAllFilms();
+		films.value = service.getFilms();
+		const sortedMovies = films.value.sort(
+			(a, b) => b.rating - a.rating
+		);
+		return films.value;
+	};
+	const getWatchList = async () => {
+		await service.fetchWatchList(authStore.username);
+		watchList.value = service.getWatchList();
+		return watchList.value;
+	};
+
+	return {
+		watchList,
+		films,
+		getAllFilmsForRating,
+		getWatchList,
+	};
 });

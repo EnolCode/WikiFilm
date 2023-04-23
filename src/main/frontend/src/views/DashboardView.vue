@@ -17,8 +17,6 @@
 
 	const storeFilms = useFilmStore();
 	const storeShows = useShowStore();
-	let films = ref([]);
-	let shows = ref([]);
 	let searchTitles = ref("");
 	const service = new FilmService();
 	let titles = ref([]);
@@ -29,9 +27,9 @@
 	});
 
 	onMounted(async () => {
-		films.value = await storeFilms.getAllFilmsForRating();
-		shows.value = await storeShows.getAllShowsForRating();
-		titles.value = [...films.value, ...shows.value];
+		const films = await storeFilms.getAllFilmsForRating();
+		const shows = await storeShows.getAllShowsForRating();
+		titles.value = [...films, ...shows];
 	});
 
 	const filteredFilmForTitle = computed(() => {
@@ -42,11 +40,6 @@
 				.includes(searchTitles.value.toLowerCase())
 		);
 	});
-
-	const deleteFilm = id => {
-		films.value = films.value.filter(film => film.id !== id);
-		service.deleteFilm(id);
-	};
 </script>
 
 <template>
@@ -59,7 +52,6 @@
 			class="card"
 			v-for="film in sortedItemsByRating"
 			:film="film"
-			:delete-film="deleteFilm"
 		/>
 	</main>
 	<FootPage />

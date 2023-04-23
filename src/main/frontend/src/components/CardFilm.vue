@@ -38,9 +38,9 @@
 	onBeforeMount(async () => {
 		await userService.fetchWatchList(auth.username);
 		const res = await userService.getWatchList();
-		const watchListIds = res.map(item => item.id);
+		const watchListIds = res.map(item => item.title);
 		const item = props.type === "film" ? props.film : props.show;
-		isWatched.value = watchListIds.includes(item.id);
+		isWatched.value = watchListIds.includes(item.title);
 	});
 
 	const isWatched = ref(false);
@@ -219,7 +219,7 @@
 					margin-right: 0.5em;
 					background-color: map-get(c.$colors, "red-light");
 					border-radius: 3px;
-					padding: 0.1em .2em;
+					padding: 0.1em 0.2em;
 				}
 
 				.card-film__year {
