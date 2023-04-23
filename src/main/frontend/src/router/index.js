@@ -45,10 +45,15 @@ const router = createRouter({
 			component: () => import("../views/ShowsView.vue"),
 		},
 		{
+			path: "/title/:type/:title",
+			name: "title",
+			component: () => import("../views/TitleDescriptionView.vue"),
+		},
+		{
 			path: "/:pathMatch(.*)*",
 			name: "not-found",
 			component: () => import("../views/NotFoundView.vue"),
-		}
+		},
 	],
 });
 

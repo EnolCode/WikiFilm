@@ -7,6 +7,7 @@
 	import ShowService from "@/services/ShowService.js";
 	import UserService from "@/services/UserService.js";
 	import { useAuthStore } from "@/stores/authStore";
+	import { useRouter } from "vue-router";
 
 	const auth = useAuthStore();
 	const filmStore = useFilmStore();
@@ -14,6 +15,7 @@
 	const filmService = new FilmService();
 	const showService = new ShowService();
 	const userService = new UserService();
+	const router = useRouter();
 
 	const props = defineProps({
 		film: {
@@ -42,6 +44,12 @@
 		const item = props.type === "film" ? props.film : props.show;
 		isWatched.value = watchListIds.includes(item.title);
 	});
+
+	const titleDescription = () => {
+
+			router.push(`title/films/${props.film.title}`);
+		
+	};
 
 	const isWatched = ref(false);
 	const isLiked = ref(false);
@@ -143,7 +151,10 @@
 				onerror="this.src='https://wallpapercave.com/wp/wp1932771.jpg'"
 			/>
 			<div class="card-film__info">
-				<p class="card-film__title">
+				<p
+					class="card-film__title"
+					@click="titleDescription"
+				>
 					{{ type == "film" ? film.title : show.title }}
 				</p>
 				<span class="card-film__year"

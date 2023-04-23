@@ -26,6 +26,8 @@
 		);
 	});
 
+	
+
 	onMounted(async () => {
 		const films = await storeFilms.getAllFilmsForRating();
 		const shows = await storeShows.getAllShowsForRating();
