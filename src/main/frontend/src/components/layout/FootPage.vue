@@ -96,7 +96,6 @@
 		width: 100%;
 		background: map-get(c.$colors, "red");
 		margin-top: 3em;
-
 		&__newsletter {
 			@include m.flex(flex, column, auto, center, auto);
 			padding: 2em;

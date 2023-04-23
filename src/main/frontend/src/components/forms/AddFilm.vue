@@ -57,7 +57,7 @@
 				: apiService.post("show", formData);
 
 			oruga.notification.open({
-				message: "Pelicula añadida correctamente!",
+				message: "Título añadido correctamente!",
 				rootClass: "success-notification",
 				position: "top",
 				duration: 3000,

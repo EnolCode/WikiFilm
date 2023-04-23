@@ -162,7 +162,7 @@
 					to="/addFilm"
 					v-if="auth.roles == 'ROLE_ADMIN'"
 					class="user-actions__btn"
-					>Añadir pelicula
+					>Añadir título
 				</router-link>
 
 			</div>
