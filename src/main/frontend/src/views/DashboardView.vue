@@ -4,25 +4,31 @@
 	import FootPage from "@/components/layout/FootPage.vue";
 	import CardFilm from "@/components/CardFilm.vue";
 	import { useFilmStore } from "@/stores/FilmStore.js";
+	import { useShowStore } from "@/stores/ShowStore.js";
 	import CopyRight from "@/components/CopyRight.vue";
 	import FilmService from "@/services/FilmService.js";
+	import ShowService from "@/services/ShowService.js";
 
 	const storeFilms = useFilmStore();
+	const storeShows = useShowStore();
 	let films = ref([]);
-	let searchFilms = ref("");
+	let shows = ref([]);
+	let searchTitles = ref("");
 	const service = new FilmService();
+	let titles = ref([]);
 
 	onMounted(async () => {
 		films.value = await storeFilms.getAllFilmsForRating();
-		console.log(films.value)
+		shows.value = await storeShows.getAllShowsForRating();
+		 titles.value = [...films.value, ...shows.value];
 	});
 
 	const filteredFilmForTitle = computed(() => {
-		if (!searchFilms.value) return films.value;
-		return films.value.filter(film =>
-			film.title
+		if (!searchTitles.value) return titles.value;
+		return titles.value.filter(titles =>
+			titles.title
 				.toLowerCase()
-				.includes(searchFilms.value.toLowerCase())
+				.includes(searchTitles.value.toLowerCase())
 		);
 	});
 
@@ -34,8 +40,8 @@
 
 <template>
 	<HeaderUser
-		v-model="searchFilms"
-		@update:modelValue="searchFilms = $event"
+		v-model="searchTitles"
+		@update:modelValue="searchTitles = $event"
 	/>
 	<main>
 		<CardFilm

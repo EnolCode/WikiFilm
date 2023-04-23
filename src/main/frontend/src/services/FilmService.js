@@ -25,7 +25,6 @@ export default class FilmService {
 		try {
 			const data = await apiService.get("/api/films");
 			this.films.value = data;
-			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}
