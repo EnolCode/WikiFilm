@@ -42,7 +42,7 @@
 	<main>
 		<CardFilm v-if="route.path === '/films'"
 			class="card"
-			v-for="film in films"
+			v-for="film in filteredFilmForTitle"
 			:film="film"
 			:delete-film="deleteFilm"
 

@@ -38,7 +38,7 @@
 	<main>
 		<CardFilm
 			class="card"
-			v-for="show in shows"
+			v-for="show in filteredShowForTitle"
 			:show="show"
 			:delete-show="deleteShow"
 			:type="show"
