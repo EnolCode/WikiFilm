@@ -206,7 +206,6 @@
 			img {
 				width: 100%;
 				height: 100%;
-				// object-fit: contain;
 			}
 			.card-film__info {
 				@include m.flex(flex, row, auto, start, center);
@@ -218,6 +217,9 @@
 				.card-film__title {
 					font-weight: bold;
 					margin-right: 0.5em;
+					background-color: map-get(c.$colors, "red-light");
+					border-radius: 3px;
+					padding: 0.1em .2em;
 				}
 
 				.card-film__year {
