@@ -1,5 +1,11 @@
 <script setup>
-	import { ref, reactive, onBeforeMount, computed, onMounted } from "vue";
+	import {
+		ref,
+		reactive,
+		onBeforeMount,
+		computed,
+		onMounted,
+	} from "vue";
 	import HeaderUser from "@/components/layout/HeaderUser.vue";
 	import FootPage from "@/components/layout/FootPage.vue";
 	import CardFilm from "@/components/CardFilm.vue";
@@ -16,11 +22,16 @@
 	let searchTitles = ref("");
 	const service = new FilmService();
 	let titles = ref([]);
+	const sortedItemsByRating = computed(() => {
+		return filteredFilmForTitle.value.sort(
+			(a, b) => b.rating - a.rating
+		);
+	});
 
 	onMounted(async () => {
 		films.value = await storeFilms.getAllFilmsForRating();
 		shows.value = await storeShows.getAllShowsForRating();
-		 titles.value = [...films.value, ...shows.value];
+		titles.value = [...films.value, ...shows.value];
 	});
 
 	const filteredFilmForTitle = computed(() => {
@@ -46,15 +57,13 @@
 	<main>
 		<CardFilm
 			class="card"
-			v-for="film in filteredFilmForTitle"
+			v-for="film in sortedItemsByRating"
 			:film="film"
 			:delete-film="deleteFilm"
 		/>
-
 	</main>
-		<FootPage />
-        <CopyRight class="copyright" />
-
+	<FootPage />
+	<CopyRight class="copyright" />
 </template>
 
 <style lang="scss">
@@ -79,7 +88,7 @@
 		grid-column: span 3;
 	}
 
-	.copyright{
+	.copyright {
 		margin-left: 1.22em;
 	}
 </style>
