@@ -231,6 +231,10 @@
 					background-color: map-get(c.$colors, "red-light");
 					border-radius: 3px;
 					padding: 0.1em 0.2em;
+					cursor:pointer;
+					&:hover {
+						opacity:.8;
+					}
 				}
 
 				.card-film__year {
