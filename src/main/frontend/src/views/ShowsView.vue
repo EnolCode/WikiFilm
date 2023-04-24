@@ -53,7 +53,6 @@
 
 	main {
 		display: grid;
-		background: map-get(c.$colors, "black");
 		width: 80%;
 		gap: 1em;
 		margin: 0 auto;

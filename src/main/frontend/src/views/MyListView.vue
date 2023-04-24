@@ -50,7 +50,6 @@
 
 	.main {
 		display: grid;
-		background: map-get(c.$colors, "black");
 		width: 80%;
 		margin: 0 auto;
 		gap: 1em;

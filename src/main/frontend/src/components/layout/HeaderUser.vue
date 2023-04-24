@@ -177,7 +177,7 @@
 	.header {
 		@include m.flex(flex, row, auto, space-between, center);
 		padding: 0.5em;
-		background: map-get(c.$colors, "grey-dark");
+ 	background: map-get(c.$colors, "black");
 		position: sticky;
 		top: 0;
 		width: 100%;
