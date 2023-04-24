@@ -2,7 +2,7 @@
 import { onBeforeMount, ref } from 'vue';
 import axios from 'axios'
 import { useRoute } from "vue-router";
-
+import CardDescription from "@/components/CardDescription.vue"
 
 const route = useRoute();
 const titulo = ref("");
@@ -23,11 +23,16 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-<h1>{{ titulo.title }}</h1>
-<h2>{{ titulo.id }}</h2>
-<h3>{{ titulo.description }}</h3>
+<main class="main">
+<CardDescription :titulo="titulo" />
+</main>
 </template>
 
 <style lang="scss">
-    h1,h2,h3 {color:white;}
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
 </style>
