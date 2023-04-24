@@ -41,6 +41,7 @@
 
 <style lang="scss">
 	.main {
+		width:80%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

@@ -15,11 +15,16 @@
 			onerror="this.src='https://wallpapercave.com/wp/wp1932771.jpg'"
 		/>
 		<div class="card-description__text">
-			<h1 class="card-description__title">{{ titulo.title }}</h1>
+			<div class="card-description__text-title">
+				<h1 class="card-description__title">{{ titulo.title }}</h1>
+				<div>
+					<i class="fa-solid fa-heart btn-rating"></i>
+					<p class="card-description__rating">{{ titulo.rating }}%</p>
+				</div>
+			</div>
+
 			<div class="card-description__text-inline">
 				<p class="card-description__year">{{ titulo.releaseYear }}</p>
-				<p class="card-description__year">{{ titulo.id }}</p>
-				<p class="card-description__year">{{ titulo.rating }}</p>
 				<p
 					class="card-description__author"
 					v-if="titulo.author"
@@ -59,6 +64,19 @@
 			align-items: start;
 			width: 70%;
 
+			&-title {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
+				margin-bottom: 1em;
+
+				div {
+					display: flex;
+					align-items: center;
+				}
+			}
+
 			&-inline {
 				display: flex;
 				justify-content: space-around;
@@ -89,8 +107,15 @@
 			font-weight: 700;
 			color: red;
 		}
-		&__id,
-		&__description {
+
+		&__rating {
+			font-size: 1.5em;
+			margin-left: 0.3em;
+		}
+
+		.btn-rating {
+			font-size: 1.4em;
+			color: red;
 		}
 	}
 </style>
